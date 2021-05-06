@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://polotto.dev/tags/git/</loc>
+    <lastmod>2021-05-06T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/</loc>
+    <lastmod>2021-05-06T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/posts/</loc>
+    <lastmod>2021-05-06T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/tags/</loc>
+    <lastmod>2021-05-06T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/posts/git-archive/</loc>
+    <lastmod>2021-05-06T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/tags/info/</loc>
+    <lastmod>2021-05-05T00:00:00+03:00</lastmod>
+  </url><url>
+    <loc>https://polotto.dev/posts/blog-start/</loc>
+    <lastmod>2021-05-05T00:00:00+03:00</lastmod>
+  </url>
+</urlset>

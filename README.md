@@ -12,3 +12,4 @@ Source code blog polotto.dev
 - https://gohugo.io/content-management/taxonomies/
 - https://icon-library.com/icon/old-computer-icon-1.html
 - https://favicon.io/favicon-converter/
+- https://gist.github.com/myusuf3/7f645819ded92bda6677
