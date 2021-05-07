@@ -8,7 +8,7 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Starting a blog about development."
+description: "Discover git archive function and how good it is."
 disableShare: true
 disableHLJS: false
 hideSummary: false

@@ -1,6 +1,11 @@
 # polotto.dev
 Source code blog polotto.dev
 
+## commands
+- `hugo new posts/my-first-post.md`
+- `hugo server -D`
+- `hugo -D`
+
 ## resources
 - https://gohugo.io/getting-started/quick-start
 - https://themes.gohugo.io/hugo-papermod/
@@ -13,3 +18,4 @@ Source code blog polotto.dev
 - https://icon-library.com/icon/old-computer-icon-1.html
 - https://favicon.io/favicon-converter/
 - https://gist.github.com/myusuf3/7f645819ded92bda6677
+- https://discourse.gohugo.io/t/output-path-in-toml-config-file/7325/5
