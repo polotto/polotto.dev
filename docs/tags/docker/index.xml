@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on Polotto&#39;s blog</title>
-    <link>https://polotto.dev/posts/</link>
-    <description>Recent content in Posts on Polotto&#39;s blog</description>
+    <title>docker on Polotto&#39;s blog</title>
+    <link>https://polotto.dev/tags/docker/</link>
+    <description>Recent content in docker on Polotto&#39;s blog</description>
     <image>
       <url>https://polotto.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://polotto.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 07 May 2021 10:00:02 -0300</lastBuildDate><atom:link href="https://polotto.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 May 2021 10:00:02 -0300</lastBuildDate><atom:link href="https://polotto.dev/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker sandbox for application behavior analysis</title>
       <link>https://polotto.dev/posts/docker-sandbox/</link>
@@ -18,24 +18,6 @@
       <guid>https://polotto.dev/posts/docker-sandbox/</guid>
       <description>Recently, I faced the problem: analyse the network requests and disk access of a JAR package.
 I tried to search for some ready to use solution, but I couldn&amp;rsquo;t find anything more simple than to run a Docker container. So, my first thought was: set up a container with a network and file monitor and then start the JAR inside. After some problems and lack of tutorials I found a good solution, that&amp;rsquo;s not only solved my problem but can be used to solve other problems with the same nature: monitor the behavior of some application inside a container.</description>
-    </item>
-    
-    <item>
-      <title>The amazing Git Archive</title>
-      <link>https://polotto.dev/posts/git-archive/</link>
-      <pubDate>Thu, 06 May 2021 00:00:00 +0300</pubDate>
-      
-      <guid>https://polotto.dev/posts/git-archive/</guid>
-      <description>Discover git archive function and how good it is.</description>
-    </item>
-    
-    <item>
-      <title>Starting a blog</title>
-      <link>https://polotto.dev/posts/blog-start/</link>
-      <pubDate>Wed, 05 May 2021 00:00:00 +0300</pubDate>
-      
-      <guid>https://polotto.dev/posts/blog-start/</guid>
-      <description>Starting a blog about development.</description>
     </item>
     
   </channel>
