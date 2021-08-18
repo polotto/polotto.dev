@@ -2,6 +2,11 @@
 Source code blog polotto.dev
 
 ## commands
+- git submodule:
+```
+git submodule add https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod --depth=1
+git submodule update --init --recursive # needed when you reclone your repo (submodules may not get cloned automatically)
+```
 - `hugo new posts/my-first-post.md`
 - `hugo server -D`
 - `hugo -D`
