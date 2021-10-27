@@ -1,0 +1,217 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Asp Net Core Globalization | Polotto's blog</title>
+<meta name=keywords content="git">
+<meta name=description content="The painful globalization of AST.NET Core 2.2">
+<meta name=author content="Polotto">
+<link rel=canonical href=https://polotto.dev/posts/asp-net-core-globalization/>
+<meta name=google-site-verification content="G-WM0230WK5G">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.2d6dbfc6e0f8a1db1c9d082a76dc11d094328cf63f247bbc2421dfaa7f2bb170.css integrity="sha256-LW2/xuD4odscnQgqdtwR0JQyjPY/JHu8JCHfqn8rsXA=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://polotto.dev/favicon.ico>
+<link rel=icon type=image/png sizes=16x16 href=https://polotto.dev/favicon-16x16.png>
+<link rel=icon type=image/png sizes=32x32 href=https://polotto.dev/favicon-32x32.png>
+<link rel=apple-touch-icon href=https://polotto.dev/apple-touch-icon.png>
+<link rel=mask-icon href=https://polotto.dev/apple-touch-icon.png>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.87.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WM0230WK5G"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-WM0230WK5G',{anonymize_ip:!1})}</script>
+<meta property="og:title" content="Asp Net Core Globalization">
+<meta property="og:description" content="The painful globalization of AST.NET Core 2.2">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://polotto.dev/posts/asp-net-core-globalization/"><meta property="og:image" content="https://polotto.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-10-27T09:01:11-03:00">
+<meta property="article:modified_time" content="2021-10-27T09:01:11-03:00"><meta property="og:site_name" content="PolottoDev">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://polotto.dev/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="Asp Net Core Globalization">
+<meta name=twitter:description content="The painful globalization of AST.NET Core 2.2">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://polotto.dev/posts/"},{"@type":"ListItem","position":2,"name":"Asp Net Core Globalization","item":"https://polotto.dev/posts/asp-net-core-globalization/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Asp Net Core Globalization","name":"Asp Net Core Globalization","description":"The painful globalization of AST.NET Core 2.2","keywords":["git"],"articleBody":"ASP.NET is an amazing tool but always surprises me making things that should be easy, hard ones. Globalization of ASP.NET Core 2.2 is one of them.\nAfter research the official docs a lot, I found my self in a dead end street. The same feeling was when I tried search something on Stack Overflow, basically all the solutions proposed didn’t work.\nLuckily, I found and github issue thread about globalization of ASP.NET Core 3.3. Inside it, a good soul post a project with working example.\nMy problem could be solved with following steps:\n Change the Startup.cs:  public void ConfigureServices(IServiceCollection services) { //...  services.AddLocalization(options = { options.ResourcesPath = \"Resources\"; }); services.Configure(options = { var supportedCultures = new[] { new CultureInfo(\"en\") }; options.DefaultRequestCulture = new RequestCulture(culture: \"en\", uiCulture: \"en\"); options.SupportedUICultures = supportedCultures; options.SupportedCultures = supportedCultures; }); services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1) .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix); } //... public void Configure(IApplicationBuilder app, IWebHostEnvironment env) { //...  app.UseRequestLocalization(app.ApplicationServices.GetService().Value); //... }  Create a folder called Resources in the root of the project to keep all the resx files and respect the structure:  Resources/NAME_OF_VIEW_FOLDER/NAME_OF_VIEW_SUBFOLDER/YourViewName.en.resx  The resx file should respect this template:                          text/microsoft-resx  2.0  System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089  System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089  Hello World    Call your string resources inside the .cshtml:  @using Microsoft.AspNetCore.Mvc.Localization @using Microsoft.Extensions.Localization @inject IViewLocalizer Localizer @Localizer[\"Title\"]\nThat’s it, seems easy now but was hard put all peaces together.\n","wordCount":"360","inLanguage":"en","datePublished":"2021-10-27T09:01:11-03:00","dateModified":"2021-10-27T09:01:11-03:00","author":{"@type":"Person","name":"Polotto"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://polotto.dev/posts/asp-net-core-globalization/"},"publisher":{"@type":"Organization","name":"Polotto's blog","logo":{"@type":"ImageObject","url":"https://polotto.dev/favicon.ico"}}}</script>
+</head>
+<body class=dark id=top>
+<noscript>
+<style type=text/css>#theme-toggle,.top-link{display:none}</style>
+</noscript>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://polotto.dev/ accesskey=h title="💽 💾 ⚗️ Polotto's blog (Alt + H)">💽 💾 ⚗️ Polotto's blog</a>
+<span class=logo-switches>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://polotto.dev/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://polotto.dev/>Home</a>&nbsp;»&nbsp;<a href=https://polotto.dev/posts/>Posts</a></div>
+<h1 class=post-title>
+Asp Net Core Globalization
+</h1>
+<div class=post-description>
+The painful globalization of AST.NET Core 2.2
+</div>
+<div class=post-meta>October 27, 2021&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Polotto&nbsp;|&nbsp;<a href=https://github.com/polotto/polotto.dev/content/posts/asp-net-core-globalization.md rel="noopener noreferrer" target=_blank>Suggest Changes</a>
+</div>
+</header>
+<div class=post-content><p>ASP.NET is an amazing tool but always surprises me making things that should be easy, hard ones. Globalization of ASP.NET Core 2.2 is one of them.</p>
+<p>After research the <a href="https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-2.2">official docs</a> a lot, I found my self in a dead end street. The same feeling was when I tried search something on Stack Overflow, basically all the solutions proposed didn&rsquo;t work.</p>
+<p>Luckily, I found and <a href=https://github.com/dotnet/aspnetcore/issues/18026>github issue</a> thread about globalization of ASP.NET Core 3.3. Inside it, a good soul <a href=https://github.com/dotnet/aspnetcore/issues/18026#issuecomment-569940329>post a project</a> with working example.</p>
+<p>My problem could be solved with following steps:</p>
+<ul>
+<li>Change the Startup.cs:</li>
+</ul>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cs data-lang=cs><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> ConfigureServices(IServiceCollection services)
+{
+    <span style=color:#75715e>//...
+</span><span style=color:#75715e></span>    services.AddLocalization(options =&gt; { options.ResourcesPath = <span style=color:#e6db74>&#34;Resources&#34;</span>; });
+
+    services.Configure&lt;RequestLocalizationOptions&gt;(options =&gt;
+    {
+        <span style=color:#66d9ef>var</span> supportedCultures = <span style=color:#66d9ef>new</span>[]
+        {
+            <span style=color:#66d9ef>new</span> CultureInfo(<span style=color:#e6db74>&#34;en&#34;</span>)
+        };
+
+        options.DefaultRequestCulture = <span style=color:#66d9ef>new</span> RequestCulture(culture: <span style=color:#e6db74>&#34;en&#34;</span>, uiCulture: <span style=color:#e6db74>&#34;en&#34;</span>);
+        options.SupportedUICultures = supportedCultures;
+        options.SupportedCultures = supportedCultures;
+    });
+
+    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+        .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+}
+<span style=color:#75715e>//...
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>void</span> Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    <span style=color:#75715e>//...
+</span><span style=color:#75715e></span>    app.UseRequestLocalization(app.ApplicationServices.GetService&lt;IOptions&lt;RequestLocalizationOptions&gt;&gt;().Value);
+    <span style=color:#75715e>//...
+</span><span style=color:#75715e></span>}
+</code></pre></div><ul>
+<li>Create a folder called <strong>Resources</strong> in the root of the project to keep all the <strong>resx</strong> files and respect the structure:</li>
+</ul>
+<pre><code>Resources/NAME_OF_VIEW_FOLDER/NAME_OF_VIEW_SUBFOLDER/YourViewName.en.resx
+</code></pre><ul>
+<li>The <strong>resx</strong> file should respect this template:</li>
+</ul>
+<pre><code class=language-resx data-lang=resx>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;root&gt;
+  &lt;xsd:schema id=&quot;root&quot; xmlns=&quot;&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;
+    &lt;xsd:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot; /&gt;
+    &lt;xsd:element name=&quot;root&quot; msdata:IsDataSet=&quot;true&quot;&gt;
+      &lt;xsd:complexType&gt;
+        &lt;xsd:choice maxOccurs=&quot;unbounded&quot;&gt;
+          &lt;xsd:element name=&quot;metadata&quot;&gt;
+            &lt;xsd:complexType&gt;
+              &lt;xsd:sequence&gt;
+                &lt;xsd:element name=&quot;value&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot; /&gt;
+              &lt;/xsd:sequence&gt;
+              &lt;xsd:attribute name=&quot;name&quot; use=&quot;required&quot; type=&quot;xsd:string&quot; /&gt;
+              &lt;xsd:attribute name=&quot;type&quot; type=&quot;xsd:string&quot; /&gt;
+              &lt;xsd:attribute name=&quot;mimetype&quot; type=&quot;xsd:string&quot; /&gt;
+              &lt;xsd:attribute ref=&quot;xml:space&quot; /&gt;
+            &lt;/xsd:complexType&gt;
+          &lt;/xsd:element&gt;
+          &lt;xsd:element name=&quot;assembly&quot;&gt;
+            &lt;xsd:complexType&gt;
+              &lt;xsd:attribute name=&quot;alias&quot; type=&quot;xsd:string&quot; /&gt;
+              &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot; /&gt;
+            &lt;/xsd:complexType&gt;
+          &lt;/xsd:element&gt;
+          &lt;xsd:element name=&quot;data&quot;&gt;
+            &lt;xsd:complexType&gt;
+              &lt;xsd:sequence&gt;
+                &lt;xsd:element name=&quot;value&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot; msdata:Ordinal=&quot;1&quot; /&gt;
+                &lt;xsd:element name=&quot;comment&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot; msdata:Ordinal=&quot;2&quot; /&gt;
+              &lt;/xsd:sequence&gt;
+              &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot; use=&quot;required&quot; msdata:Ordinal=&quot;1&quot; /&gt;
+              &lt;xsd:attribute name=&quot;type&quot; type=&quot;xsd:string&quot; msdata:Ordinal=&quot;3&quot; /&gt;
+              &lt;xsd:attribute name=&quot;mimetype&quot; type=&quot;xsd:string&quot; msdata:Ordinal=&quot;4&quot; /&gt;
+              &lt;xsd:attribute ref=&quot;xml:space&quot; /&gt;
+            &lt;/xsd:complexType&gt;
+          &lt;/xsd:element&gt;
+          &lt;xsd:element name=&quot;resheader&quot;&gt;
+            &lt;xsd:complexType&gt;
+              &lt;xsd:sequence&gt;
+                &lt;xsd:element name=&quot;value&quot; type=&quot;xsd:string&quot; minOccurs=&quot;0&quot; msdata:Ordinal=&quot;1&quot; /&gt;
+              &lt;/xsd:sequence&gt;
+              &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot; use=&quot;required&quot; /&gt;
+            &lt;/xsd:complexType&gt;
+          &lt;/xsd:element&gt;
+        &lt;/xsd:choice&gt;
+      &lt;/xsd:complexType&gt;
+    &lt;/xsd:element&gt;
+  &lt;/xsd:schema&gt;
+  &lt;resheader name=&quot;resmimetype&quot;&gt;
+    &lt;value&gt;text/microsoft-resx&lt;/value&gt;
+  &lt;/resheader&gt;
+  &lt;resheader name=&quot;version&quot;&gt;
+    &lt;value&gt;2.0&lt;/value&gt;
+  &lt;/resheader&gt;
+  &lt;resheader name=&quot;reader&quot;&gt;
+    &lt;value&gt;System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&lt;/value&gt;
+  &lt;/resheader&gt;
+  &lt;resheader name=&quot;writer&quot;&gt;
+    &lt;value&gt;System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&lt;/value&gt;
+  &lt;/resheader&gt;
+
+  &lt;!-- YOUR TEXT CONTENT --&gt;
+  &lt;data name=&quot;Title&quot; xml:space=&quot;preserve&quot;&gt;
+    &lt;value&gt;Hello World&lt;/value&gt;
+  &lt;/data&gt;
+&lt;/root&gt;
+</code></pre><ul>
+<li>Call your string resources inside the <strong>.cshtml</strong>:</li>
+</ul>
+<pre><code class=language-cshtml data-lang=cshtml>@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+
+@inject IViewLocalizer Localizer
+
+&lt;p&gt;@Localizer[&quot;Title&quot;]&lt;/p&gt;
+</code></pre><p>That&rsquo;s it, seems easy now but was hard put all peaces together.</p>
+</div>
+<footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://polotto.dev/tags/git/>git</a></li>
+</ul>
+<nav class=paginav>
+<a class=next href=https://polotto.dev/posts/docker-sandbox/>
+<span class=title>Next Page »</span>
+<br>
+<span>Docker sandbox for application behavior analysis</span>
+</a>
+</nav>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2021 <a href=https://polotto.dev/>Polotto's blog</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)">
+<button class=top-link id=top-link type=button accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</button>
+</a>
+<script>let menu=document.getElementById('menu');menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)},document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+</body>
+</html>
