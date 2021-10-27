@@ -2,7 +2,7 @@
 title: "Asp Net Core Globalization"
 date: 2021-10-27T09:01:11-03:00
 draft: false
-tags: ["git"]
+tags: ["c#"]
 author: "Polotto"
 showToc: false
 TocOpen: false

@@ -11,11 +11,11 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 27 Oct 2021 09:01:11 -0300</lastBuildDate><atom:link href="https://polotto.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>git</title>
-      <link>https://polotto.dev/tags/git/</link>
+      <title>c#</title>
+      <link>https://polotto.dev/tags/c#/</link>
       <pubDate>Wed, 27 Oct 2021 09:01:11 -0300</pubDate>
       
-      <guid>https://polotto.dev/tags/git/</guid>
+      <guid>https://polotto.dev/tags/c#/</guid>
       <description></description>
     </item>
     
@@ -34,6 +34,15 @@
       <pubDate>Fri, 07 May 2021 10:00:02 -0300</pubDate>
       
       <guid>https://polotto.dev/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://polotto.dev/tags/git/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0300</pubDate>
+      
+      <guid>https://polotto.dev/tags/git/</guid>
       <description></description>
     </item>
     
