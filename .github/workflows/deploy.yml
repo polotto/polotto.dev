@@ -1,0 +1,64 @@
+name: Deploy
+
+# Publica no GitHub Pages a cada push em main. Requer, nas configurações do
+# repo, Pages > Source = "GitHub Actions". Depois do deploy, marca o commit
+# publicado com a tag prod-AAAAMMDD-HHMMSS: a mais recente é o que está no ar.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Conteúdo veio do vault real
+        run: npm run checar-conteudo
+      - run: npm test
+      - name: Build (pré-renderiza todas as rotas)
+        run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  tag:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Marcar o commit publicado
+        run: |
+          tag="prod-$(date -u +%Y%m%d-%H%M%S)"
+          git tag "$tag" "$GITHUB_SHA"
+          git push origin "$tag"

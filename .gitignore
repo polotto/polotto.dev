@@ -16,3 +16,7 @@
 .DS_Store
 
 .idea
+# SvelteKit
+node_modules/
+.svelte-kit/
+build/
