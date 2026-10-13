@@ -1,0 +1,6 @@
+only: src/** scripts/** content/** static/** package.json svelte.config.js vite.config.js
+ignore: docs/** BRIEF.md GLOSSARY.md AGENTS.md CLAUDE.md README.md
+test: npm test
+check: npm run check
+build: npm run build
+i18n: tools i18n-check --base pt-BR .

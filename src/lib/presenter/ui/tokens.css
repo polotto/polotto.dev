@@ -1,0 +1,129 @@
+/*
+ * Tokens do polotto.dev.
+ *
+ * Camadas, pensando na futura linguagem de design comum (polotto-design):
+ * 1. base: escalas de espaço, tipo e raio. Valem para qualquer tema.
+ * 2. tema retrô 16-bit: paleta e fontes deste site.
+ * 3. modo claro ou escuro: segue o sistema; `data-modo` força no protótipo.
+ *
+ * Fontes: Pixelify Sans (pixel, só títulos e navegação),
+ * IBM Plex Sans e IBM Plex Mono (corpo e código), carregadas no layout.
+ */
+
+:root {
+	/* base: espaço (múltiplos de 4, como a grade de pixel) */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 24px;
+	--space-6: 32px;
+	--space-7: 48px;
+	--space-8: 64px;
+	--space-9: 96px;
+
+	/* base: tipo */
+	--font-body: 'IBM Plex Sans', system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-md: 1.125rem;
+	--text-lg: 1.375rem;
+	--text-xl: 1.75rem;
+	--text-2xl: 2.25rem;
+	--text-3xl: 3rem;
+	--leading-body: 1.7;
+	--leading-tight: 1.25;
+	--measure: 68ch;
+	--page-width: 1080px;
+	--content-width: 760px;
+	--card-min: 240px;
+	--card-min-wide: 280px;
+	--column-min: 320px;
+
+	/* base: forma. Pixel não tem canto redondo. */
+	--radius: 0;
+	--border-width: 2px;
+	--focus-width: 3px;
+	--duration: 120ms;
+
+	/* tema retrô 16-bit: as quatro cores dos botões do controle */
+	--snes-red: #d8433a;
+	--snes-yellow: #f0bf2c;
+	--snes-green: #3d9a4b;
+	--snes-blue: #3a6bd6;
+
+	/* mascote: camisa segue o destaque do modo; cabelo mais escuro que a barba */
+	--mascote-camisa: var(--color-accent);
+	--mascote-cabelo: #4a2b19;
+	--mascote-barba: #8a5832;
+	--mascote-olho: #1c1828;
+	--mascote-pele: #e2a77a;
+	--mascote-calca: #2d3b6e;
+
+	/* modo escuro é o padrão do tema */
+	--color-bg: #15121f;
+	--color-surface: #211c34;
+	--color-surface-2: #2c2545;
+	--color-text: #ece8f6;
+	--color-muted: #a59fc2;
+	--color-border: #4a4170;
+	--color-accent: #f0bf2c;
+	--color-accent-text: #15121f;
+	--color-link: #8fb4ff;
+	--color-code-bg: #0e0c16;
+	--color-code-text: #ece8f6;
+	--color-shadow: #07060b;
+	--color-ok: #5cc46a;
+	--color-paused: #f0bf2c;
+	--color-ended: #a59fc2;
+}
+
+@media (prefers-color-scheme: light) {
+	:root:not([data-modo='escuro']) {
+		--color-bg: #efe9dc;
+		--color-surface: #fbf8f1;
+		--color-surface-2: #e4dccb;
+		--color-text: #1c1828;
+		--color-muted: #5b5470;
+		--color-border: #1c1828;
+		--color-accent: #5b3cc4;
+		--color-accent-text: #fbf8f1;
+		--color-link: #3a4fc0;
+		--color-code-bg: #1c1828;
+		--color-shadow: #1c1828;
+		--color-ok: #2f7d3b;
+		--color-paused: #9a6a00;
+		--color-ended: #5b5470;
+	}
+}
+
+:root[data-modo='claro'] {
+	--color-bg: #efe9dc;
+	--color-surface: #fbf8f1;
+	--color-surface-2: #e4dccb;
+	--color-text: #1c1828;
+	--color-muted: #5b5470;
+	--color-border: #1c1828;
+	--color-accent: #5b3cc4;
+	--color-accent-text: #fbf8f1;
+	--color-link: #3a4fc0;
+	--color-code-bg: #1c1828;
+	--color-shadow: #1c1828;
+	--color-ok: #2f7d3b;
+	--color-paused: #9a6a00;
+	--color-ended: #5b5470;
+}
+
+/* tema retrô 16-bit: pixel só nos títulos, moldura discreta (B.3) */
+:root {
+	--font-display: 'Pixelify Sans', var(--font-body);
+	--display-h1: var(--text-3xl);
+	--display-h2: var(--text-xl);
+	--display-tracking: 0;
+	--display-transform: none;
+	--frame-width: var(--border-width);
+	--shadow-offset: 4px;
+	--bg-pattern: none;
+	--scanlines: none;
+}
