@@ -44,6 +44,16 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
   - pronto quando (todas): build passa, página conferida no Chrome nos dois
     modos e no celular
 
+- [x] C.7 diagramas Mermaid no corpo do artigo
+  - bloco ` ```mermaid ` vira `<pre class="mermaid">` no build; o Mermaid
+    só carrega no navegador em página com diagrama
+  - cores e fontes dos tokens do tema, redesenha ao trocar de modo
+  - pronto quando (todas): teste do markdown, build passa, diagrama
+    conferido no Chrome nos dois modos e no celular
+  - feito: `src/lib/presenter/diagramas.ts`; exemplo no vault de exemplo
+    (`Tipos de migracao.md`). No celular, diagrama largo fica pequeno:
+    preferir `flowchart TD`
+
 ## Trilha D: busca (depende de A.2, paralela à C)
 - [x] D.1 head de SEO: title, description, canonical, Open Graph, JSON-LD
   (`Blog`, `BlogPosting` com `isPartOf`, `Person`, `BreadcrumbList`)
@@ -72,8 +82,8 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
 
 ## Trilha F: conteúdo (Angelo, paralela a tudo)
 - [ ] F.1 pesquisar livros sobre migração de legado (pt e en)
-- [ ] F.2 escrever a parte 1 da série Migrando o legado
-- [ ] F.3 rascunhar a parte 2
+- [~] F.2 escrever a parte 1 da série Migrando o legado
+- [~] F.3 rascunhar a parte 2
 - [ ] F.4 notas dos 5 projetos em `<vault>/blog/projetos/`
 - [x] F.5 bio da página Sobre (título do LinkedIn)
 
