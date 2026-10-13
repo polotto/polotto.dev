@@ -1,10 +1,18 @@
 <script lang="ts">
 	// Recebe HTML já renderizado no build a partir do markdown do vault
 	// (conteúdo do próprio autor, nunca de terceiros).
+	import { desenharDiagramas } from '../diagramas';
+
 	let { html }: { html: string } = $props();
+	let corpo: HTMLDivElement;
+
+	$effect(() => {
+		void html;
+		return desenharDiagramas(corpo);
+	});
 </script>
 
-<div class="corpo">
+<div class="corpo" bind:this={corpo}>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html html}
 </div>
@@ -77,6 +85,18 @@
 		background: none;
 		padding: 0;
 		color: inherit;
+	}
+
+	/* diagrama: sem JavaScript, fica o texto do mermaid */
+	.corpo :global(pre.mermaid) {
+		background: var(--color-surface);
+		color: var(--color-text);
+		text-align: center;
+	}
+
+	.corpo :global(pre.mermaid svg) {
+		max-width: 100%;
+		height: auto;
 	}
 
 	.corpo :global(img) {
