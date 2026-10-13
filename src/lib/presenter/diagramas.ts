@@ -8,13 +8,19 @@ function token(estilo: CSSStyleDeclaration, nome: string): string {
 	return estilo.getPropertyValue(nome).trim();
 }
 
+// O Mermaid mede o texto em px; o token de tipo é em rem.
+function tamanhoEmPx(estilo: CSSStyleDeclaration, nome: string): string {
+	const base = parseFloat(estilo.fontSize);
+	return `${parseFloat(token(estilo, nome)) * base}px`;
+}
+
 function variaveisDoTema(claro: boolean) {
 	const estilo = getComputedStyle(document.documentElement);
 	return {
 		darkMode: !claro,
 		background: token(estilo, '--color-surface'),
 		fontFamily: token(estilo, '--font-body'),
-		fontSize: '15px',
+		fontSize: tamanhoEmPx(estilo, '--text-sm'),
 		primaryColor: token(estilo, '--color-surface-2'),
 		primaryTextColor: token(estilo, '--color-text'),
 		primaryBorderColor: token(estilo, '--color-border'),
