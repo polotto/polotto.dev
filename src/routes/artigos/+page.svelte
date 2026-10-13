@@ -34,7 +34,7 @@
 	.lista {
 		display: grid;
 		gap: var(--space-5);
-		max-width: 760px;
+		max-width: var(--content-width);
 		margin-top: var(--space-6);
 	}
 

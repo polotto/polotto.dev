@@ -57,7 +57,7 @@
 		margin: var(--space-6) 0 0;
 		display: grid;
 		gap: var(--space-5);
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(var(--card-min-wide), 1fr));
 	}
 
 	.relacionados {

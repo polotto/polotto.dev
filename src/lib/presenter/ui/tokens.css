@@ -36,6 +36,10 @@
 	--leading-tight: 1.25;
 	--measure: 68ch;
 	--page-width: 1080px;
+	--content-width: 760px;
+	--card-min: 240px;
+	--card-min-wide: 280px;
+	--column-min: 320px;
 
 	/* base: forma. Pixel não tem canto redondo. */
 	--radius: 0;

@@ -78,6 +78,6 @@
 		margin: var(--space-6) 0 0;
 		display: grid;
 		gap: var(--space-5);
-		max-width: 760px;
+		max-width: var(--content-width);
 	}
 </style>

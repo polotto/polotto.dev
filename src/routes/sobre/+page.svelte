@@ -62,7 +62,7 @@
 	}
 
 	.sobre > div {
-		flex: 1 1 320px;
+		flex: 1 1 var(--column-min);
 		max-width: var(--measure);
 	}
 

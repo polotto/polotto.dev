@@ -130,6 +130,12 @@ describe('sincronizar', () => {
 		expect(existsSync(join(saida, 'content/artigos/velho.md'))).toBe(true);
 	});
 
+	it('acusa link de projeto que não é URL', () => {
+		nota('projetos/Y.md', 'nome: Y\ndescricao: D.\nslug: y\nstatus: publicado\nsituacao: ativo\nlinks:\n  site: 123\n  blog: https://y.dev');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(/links\.site deve ser URL[\s\S]*links\.blog não existe/);
+	});
+
 	it('acusa slug e ordem repetidos', () => {
 		serieLegado();
 		const base = 'descricao: D.\nstatus: publicado\npublicado: 2026-01-01\nserie: migrando-o-legado\nordem: 1';
@@ -150,6 +156,17 @@ describe('converterCorpo', () => {
 			copiarMidia: () => '/media/s/y.png'
 		});
 		expect(out).toBe('Antes [x](/artigos/x)\n\n```md\n[[x]] ![[y.png]]\n```\n');
+	});
+
+	it('respeita cerca de til e cerca com mais crases', () => {
+		const corpo = 'A [[x]]\n~~~md\n[[x]]\n~~~\n````md\n```\n[[x]]\n```\n````\nB [[x]]';
+		const out = converterCorpo(corpo, {
+			slug: 's',
+			pastaNota: '/',
+			linkDe: () => '/artigos/x',
+			copiarMidia: () => '/media/s/y.png'
+		});
+		expect(out).toBe('A [x](/artigos/x)\n~~~md\n[[x]]\n~~~\n````md\n```\n[[x]]\n```\n````\nB [x](/artigos/x)');
 	});
 });
 

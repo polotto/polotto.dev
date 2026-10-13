@@ -179,7 +179,7 @@
 	.grade {
 		display: grid;
 		gap: var(--space-4);
-		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
 	}
 
 	@media (max-width: 560px) {

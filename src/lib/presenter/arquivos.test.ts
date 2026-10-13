@@ -77,6 +77,8 @@ describe('arquivos gerados', () => {
 		expect(txt).toContain('- [Por que migrar](https://polotto.dev/artigos/por-que-migrar.md): Segurança & gente.');
 		expect(txt).toContain('- [Migrando o legado](https://polotto.dev/series/legado): Série.');
 		expect(txt).toContain('- [Live Player](https://getliveplayer.com): Player.');
+		expect(txt).toContain('- [Artigos](https://polotto.dev/artigos): ');
+		expect(txt).toContain('- [Projetos](https://polotto.dev/projetos): ');
 		expect(txt).toContain('## Optional');
 		expect(txt).toContain('https://polotto.dev/llms-full.txt');
 	});

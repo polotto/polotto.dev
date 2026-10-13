@@ -108,6 +108,9 @@ export function gerarLlmsTxt(repo: ConteudoRepository): string {
 	const projetos = listarProjetos(repo);
 	const secao = (titulo: string, itens: string[]) =>
 		itens.length ? [`## ${titulo}`, '', ...itens, ''] : [];
+	// A página de índice entra sempre, mesmo sem nada publicado.
+	const indice = (caminho: string, chave: 'articles' | 'projects') =>
+		`- [${t(`${chave}.title`)}](${urlAbsoluta(caminho)}): ${t(`${chave}.description`)}`;
 	return [
 		`# ${t('site.name')}`,
 		'',
@@ -119,17 +122,17 @@ export function gerarLlmsTxt(repo: ConteudoRepository): string {
 			t('llms.series'),
 			series.map((s) => `- [${s.titulo}](${urlAbsoluta(`/series/${s.slug}`)}): ${s.descricao}`)
 		),
-		...secao(
-			t('articles.title'),
-			artigos.map((a) => `- [${a.titulo}](${urlAbsoluta(`/artigos/${a.slug}.md`)}): ${a.descricao}`)
-		),
-		...secao(
-			t('projects.title'),
-			projetos.map((p) => {
+		...secao(t('articles.title'), [
+			indice('/artigos', 'articles'),
+			...artigos.map((a) => `- [${a.titulo}](${urlAbsoluta(`/artigos/${a.slug}.md`)}): ${a.descricao}`)
+		]),
+		...secao(t('projects.title'), [
+			indice('/projetos', 'projects'),
+			...projetos.map((p) => {
 				const link = p.links.site ?? p.links.loja ?? p.links.repo ?? urlAbsoluta('/projetos');
 				return `- [${p.nome}](${link}): ${p.descricao}`;
 			})
-		),
+		]),
 		'## Optional', // i18n-ignore: nome de seção definido pelo padrão llmstxt.org
 		'',
 		`- [${t('llms.full')}](${urlAbsoluta('/llms-full.txt')})`,

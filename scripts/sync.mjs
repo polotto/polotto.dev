@@ -13,6 +13,7 @@ const DATA = /^\d{4}-\d{2}-\d{2}$/;
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const SITUACOES = ['ativo', 'pausado', 'encerrado'];
 const STATUS = ['rascunho', 'publicado'];
+const LINKS = ['site', 'loja', 'repo'];
 
 /** Separa frontmatter e corpo. Nota sem frontmatter devolve `{}`. */
 export function lerNota(texto) {
@@ -61,8 +62,48 @@ function validarProjeto(d, onde) {
 	validarComum(d, erros, onde);
 	if (typeof d.nome !== 'string' || !d.nome.trim()) erros.push(`${onde}: nome ausente`);
 	if (!SITUACOES.includes(d.situacao)) erros.push(`${onde}: situacao deve ser ativo, pausado ou encerrado`);
-	if (d.links !== undefined && (typeof d.links !== 'object' || Array.isArray(d.links))) erros.push(`${onde}: links deve ser mapa`);
+	if (d.links !== undefined) {
+		if (d.links === null || typeof d.links !== 'object' || Array.isArray(d.links)) erros.push(`${onde}: links deve ser mapa`);
+		else
+			for (const [chave, url] of Object.entries(d.links)) {
+				if (!LINKS.includes(chave)) erros.push(`${onde}: links.${chave} não existe (use site, loja ou repo)`);
+				else if (typeof url !== 'string' || !/^https?:\/\/\S+$/.test(url)) erros.push(`${onde}: links.${chave} deve ser URL http(s)`);
+			}
+	}
 	return erros;
+}
+
+/**
+ * Separa o corpo em trechos de texto e blocos de código cercados, com ``` ou ~~~
+ * de qualquer tamanho. O bloco fecha com o mesmo caractere e pelo menos o mesmo
+ * tamanho; bloco sem fechamento vai até o fim, como no CommonMark.
+ */
+function separarCodigo(corpo) {
+	const trechos = [];
+	let atual = { codigo: false, linhas: [] };
+	let cerca = null;
+	for (const linha of corpo.split('\n')) {
+		if (!cerca) {
+			const abre = linha.match(/^ {0,3}(`{3,}|~{3,})/);
+			if (abre && !(abre[1][0] === '`' && linha.slice(abre[0].length).includes('`'))) {
+				trechos.push(atual);
+				atual = { codigo: true, linhas: [linha] };
+				cerca = abre[1];
+				continue;
+			}
+			atual.linhas.push(linha);
+		} else {
+			atual.linhas.push(linha);
+			const fecha = linha.match(/^ {0,3}(`{3,}|~{3,})\s*$/);
+			if (fecha && fecha[1][0] === cerca[0] && fecha[1].length >= cerca.length) {
+				trechos.push(atual);
+				atual = { codigo: false, linhas: [] };
+				cerca = null;
+			}
+		}
+	}
+	trechos.push(atual);
+	return trechos.filter((t) => t.linhas.length).map((t) => ({ codigo: t.codigo, texto: t.linhas.join('\n') }));
 }
 
 /**
@@ -71,11 +112,10 @@ function validarProjeto(d, onde) {
  * - `![[img.png]]`, `![[img.png|alt]]` e `![alt](img.png)`: imagem em /media/<slug>/.
  */
 export function converterCorpo(corpo, { slug, pastaNota, linkDe, copiarMidia }) {
-	const trechos = corpo.split(/(^```[\s\S]*?^```)/m);
-	return trechos
-		.map((trecho, i) => {
-			if (i % 2 === 1) return trecho;
-			return trecho
+	return separarCodigo(corpo)
+		.map(({ codigo, texto }) => {
+			if (codigo) return texto;
+			return texto
 				.replace(/!\[\[([^\]|]+)(?:\|([^\]]*))?\]\]/g, (_, arquivo, alt) => {
 					const url = copiarMidia(slug, pastaNota, arquivo.trim());
 					return `![${(alt ?? '').trim()}](${url})`;
@@ -91,7 +131,7 @@ export function converterCorpo(corpo, { slug, pastaNota, linkDe, copiarMidia }) 
 					return href ? `[${rotulo}](${href})` : rotulo;
 				});
 		})
-		.join('');
+		.join('\n');
 }
 
 function gravar(pasta, slug, dados, corpo) {

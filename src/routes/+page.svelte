@@ -73,13 +73,13 @@
 	.lista {
 		display: grid;
 		gap: var(--space-5);
-		max-width: 760px;
+		max-width: var(--content-width);
 	}
 
 	.grade {
 		display: grid;
 		gap: var(--space-4);
-		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
 	}
 
 	.mais a {
