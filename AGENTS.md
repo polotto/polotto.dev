@@ -9,8 +9,7 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
 - build: `npm run build` (saída em `build/`)
 - testes: `npm test` (um arquivo só: `npx vitest run scripts/sync.test.mjs`)
 - check: `npm run check`
-- sincronizar do vault: `npm run sync` (lê `POLOTTO_VAULT`, padrão
-  `~/Documents/Polotto`)
+- sincronizar do vault: `npm run sync` (pasta do vault em `POLOTTO_VAULT`)
 - conteúdo de exemplo para desenvolver: `npm run sync:exemplo` (vault em
   `scripts/fixtures/vault/`)
 - tudo de uma vez: `verify` (passos em `.agents/verify.steps`)

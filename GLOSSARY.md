@@ -15,7 +15,7 @@ Sequência ordenada de artigos sobre um mesmo tema, com página própria de
 _Evitar_: trilha, coleção
 
 **Vault**:
-O Obsidian em `~/Documents/Polotto`, fonte de verdade dos artigos.
+O Obsidian local, fonte de verdade dos artigos.
 _Evitar_: notas, Obsidian (como lugar)
 
 **Sincronizar**:
