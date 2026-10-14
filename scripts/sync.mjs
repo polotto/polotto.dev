@@ -158,8 +158,14 @@ export function sincronizar({ vault, saida }) {
 
 	const notas = (pasta, validar) =>
 		arquivosMd(pasta).map((caminho) => {
-			const { dados, corpo } = lerNota(readFileSync(caminho, 'utf8'));
 			const onde = caminho.slice(vault.length + 1);
+			let nota;
+			try {
+				nota = lerNota(readFileSync(caminho, 'utf8'));
+			} catch (e) {
+				throw new Error(`${onde}: frontmatter inválido\n${e.message}`);
+			}
+			const { dados, corpo } = nota;
 			return { caminho, onde, dados, corpo, erros: dados.status === 'publicado' ? validar(dados, onde) : [] };
 		});
 
