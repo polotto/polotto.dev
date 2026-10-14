@@ -1,6 +1,6 @@
 # Handoff: sveltekit-rebuild
 
-Atualizado em: 12/10/2026
+Atualizado em: 13/10/2026
 
 ## Objetivo
 Recriar o polotto.dev do zero em SvelteKit estático no GitHub Pages,
@@ -12,6 +12,8 @@ com artigos vindos do vault do Obsidian. Decisões em `BRIEF.md`.
 - `content/` commitado veio do vault real (0 publicados). Se rodar
   `npm run sync:exemplo` para desenvolver, rodar `npm run sync` antes de commitar
 - concluídas também: C.5, E.3, E.4
+- concluída também: C.7 (diagramas Mermaid)
+- em andamento no vault: parte 1 e esboço da parte 2 da série, em rascunho
 - em aberto: E.1 (código do GoatCounter), E.2 (fonte do Pages), E.5 (primeiro deploy)
 
 ## Decisões tomadas

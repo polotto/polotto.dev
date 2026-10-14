@@ -13,4 +13,11 @@ describe('renderizarMarkdown', () => {
 		const html = await renderizarMarkdown('```cobol\nDISPLAY "OI".\n```\n');
 		expect(html).toContain('DISPLAY');
 	});
+
+	it('bloco mermaid sai como texto para o navegador desenhar', async () => {
+		const html = await renderizarMarkdown('```mermaid\nflowchart LR\n  a[A<br/>x] --> b\n```\n');
+		expect(html).toContain('<pre class="mermaid">');
+		expect(html).toContain('a[A&lt;br/&gt;x] --&gt; b');
+		expect(html).not.toContain('shiki');
+	});
 });
