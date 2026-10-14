@@ -136,6 +136,12 @@ describe('sincronizar', () => {
 		expect(() => sincronizar({ vault, saida })).toThrow(/links\.site deve ser URL[\s\S]*links\.blog não existe/);
 	});
 
+	it('frontmatter inválido diz qual nota quebrou', () => {
+		nota('projetos/Z.md', 'nome: Z\ndescricao: Add-on: clicar numa face\nslug: z\nstatus: publicado');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(/blog\/projetos\/Z\.md: frontmatter inválido/);
+	});
+
 	it('acusa slug e ordem repetidos', () => {
 		serieLegado();
 		const base = 'descricao: D.\nstatus: publicado\npublicado: 2026-01-01\nserie: migrando-o-legado\nordem: 1';

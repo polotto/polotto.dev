@@ -71,20 +71,23 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
 - [~] E.1 GoatCounter no layout
   - feito: script só entra com `GOATCOUNTER_CODIGO` em `src/lib/presenter/site.ts`
   - falta: código do site, depois que o Angelo criar a conta
-- [ ] E.2 trocar a fonte do Pages para "GitHub Actions" (Angelo, nas
+- [x] E.2 trocar a fonte do Pages para "GitHub Actions" (Angelo, nas
   configurações do repo), na hora do merge
 - [x] E.3 `static/CNAME` com polotto.dev (DNS já aponta para o GitHub Pages)
 - [x] E.4 `ci.yml` (conteúdo, test, check, build) e `deploy.yml` (Pages e
   tag `prod-*`); `npm run checar-conteudo` barra o vault de exemplo
   - `actionlint` passa nos dois
-- [ ] E.5 primeiro deploy: conferir o run, polotto.dev servindo o site novo,
+- [~] E.5 primeiro deploy: conferir o run, polotto.dev servindo o site novo,
   `llms.txt` com 200 e a tag `prod-*`; JSON-LD no Rich Results Test
+  - feito: deploy, site, `llms.txt` 200 e tag `prod-*`
+  - falta: Rich Results Test
 
 ## Trilha F: conteúdo (Angelo, paralela a tudo)
 - [ ] F.1 pesquisar livros sobre migração de legado (pt e en)
 - [~] F.2 escrever a parte 1 da série Migrando o legado
 - [~] F.3 rascunhar a parte 2
-- [ ] F.4 notas dos 5 projetos em `<vault>/blog/projetos/`
+- [x] F.4 notas dos projetos (6: Live Player, Salamandra, Polovoxel, Spacefy,
+  Subtitle Watcher e SciDart) em `<vault>/blog/projetos/`
 - [x] F.5 bio da página Sobre (título do LinkedIn)
 
 ## Fora do escopo

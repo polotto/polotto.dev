@@ -1,20 +1,19 @@
 # Handoff: sveltekit-rebuild
 
-Atualizado em: 13/10/2026
+Atualizado em: 14/10/2026
 
 ## Objetivo
 Recriar o polotto.dev do zero em SvelteKit estático no GitHub Pages,
 com artigos vindos do vault do Obsidian. Decisões em `BRIEF.md`.
 
 ## Estado atual
-- branch: `sveltekit-rebuild`, PR #1 aberto para `main`, CI verde
-- concluídas: trilhas 0, A, B, C (menos C.5) e D
-- `content/` commitado veio do vault real (0 publicados). Se rodar
-  `npm run sync:exemplo` para desenvolver, rodar `npm run sync` antes de commitar
-- concluídas também: C.5, E.3, E.4
-- concluída também: C.7 (diagramas Mermaid)
-- em andamento no vault: parte 1 e esboço da parte 2 da série, em rascunho
-- em aberto: E.1 (código do GoatCounter), E.2 (fonte do Pages), E.5 (primeiro deploy)
+- no ar desde 13/10/2026: PR #1 (site novo), #2 (diagramas Mermaid) e #3
+  (projetos e ícone de toque) mergeados em `main`; deploy pelo `deploy.yml`
+- `content/` vem do vault real: 6 projetos publicados, 0 artigos
+- concluídas: trilhas 0, A, B, C, D, E.2 a E.4 e F.4, F.5
+- em aberto: E.1 (código do GoatCounter); E.5 (falta o Rich Results Test); F.1 a F.3 (série Migrando o legado)
+- a série está em rascunho no vault: parte 1 escrita, parte 2 em esboço.
+  Estreia quando a parte 2 estiver rascunhada (`BRIEF.md`)
 
 ## Decisões tomadas
 - Ver `BRIEF.md`, `GLOSSARY.md` e `docs/adr/`.
@@ -23,20 +22,20 @@ com artigos vindos do vault do Obsidian. Decisões em `BRIEF.md`.
 - Fase do projeto é `situacao`; `status` é só publicação.
 
 ## Próximos passos
-1. Merge do PR #1 quando o Angelo decidir (home sai vazia sem artigo).
-2. Na hora do merge: Angelo troca Pages > Source para "GitHub Actions".
-3. E.5: acompanhar o primeiro run do `deploy.yml` e conferir o site no ar.
-4. E.1: pôr o código do GoatCounter em `src/lib/presenter/site.ts`.
+1. Parte 2 da série: critérios entre completa e parcial, e como achar a
+   fronteira. Depois revisar a parte 1 e publicar as duas.
+2. E.1: pôr o código do GoatCounter em `src/lib/presenter/site.ts`.
+3. Imagem Open Graph por artigo (fora do lançamento, ver `BRIEF.md`).
 
 ## Bloqueios e dúvidas em aberto
 - Código do GoatCounter (Angelo).
-- Nenhum artigo publicado ainda: os 4 posts de 2021 não têm `status`. O
-  site no ar fica com a home vazia até o primeiro artigo.
+- Nenhum artigo publicado ainda: a home mostra só os projetos até o
+  primeiro artigo.
 
 ## Como verificar
 - `verify`
 - protótipo: `npm run dev -- --host`, abrir `/prototipo?modo=claro&tela=artigo`
-- sync: `npm run sync` (hoje 0 publicados: os posts de 2021 não têm `status`)
+- sync: `npm run sync` (hoje 6 projetos e 0 artigos publicados)
 
 ## Arquivos principais
 - `BRIEF.md`: todas as decisões.
