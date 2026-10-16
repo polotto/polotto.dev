@@ -74,6 +74,19 @@ Inscrição por e-mail (decidido em 15/10/2026, saiu do "fora")
 - Usuário em `BUTTONDOWN_USUARIO` (`src/lib/presenter/site.ts`). Vazio
   esconde o formulário.
 
+Ferramentas (decidido em 16/10/2026)
+- Seção `/ferramentas` no menu, ao lado de Artigos, Projetos e Sobre.
+  Ferramentas que eu uso, abertas para quem chegar pela busca.
+- Índice em `/ferramentas` e uma página por ferramenta
+  (`/ferramentas/<slug>`), cada uma no sitemap, no `llms.txt` e com JSON-LD
+  `WebApplication`.
+- Tudo roda no navegador: nada do que a pessoa digita sai da página. A
+  página diz isso.
+- Primeiras: QR Code a partir de texto, gerador e validador de CPF e CNPJ
+  (com o CNPJ alfanumérico), formatador e validador de JSON, paleta de
+  cores harmônicas e mascote a partir de um texto (estilo identicon do
+  GitHub e personagem 16-bit, no tema do blog).
+
 Artigo agendado (decidido em 15/10/2026)
 - `publicado` com data futura agenda o artigo. Ele fica fora do build até o
   dia, no fuso de São Paulo.
