@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '$lib/presenter/ui/global.css';
+	import { dev } from '$app/environment';
 	import { page } from '$app/state';
 	import Cabecalho from '$lib/presenter/ui/Cabecalho.svelte';
 	import Rodape from '$lib/presenter/ui/Rodape.svelte';
@@ -18,7 +19,7 @@
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=Pixelify+Sans:wght@500;700&display=swap"
 	/>
-	{#if GOATCOUNTER_CODIGO}
+	{#if GOATCOUNTER_CODIGO && !dev}
 		<script
 			data-goatcounter={`https://${GOATCOUNTER_CODIGO}.goatcounter.com/count`}
 			async

@@ -61,7 +61,14 @@ Projetos
 Escopo do lançamento
 - Entra: home com os artigos recentes e os projetos em destaque, página do
   artigo, página da série, `/projetos`, Sobre, RSS, sitemap, GoatCounter.
-- Fora: busca, tags, comentários, newsletter.
+- Fora: busca, tags, comentários.
+
+Inscrição por e-mail (decidido em 15/10/2026, saiu do "fora")
+- Buttondown, lendo o `rss.xml`: artigo novo vira e-mail sozinho.
+- Formulário HTML puro, sem script de terceiro, no fim do artigo e na home.
+  Link para o RSS ao lado.
+- Usuário em `BUTTONDOWN_USUARIO` (`src/lib/presenter/site.ts`). Vazio
+  esconde o formulário.
 
 Busca (Google e assistentes de busca por LLM)
 - `/llms.txt` no padrão llmstxt.org: resumo do site e links para as versões

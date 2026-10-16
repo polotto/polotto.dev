@@ -4,6 +4,7 @@
 	import CartaoArtigo from '$lib/presenter/ui/CartaoArtigo.svelte';
 	import CartaoProjeto from '$lib/presenter/ui/CartaoProjeto.svelte';
 	import Icon from '$lib/presenter/ui/Icon.svelte';
+	import Inscricao from '$lib/presenter/ui/Inscricao.svelte';
 	import Mascote from '$lib/presenter/ui/Mascote.svelte';
 	import Seo from '$lib/presenter/ui/Seo.svelte';
 
@@ -49,6 +50,8 @@
 		</p>
 	</section>
 {/if}
+
+<Inscricao />
 
 <style>
 	.hero {
