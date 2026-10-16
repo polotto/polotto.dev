@@ -1,12 +1,20 @@
 <script lang="ts">
 	import '$lib/presenter/ui/global.css';
 	import { dev } from '$app/environment';
+	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import Cabecalho from '$lib/presenter/ui/Cabecalho.svelte';
 	import Rodape from '$lib/presenter/ui/Rodape.svelte';
 	import { GOATCOUNTER_CODIGO } from '$lib/presenter/site';
 
 	let { children } = $props();
+
+	// O count.js conta a primeira página ao carregar. As seguintes são navegação
+	// do SvelteKit, sem recarregar a página, e precisam ser contadas aqui.
+	afterNavigate(({ type }) => {
+		if (type === 'enter') return;
+		window.goatcounter?.count({ path: location.pathname + location.search });
+	});
 </script>
 
 <svelte:head>

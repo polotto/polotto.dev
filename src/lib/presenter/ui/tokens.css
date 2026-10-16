@@ -39,6 +39,7 @@
 	--content-width: 760px;
 	--card-min: 240px;
 	--card-min-wide: 280px;
+	--input-min: 224px;
 	--column-min: 320px;
 
 	/* base: forma. Pixel não tem canto redondo. */

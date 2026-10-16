@@ -58,7 +58,7 @@
 	}
 
 	input[type='email'] {
-		flex: 1 1 14rem;
+		flex: 1 1 var(--input-min);
 		min-width: 0;
 		padding: var(--space-2) var(--space-3);
 		font: inherit;
