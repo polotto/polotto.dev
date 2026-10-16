@@ -70,6 +70,12 @@ Inscrição por e-mail (decidido em 15/10/2026, saiu do "fora")
 - Usuário em `BUTTONDOWN_USUARIO` (`src/lib/presenter/site.ts`). Vazio
   esconde o formulário.
 
+Artigo agendado (decidido em 15/10/2026)
+- `publicado` com data futura agenda o artigo. Ele fica fora do build até o
+  dia, no fuso de São Paulo.
+- O `deploy.yml` roda todo dia às 06:00 de Brasília e só publica quando algum
+  artigo tem `publicado` igual a hoje. Assim não sai tag `prod-*` todo dia.
+
 Busca (Google e assistentes de busca por LLM)
 - `/llms.txt` no padrão llmstxt.org: resumo do site e links para as versões
   em markdown de artigos, séries e projetos.

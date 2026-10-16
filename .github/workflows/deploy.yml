@@ -3,10 +3,15 @@ name: Deploy
 # Publica no GitHub Pages a cada push em main. Requer, nas configurações do
 # repo, Pages > Source = "GitHub Actions". Depois do deploy, marca o commit
 # publicado com a tag prod-AAAAMMDD-HHMMSS: a mais recente é o que está no ar.
+#
+# Artigo agendado (`publicado` com data futura) fica fora do build até o dia.
+# O agendamento diário publica só quando algum artigo tem `publicado` = hoje.
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 9 * * *' # 06:00 em Brasília
   workflow_dispatch:
 
 permissions:
@@ -17,7 +22,28 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  agenda:
+    runs-on: ubuntu-24.04
+    outputs:
+      publicar: ${{ steps.agenda.outputs.publicar }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: agenda
+        name: Tem artigo agendado para hoje?
+        env:
+          EVENTO: ${{ github.event_name }}
+        run: |
+          hoje="$(TZ=America/Sao_Paulo date +%F)"
+          if [ "$EVENTO" != schedule ] || grep -qsE "^publicado: ['\"]?$hoje" content/artigos/*.md; then
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "nada agendado para $hoje"
+            echo "publicar=false" >> "$GITHUB_OUTPUT"
+          fi
+
   build:
+    needs: agenda
+    if: needs.agenda.outputs.publicar == 'true'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4

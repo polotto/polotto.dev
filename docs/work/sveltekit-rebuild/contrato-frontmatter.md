@@ -19,11 +19,15 @@ grava em `content/`. Nome do arquivo no vault é livre; o `slug` define a URL.
 | `descricao` | sim | uma ou duas frases; vira meta description e resumo |
 | `slug` | sim | kebab-case, único entre artigos |
 | `status` | sim | `rascunho` ou `publicado`. Só `publicado` é sincronizado |
-| `publicado` | com `publicado` | data `AAAA-MM-DD` |
+| `publicado` | com `publicado` | data `AAAA-MM-DD`. Data futura agenda o artigo |
 | `atualizado` | não | data `AAAA-MM-DD`, posterior a `publicado` |
 | `serie` | não | slug de uma série |
 | `ordem` | com `serie` | inteiro a partir de 1, único dentro da série |
 | `projetos` | não | lista de slugs de projeto |
+
+Agendar: `status: publicado` com `publicado` no futuro, depois `npm run sync`
+e merge. O artigo fica fora do site (páginas, RSS, sitemap, `llms.txt`) até
+o dia, no fuso de São Paulo. O deploy diário das 06:00 publica nesse dia.
 
 ## Série
 
