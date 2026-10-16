@@ -11,6 +11,9 @@ export const AUTOR = {
 	}
 } as const;
 
+/** Id do perfil no Stack Overflow, para ler reputação e medalhas no build. */
+export const STACKOVERFLOW_ID = 6846888;
+
 /**
  * Código do site no GoatCounter (`<codigo>.goatcounter.com`). Vazio desliga a
  * contagem. Em desenvolvimento ela fica sempre desligada (ver `+layout.svelte`).

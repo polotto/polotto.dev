@@ -60,6 +60,16 @@
 		grid-template-columns: repeat(auto-fill, minmax(var(--card-min-wide), 1fr));
 	}
 
+	/* cards da mesma fileira com a mesma altura, mesmo com descrição maior */
+	.lista > li {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.lista > li > :global(.cartao) {
+		flex: 1;
+	}
+
 	.relacionados {
 		padding: var(--space-3) var(--space-5);
 		border: var(--frame-width) solid var(--color-border);

@@ -57,5 +57,17 @@
 	"subscribe.label": "Seu e-mail",
 	"subscribe.placeholder": "voce@exemplo.com",
 	"subscribe.button": "Inscrever",
-	"subscribe.rss": "Prefere leitor de feed? Use o RSS."
+	"subscribe.rss": "Prefere leitor de feed? Use o RSS.",
+	"about.so.reputation": "de reputação",
+	"about.so.gold.one": "{count} medalha de ouro",
+	"about.so.gold.other": "{count} medalhas de ouro",
+	"about.so.silver.one": "{count} medalha de prata",
+	"about.so.silver.other": "{count} medalhas de prata",
+	"about.so.bronze.one": "{count} medalha de bronze",
+	"about.so.bronze.other": "{count} medalhas de bronze",
+	"home.intro": "Engenheiro iOS sênior. Trabalho com Swift, UIKit e Clean Architecture em apps de pagamento usados por mais de 30 milhões de pessoas.",
+	"home.cta.latest": "Ler o artigo mais recente",
+	"home.cta.about": "Mais sobre mim",
+	"home.profiles": "Perfis",
+	"email.read": "Ler o artigo"
 }
