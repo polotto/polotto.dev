@@ -1,16 +1,21 @@
 <script lang="ts">
 	import { t } from '$lib/presenter/i18n/i18n';
 	import { jsonLdMigalhas } from '$lib/presenter/seo';
+	import { novaAba } from '$lib/presenter/links';
 	import { AUTOR, urlAbsoluta } from '$lib/presenter/site';
+	import CartaoStackOverflow from '$lib/presenter/ui/CartaoStackOverflow.svelte';
 	import Icon from '$lib/presenter/ui/Icon.svelte';
 	import Mascote from '$lib/presenter/ui/Mascote.svelte';
 	import Seo from '$lib/presenter/ui/Seo.svelte';
 
-	const perfis = [
+	let { data } = $props();
+
+	// Com o cartão (reputação e medalhas), o Stack Overflow sai da lista de links.
+	const perfis = $derived([
 		{ href: AUTOR.perfis.linkedin, chave: 'about.linkedin' },
 		{ href: AUTOR.perfis.github, chave: 'about.github' },
-		{ href: AUTOR.perfis.stackoverflow, chave: 'about.stackoverflow' }
-	];
+		...(data.stackoverflow ? [] : [{ href: AUTOR.perfis.stackoverflow, chave: 'about.stackoverflow' }])
+	]);
 </script>
 
 <Seo
@@ -44,12 +49,17 @@
 		<ul>
 			{#each perfis as perfil (perfil.href)}
 				<li>
-					<a href={perfil.href} rel="me noopener">
+					<a href={perfil.href} {...novaAba('me')}>
 						{t(perfil.chave)} <Icon name="externo" size={12} />
 					</a>
 				</li>
 			{/each}
 		</ul>
+		{#if data.stackoverflow}
+			<div class="stackoverflow">
+				<CartaoStackOverflow perfil={data.stackoverflow} href={AUTOR.perfis.stackoverflow} />
+			</div>
+		{/if}
 	</div>
 </div>
 
@@ -81,7 +91,12 @@
 		gap: var(--space-3);
 	}
 
-	a {
+	.stackoverflow {
+		margin-top: var(--space-5);
+		max-width: var(--card-min-wide);
+	}
+
+	ul a {
 		display: inline-flex;
 		gap: var(--space-2);
 		align-items: center;

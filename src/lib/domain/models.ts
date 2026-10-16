@@ -46,6 +46,12 @@ export interface Projeto {
 	corpo: string;
 }
 
+/** Números públicos do perfil no Stack Overflow. */
+export interface PerfilStackOverflow {
+	reputacao: number;
+	medalhas: { ouro: number; prata: number; bronze: number };
+}
+
 /** Fonte do conteúdo. A infra implementa; o domain só conhece a interface. */
 export interface ConteudoRepository {
 	artigos(): Artigo[];

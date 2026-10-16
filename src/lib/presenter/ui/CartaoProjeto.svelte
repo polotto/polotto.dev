@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Projeto } from '$lib/domain/models';
 	import { t } from '$lib/presenter/i18n/i18n';
+	import { novaAba } from '$lib/presenter/links';
 	import Icon from './Icon.svelte';
 
 	let { projeto }: { projeto: Projeto } = $props();
@@ -15,7 +16,7 @@
 	</p>
 	<h3>
 		{#if link}
-			<a href={link} target="_blank" rel="noopener noreferrer">{projeto.nome} <Icon name="externo" size={12} /></a>
+			<a href={link} {...novaAba()}>{projeto.nome} <Icon name="externo" size={12} /></a>
 		{:else}
 			{projeto.nome}
 		{/if}

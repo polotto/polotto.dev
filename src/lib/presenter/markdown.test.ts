@@ -20,4 +20,10 @@ describe('renderizarMarkdown', () => {
 		expect(html).toContain('a[A&lt;br/&gt;x] --&gt; b');
 		expect(html).not.toContain('shiki');
 	});
+
+	it('link externo abre em nova aba; interno não', async () => {
+		const html = await renderizarMarkdown('[fora](https://github.com/polotto) e [dentro](/sobre)');
+		expect(html).toContain('<a href="https://github.com/polotto" target="_blank" rel="noopener noreferrer">fora</a>');
+		expect(html).toContain('<a href="/sobre">dentro</a>');
+	});
 });

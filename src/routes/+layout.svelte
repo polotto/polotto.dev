@@ -5,6 +5,7 @@
 	import { page } from '$app/state';
 	import Cabecalho from '$lib/presenter/ui/Cabecalho.svelte';
 	import Rodape from '$lib/presenter/ui/Rodape.svelte';
+	import { HEAD_MASCOTE } from '$lib/presenter/ui/Mascote.svelte';
 	import { GOATCOUNTER_CODIGO } from '$lib/presenter/site';
 
 	let { children } = $props();
@@ -18,6 +19,7 @@
 </script>
 
 <svelte:head>
+	{@html HEAD_MASCOTE}
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 	<link rel="alternate" type="application/rss+xml" title="polotto.dev" href="/rss.xml" />

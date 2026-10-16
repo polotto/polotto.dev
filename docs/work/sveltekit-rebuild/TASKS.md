@@ -85,10 +85,21 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
 - [~] E.6 inscrição por e-mail com Buttondown (`Inscricao.svelte`)
   - feito: formulário no artigo e na home, textos no i18n
   - feito: usuário `polotto` em `BUTTONDOWN_USUARIO`
-  - falta: ligar RSS para e-mail no
-    painel do Buttondown (Angelo)
+  - feito: RSS para e-mail é pago; envio pela API no `deploy.yml`
+    (`scripts/enviar-email.mjs`), chave no secret `BUTTONDOWN_API_KEY`
+  - falta: conferir o primeiro envio em 22/10/2026
 - [x] E.7 artigo agendado: `publicado` futuro fica fora do build até o dia,
   deploy diário às 06:00 só quando há artigo do dia
+- [x] E.8 cartão do Stack Overflow no Sobre: reputação e medalhas lidas da
+  API do Stack Exchange no build; se a API falhar, volta a ser só link
+- [x] E.9 hero da home: mascote ao lado do texto, apresentação curta,
+  botão para o artigo mais recente e links dos perfis
+- [x] E.10 mascote com ação sorteada a cada carregamento (andando, celular,
+  acenando, videogame, cochilando, música, lendo, pensando,
+  computador, café), a mesma no header e na página; 6 ciclos e para
+- [x] E.11 todo link externo abre em nova aba (`src/lib/presenter/links.ts`),
+  inclusive no corpo do artigo; interno continua na mesma aba
+- [x] E.12 cards de `/projetos` com a mesma altura na fileira
 
 ## Trilha F: conteúdo (Angelo, paralela a tudo)
 - [ ] F.1 pesquisar livros sobre migração de legado (pt e en)

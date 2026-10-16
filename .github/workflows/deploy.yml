@@ -6,6 +6,7 @@ name: Deploy
 #
 # Artigo agendado (`publicado` com data futura) fica fora do build até o dia.
 # O agendamento diário publica só quando algum artigo tem `publicado` = hoje.
+# Depois do deploy, o artigo do dia vai por e-mail aos inscritos (Buttondown).
 
 on:
   push:
@@ -88,3 +89,18 @@ jobs:
           tag="prod-$(date -u +%Y%m%d-%H%M%S)"
           git tag "$tag" "$GITHUB_SHA"
           git push origin "$tag"
+
+  email:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Mandar o artigo do dia aos inscritos
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+        run: node scripts/enviar-email.mjs

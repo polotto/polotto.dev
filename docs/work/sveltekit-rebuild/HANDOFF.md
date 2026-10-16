@@ -11,11 +11,14 @@ com artigos vindos do vault do Obsidian. Decisões em `BRIEF.md`.
   (projetos e ícone de toque) mergeados em `main`; deploy pelo `deploy.yml`
 - PR #5: inscrição por e-mail (Buttondown), GoatCounter ligado, artigo
   agendado e estreia da série
+- PR #6: cartão do Stack Overflow no Sobre, artigo do dia por e-mail pela
+  API do Buttondown, hero da home, mascote com 10 ações sorteadas (6 ciclos
+  e para), links externos em nova aba e cards de `/projetos` alinhados
 - `content/` vem do vault real: 6 projetos, série Migrando o legado com a
   parte 1 publicada em 15/10/2026 e a parte 2 agendada para 22/10/2026
-- concluídas: trilhas 0, A, B, C, D, E.1 a E.4, E.7 e F.2 a F.5
-- em aberto: E.5 (falta o Rich Results Test); E.6 (RSS para e-mail no
-  painel do Buttondown); F.1 (livros)
+- concluídas: trilhas 0, A, B, C, D, E.1 a E.4, E.7 a E.12 e F.2 a F.5
+- em aberto: E.5 (falta o Rich Results Test); E.6 (conferir o primeiro
+  e-mail em 22/10); F.1 (livros)
 
 ## Decisões tomadas
 - Ver `BRIEF.md`, `GLOSSARY.md` e `docs/adr/`.
@@ -24,8 +27,8 @@ com artigos vindos do vault do Obsidian. Decisões em `BRIEF.md`.
 - Fase do projeto é `situacao`; `status` é só publicação.
 
 ## Próximos passos
-1. Em 22/10/2026: conferir o run agendado do `deploy.yml` e a parte 2 no ar.
-2. E.6: ligar RSS para e-mail no Buttondown.
+1. Em 22/10/2026: conferir o run agendado do `deploy.yml`, a parte 2 no ar
+   e o e-mail enviado (job `email`, painel do Buttondown).
 3. Imagem Open Graph por artigo (fora do lançamento, ver `BRIEF.md`).
 
 ## Bloqueios e dúvidas em aberto

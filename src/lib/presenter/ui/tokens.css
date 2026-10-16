@@ -54,6 +54,11 @@
 	--snes-green: #3d9a4b;
 	--snes-blue: #3a6bd6;
 
+	/* medalhas do Stack Overflow */
+	--medalha-ouro: #f0bf2c;
+	--medalha-prata: #b4b8bc;
+	--medalha-bronze: #c38b5f;
+
 	/* mascote: camisa segue o destaque do modo; cabelo mais escuro que a barba */
 	--mascote-camisa: var(--color-accent);
 	--mascote-cabelo: #4a2b19;
@@ -61,6 +66,16 @@
 	--mascote-olho: #1c1828;
 	--mascote-pele: #e2a77a;
 	--mascote-calca: #2d3b6e;
+	--mascote-celular: #28283a;
+	--mascote-tela: #8fb4ff;
+	--mascote-notebook: #a59fc2;
+	--mascote-teclado: #5a5478;
+	--mascote-caneca: var(--snes-red);
+	--mascote-vapor: #c8c8d2;
+	--mascote-controle: #9a96a8;
+	--mascote-fone: #8a849c;
+	--mascote-pagina: #ece8f6;
+	--mascote-livro: var(--snes-blue);
 
 	/* modo escuro é o padrão do tema */
 	--color-bg: #15121f;

@@ -64,7 +64,11 @@ Escopo do lançamento
 - Fora: busca, tags, comentários.
 
 Inscrição por e-mail (decidido em 15/10/2026, saiu do "fora")
-- Buttondown, lendo o `rss.xml`: artigo novo vira e-mail sozinho.
+- Buttondown. O RSS para e-mail dele é pago (US$ 9/mês); a API não é.
+  Então o `deploy.yml`, depois do deploy, cria pela API o e-mail do artigo
+  do dia já para envio (`scripts/enviar-email.mjs`). Envio automático, sem
+  rascunho. Chave no secret `BUTTONDOWN_API_KEY`. O slug do e-mail é o do
+  artigo, para nunca mandar duas vezes.
 - Formulário HTML puro, sem script de terceiro, no fim do artigo e na home.
   Link para o RSS ao lado.
 - Usuário em `BUTTONDOWN_USUARIO` (`src/lib/presenter/site.ts`). Vazio
