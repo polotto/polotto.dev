@@ -8,6 +8,7 @@
 	const itens = [
 		{ href: '/artigos', chave: 'nav.articles' },
 		{ href: '/projetos', chave: 'nav.projects' },
+		{ href: '/ferramentas', chave: 'nav.tools' },
 		{ href: '/sobre', chave: 'nav.about' }
 	];
 </script>
