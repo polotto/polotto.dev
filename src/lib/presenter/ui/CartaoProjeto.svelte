@@ -15,7 +15,7 @@
 	</p>
 	<h3>
 		{#if link}
-			<a href={link} rel="noopener">{projeto.nome} <Icon name="externo" size={12} /></a>
+			<a href={link} target="_blank" rel="noopener noreferrer">{projeto.nome} <Icon name="externo" size={12} /></a>
 		{:else}
 			{projeto.nome}
 		{/if}

@@ -68,9 +68,10 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
   toque com o mascote
 
 ## Trilha E: publicação (depende de C e D)
-- [~] E.1 GoatCounter no layout
-  - feito: script só entra com `GOATCOUNTER_CODIGO` em `src/lib/presenter/site.ts`
-  - falta: código do site, depois que o Angelo criar a conta
+- [x] E.1 GoatCounter no layout
+  - script só entra com `GOATCOUNTER_CODIGO` em `src/lib/presenter/site.ts`
+    e fora do modo dev
+  - código `polotto` (conta criada em 15/10/2026)
 - [x] E.2 trocar a fonte do Pages para "GitHub Actions" (Angelo, nas
   configurações do repo), na hora do merge
 - [x] E.3 `static/CNAME` com polotto.dev (DNS já aponta para o GitHub Pages)
@@ -81,17 +82,24 @@ Contexto: `BRIEF.md`, `GLOSSARY.md`, `docs/adr/`.
   `llms.txt` com 200 e a tag `prod-*`; JSON-LD no Rich Results Test
   - feito: deploy, site, `llms.txt` 200 e tag `prod-*`
   - falta: Rich Results Test
+- [~] E.6 inscrição por e-mail com Buttondown (`Inscricao.svelte`)
+  - feito: formulário no artigo e na home, textos no i18n
+  - feito: usuário `polotto` em `BUTTONDOWN_USUARIO`
+  - falta: ligar RSS para e-mail no
+    painel do Buttondown (Angelo)
+- [x] E.7 artigo agendado: `publicado` futuro fica fora do build até o dia,
+  deploy diário às 06:00 só quando há artigo do dia
 
 ## Trilha F: conteúdo (Angelo, paralela a tudo)
 - [ ] F.1 pesquisar livros sobre migração de legado (pt e en)
-- [~] F.2 escrever a parte 1 da série Migrando o legado
-- [~] F.3 rascunhar a parte 2
+- [x] F.2 escrever a parte 1 da série Migrando o legado (publicada em 15/10/2026)
+- [x] F.3 parte 2 (agendada para 22/10/2026)
 - [x] F.4 notas dos projetos (6: Live Player, Salamandra, Polovoxel, Spacefy,
   Subtitle Watcher e SciDart) em `<vault>/blog/projetos/`
 - [x] F.5 bio da página Sobre (título do LinkedIn)
 
 ## Fora do escopo
-- Busca, tags, comentários, newsletter.
+- Busca, tags, comentários.
 - Tradução dos posts de 2021 e catálogo en.
 - Imagem Open Graph por artigo, stack e imagem nos cards de projeto.
 - Linguagem de design comum (iniciativa `polotto-design`).

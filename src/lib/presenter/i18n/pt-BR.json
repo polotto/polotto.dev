@@ -51,5 +51,11 @@
 	"error.back": "Voltar para o início",
 	"llms.series": "Séries",
 	"llms.full": "Texto completo de todos os artigos",
-	"about.linkedin": "LinkedIn"
+	"about.linkedin": "LinkedIn",
+	"subscribe.title": "Receba os artigos novos por e-mail",
+	"subscribe.text": "Um e-mail quando sair artigo novo. Sem spam, e dá para sair quando quiser.",
+	"subscribe.label": "Seu e-mail",
+	"subscribe.placeholder": "voce@exemplo.com",
+	"subscribe.button": "Inscrever",
+	"subscribe.rss": "Prefere leitor de feed? Use o RSS."
 }

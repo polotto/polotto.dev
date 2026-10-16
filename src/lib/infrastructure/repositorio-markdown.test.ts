@@ -81,6 +81,12 @@ describe('repositório markdown', () => {
 		});
 	});
 
+	it('deixa de fora o artigo agendado para depois de hoje', () => {
+		const slugs = (hoje: string) => criarRepositorio(arquivos, hoje).artigos().map((a) => a.slug);
+		expect(slugs('2026-11-01')).toEqual(['avulso']);
+		expect(slugs('2026-11-02')).toEqual(['por-que-migrar', 'avulso']);
+	});
+
 	it('sem conteúdo devolve listas vazias', () => {
 		const vazio = criarRepositorio({});
 		expect(vazio.artigos()).toEqual([]);

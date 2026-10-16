@@ -58,9 +58,15 @@ function paraProjeto({ dados: d, corpo }: { dados: Dados; corpo: string }): Proj
 	};
 }
 
-/** Repositório sobre o mapa caminho -> texto dos arquivos de `content/`. */
-export function criarRepositorio(arquivos: Arquivos): ConteudoRepository {
-	const artigos = daPasta(arquivos, 'artigos').map(paraArtigo);
+/**
+ * Repositório sobre o mapa caminho -> texto dos arquivos de `content/`.
+ * Com `hoje` (`AAAA-MM-DD`), artigo com `publicado` depois dessa data fica de
+ * fora: é um artigo agendado, que entra no build do dia.
+ */
+export function criarRepositorio(arquivos: Arquivos, hoje?: string): ConteudoRepository {
+	const artigos = daPasta(arquivos, 'artigos')
+		.map(paraArtigo)
+		.filter((a) => !hoje || a.publicado <= hoje);
 	const series = daPasta(arquivos, 'series').map(paraSerie);
 	const projetos = daPasta(arquivos, 'projetos').map(paraProjeto);
 	return {

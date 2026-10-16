@@ -4,6 +4,7 @@
 	import CartaoProjeto from '$lib/presenter/ui/CartaoProjeto.svelte';
 	import CorpoArtigo from '$lib/presenter/ui/CorpoArtigo.svelte';
 	import Icon from '$lib/presenter/ui/Icon.svelte';
+	import Inscricao from '$lib/presenter/ui/Inscricao.svelte';
 	import Seo from '$lib/presenter/ui/Seo.svelte';
 
 	let { data } = $props();
@@ -55,6 +56,8 @@
 	</header>
 
 	<CorpoArtigo html={data.html} />
+
+	<Inscricao />
 
 	{#if serie}
 		<nav class="navegacao-serie" aria-label={t('series.label')}>

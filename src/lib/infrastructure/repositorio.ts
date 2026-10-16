@@ -7,4 +7,7 @@ const arquivos = import.meta.glob<string>('/content/**/*.md', {
 	eager: true
 });
 
-export const repositorio = criarRepositorio(arquivos);
+// Data de hoje no fuso do blog. Artigo agendado só entra a partir do dia dele.
+const hoje = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date());
+
+export const repositorio = criarRepositorio(arquivos, hoje);
