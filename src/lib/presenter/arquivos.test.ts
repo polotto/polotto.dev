@@ -61,6 +61,8 @@ describe('arquivos gerados', () => {
 		expect(xml).toContain('<loc>https://polotto.dev/artigos/avulso</loc><lastmod>2026-10-01</lastmod>');
 		expect(xml).toContain('<loc>https://polotto.dev/series/legado</loc>');
 		expect(xml).toContain('<loc>https://polotto.dev/sobre</loc>');
+		expect(xml).toContain('<loc>https://polotto.dev/ferramentas</loc>');
+		expect(xml).toContain('<loc>https://polotto.dev/ferramentas/cpf-cnpj</loc>');
 	});
 
 	it('rss escapa XML e ordena do mais recente', () => {
@@ -78,6 +80,9 @@ describe('arquivos gerados', () => {
 		expect(txt).toContain('- [Migrando o legado](https://polotto.dev/series/legado): Série.');
 		expect(txt).toContain('- [Live Player](https://getliveplayer.com): Player.');
 		expect(txt).toContain('- [Artigos](https://polotto.dev/artigos): ');
+		expect(txt).toContain('## Ferramentas');
+		expect(txt).toContain('- [Ferramentas](https://polotto.dev/ferramentas): ');
+		expect(txt).toContain('- [Gerador de QR Code](https://polotto.dev/ferramentas/qrcode): ');
 		expect(txt).toContain('- [Projetos](https://polotto.dev/projetos): ');
 		expect(txt).toContain('## Optional');
 		expect(txt).toContain('https://polotto.dev/llms-full.txt');

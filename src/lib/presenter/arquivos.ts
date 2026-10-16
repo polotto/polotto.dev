@@ -4,6 +4,7 @@ import {
 	listarSeries
 } from '$lib/domain/casos-de-uso';
 import type { Artigo, ConteudoRepository } from '$lib/domain/models';
+import { caminhoFerramenta, FERRAMENTAS } from './ferramentas';
 import { t } from './i18n/i18n';
 import { AUTOR, SITE_URL, urlAbsoluta } from './site';
 
@@ -34,6 +35,8 @@ export function gerarSitemap(repo: ConteudoRepository): string {
 		{ caminho: '/artigos', lastmod: maisRecente },
 		{ caminho: '/projetos' },
 		{ caminho: '/sobre' },
+		{ caminho: '/ferramentas' },
+		...FERRAMENTAS.map((f) => ({ caminho: caminhoFerramenta(f.slug) })),
 		...artigos.map((a) => ({ caminho: `/artigos/${a.slug}`, lastmod: dataDoArtigo(a) })),
 		...listarSeries(repo).map((s) => ({
 			caminho: `/series/${s.slug}`,
@@ -109,7 +112,7 @@ export function gerarLlmsTxt(repo: ConteudoRepository): string {
 	const secao = (titulo: string, itens: string[]) =>
 		itens.length ? [`## ${titulo}`, '', ...itens, ''] : [];
 	// A página de índice entra sempre, mesmo sem nada publicado.
-	const indice = (caminho: string, chave: 'articles' | 'projects') =>
+	const indice = (caminho: string, chave: 'articles' | 'projects' | 'tools') =>
 		`- [${t(`${chave}.title`)}](${urlAbsoluta(caminho)}): ${t(`${chave}.description`)}`;
 	return [
 		`# ${t('site.name')}`,
@@ -132,6 +135,13 @@ export function gerarLlmsTxt(repo: ConteudoRepository): string {
 				const link = p.links.site ?? p.links.loja ?? p.links.repo ?? urlAbsoluta('/projetos');
 				return `- [${p.nome}](${link}): ${p.descricao}`;
 			})
+		]),
+		...secao(t('tools.title'), [
+			indice('/ferramentas', 'tools'),
+			...FERRAMENTAS.map(
+				(f) =>
+					`- [${t(`tools.${f.slug}.title`)}](${urlAbsoluta(caminhoFerramenta(f.slug))}): ${t(`tools.${f.slug}.description`)}`
+			)
 		]),
 		'## Optional', // i18n-ignore: nome de seção definido pelo padrão llmstxt.org
 		'',

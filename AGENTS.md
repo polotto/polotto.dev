@@ -23,13 +23,17 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
   `ConteudoRepository` e casos de uso. Não importa SvelteKit nem nada de
   infra.
 - `src/lib/infrastructure/`: implementação do repositório lendo `content/`.
+- `src/lib/domain/ferramentas/`: regras das ferramentas (CPF, JSON, paleta,
+  mascote), puras e testadas. A página em `src/routes/ferramentas/<slug>`
+  só liga a regra à tela.
 - `src/lib/presenter/`: componentes (`ui/`), i18n e helpers de SEO.
 - `src/routes/`: páginas e arquivos gerados (`llms.txt`, `llms-full.txt`,
   `sitemap.xml`, `robots.txt`, `rss.xml`, `/artigos/<slug>.md`). Tudo
   pré-renderizado. Geração em `src/lib/presenter/arquivos.ts`.
 
 ## Regras do código
-- Termos do `GLOSSARY.md` no código e na UI: artigo, série, projeto, modo.
+- Termos do `GLOSSARY.md` no código e na UI: artigo, série, projeto,
+  ferramenta, modo.
   Nunca "post".
 - Nenhuma string de UI no código: chave em `src/lib/presenter/i18n/pt-BR.json`.
   Só pt-BR por enquanto (exceção registrada no `BRIEF.md`).
@@ -40,9 +44,10 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
 - Toda página nova entra no sitemap, no `llms.txt` e tem JSON-LD.
 
 ## Fluxo de trabalho
-- Trabalho atual: `docs/work/sveltekit-rebuild/TASKS.md` e `HANDOFF.md`.
+- Trabalho atual: `docs/work/ferramentas/TASKS.md` e `HANDOFF.md`
+  (anterior: `docs/work/sveltekit-rebuild/`).
 - Rodar `verify` antes de dizer que terminou.
-- Nunca commitar sem pedido. Merge em `main` publica em produção.
+- Commit por task e PR por `tools ship` no fim (repo pessoal). Merge só comigo. Merge em `main` publica em produção.
 
 ## Armadilhas
 - **Antes de commitar, rodar `npm run sync`** (vault real). `content/` com

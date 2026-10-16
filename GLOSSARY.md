@@ -28,6 +28,11 @@ Algo que o Angelo construiu e mostra no site, com nome, descrição, status e
 links. Estudo, fork e repo de trabalho não são projeto.
 _Evitar_: repo, portfólio, app (para o item da lista)
 
+**Ferramenta**:
+Utilitário que roda no navegador, com página própria em `/ferramentas`.
+Exemplo: gerador de QR Code.
+_Evitar_: tool, utilitário, app
+
 **Linguagem de design**:
 Base visual comum a todos os projetos pessoais: escalas, espaçamento,
 componentes e regras. Iniciativa própria; o blog é o primeiro consumidor.

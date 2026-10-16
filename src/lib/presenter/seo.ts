@@ -50,6 +50,24 @@ export function jsonLdArtigo(artigo: Artigo, serie?: Serie): JsonLd {
 	};
 }
 
+/** Ferramenta da seção /ferramentas: aplicação web gratuita, no navegador. */
+export function jsonLdFerramenta(slug: string): JsonLd {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'WebApplication',
+		name: t(`tools.${slug}.title`),
+		description: t(`tools.${slug}.description`),
+		url: urlAbsoluta(`/ferramentas/${slug}`),
+		applicationCategory: 'DeveloperApplication',
+		operatingSystem: 'Any',
+		browserRequirements: 'Requires JavaScript',
+		isAccessibleForFree: true,
+		offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL' },
+		inLanguage: 'pt-BR',
+		author: pessoa()
+	};
+}
+
 export function jsonLdMigalhas(itens: { nome: string; caminho: string }[]): JsonLd {
 	return {
 		'@context': 'https://schema.org',
