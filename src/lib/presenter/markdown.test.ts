@@ -26,4 +26,9 @@ describe('renderizarMarkdown', () => {
 		expect(html).toContain('<a href="https://github.com/polotto" target="_blank" rel="noopener noreferrer">fora</a>');
 		expect(html).toContain('<a href="/sobre">dentro</a>');
 	});
+
+	it('aspas no título do link não quebram o atributo', async () => {
+		const html = await renderizarMarkdown('[x](https://a.com "diz \\"oi\\"")');
+		expect(html).toContain('title="diz &quot;oi&quot;"');
+	});
 });
