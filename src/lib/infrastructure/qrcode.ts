@@ -1,8 +1,6 @@
 import qrcode from 'qrcode-generator';
 import type { Desenho } from '$lib/domain/ferramentas/gerador-mascote';
-
-export type NivelCorrecao = 'L' | 'M' | 'Q' | 'H';
-export const NIVEIS: NivelCorrecao[] = ['L', 'M', 'Q', 'H'];
+import type { GeradorQrCode, NivelCorrecao } from '$lib/domain/ferramentas/qrcode';
 
 // A biblioteca lê cada caractere como 1 byte e estraga acento e emoji.
 // Em UTF-8 todo leitor de QR Code entende.
@@ -25,4 +23,8 @@ export function gerarQrCode(texto: string, nivel: NivelCorrecao): Desenho | unde
 		Array.from({ length: n }, (_, x) => (qr.isDark(y, x) ? '#' : '.')).join('')
 	);
 	return { largura: n, altura: n, grade, cores: { '#': '#000000' }, fundo: '#ffffff', margem: 4 };
+}
+
+export function criarGeradorQrCode(): GeradorQrCode {
+	return { gerar: gerarQrCode };
 }

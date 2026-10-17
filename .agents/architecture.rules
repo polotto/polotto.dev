@@ -1,0 +1,16 @@
+# Regra de camadas, conferida por `tools arch-check` (passo `arch:` do verify.steps)
+alias: $lib=src/lib
+
+layer domain: src/lib/domain/**
+layer infra: src/lib/infrastructure/**
+layer app: src/lib/app/**
+layer presenter: src/lib/presenter/** src/routes/**
+
+# domain não importa SvelteKit nem biblioteca de infra
+deny domain -> * pkg:svelte* pkg:@sveltejs/* pkg:$app/* pkg:$env/* pkg:qrcode-generator pkg:shiki* pkg:marked*
+# infra implementa o domain e não conhece quem monta nem quem mostra
+deny infra -> presenter app
+# rota e componente pegam a dependência montada em app, nunca a infra concreta
+deny presenter -> infra
+
+ignore: **/*.test.ts

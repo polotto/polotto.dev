@@ -1,4 +1,4 @@
-import { repositorio } from '$lib/infrastructure/repositorio';
+import { repositorio } from '$lib/app/conteudo.server';
 import { gerarRss } from '$lib/presenter/arquivos';
 
 export const prerender = true;

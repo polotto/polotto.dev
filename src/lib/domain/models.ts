@@ -52,6 +52,11 @@ export interface PerfilStackOverflow {
 	medalhas: { ouro: number; prata: number; bronze: number };
 }
 
+/** Perfil público no Stack Overflow. A infra busca na API; `undefined` se falhar. */
+export interface PerfilRepository {
+	buscarPerfil(id: number): Promise<PerfilStackOverflow | undefined>;
+}
+
 /** Fonte do conteúdo. A infra implementa; o domain só conhece a interface. */
 export interface ConteudoRepository {
 	artigos(): Artigo[];

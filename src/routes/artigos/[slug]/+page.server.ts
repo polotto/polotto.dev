@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { buscarArtigo, listarArtigos, minutosDeLeitura, posicaoNaSerie } from '$lib/domain/casos-de-uso';
-import { repositorio } from '$lib/infrastructure/repositorio';
+import { repositorio } from '$lib/app/conteudo.server';
 import { renderizarMarkdown } from '$lib/presenter/markdown';
 
 export const entries = () => listarArtigos(repositorio).map((a) => ({ slug: a.slug }));

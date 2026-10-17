@@ -23,6 +23,14 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
   `ConteudoRepository` e casos de uso. Não importa SvelteKit nem nada de
   infra.
 - `src/lib/infrastructure/`: implementação do repositório lendo `content/`.
+- `src/lib/app/`: raiz de composição, a única camada que monta infra
+  concreta. `conteudo.server.ts` só no servidor (lê `content/`; o SvelteKit
+  barra import do navegador), `ferramentas.ts`
+  vai para o navegador. Rotas e componentes importam daqui, nunca de
+  `infrastructure/`. Regra em `.agents/architecture.rules`
+  (`tools arch-check .`). Diagrama gerado dos imports em
+  `docs/diagrams/camadas.d2` e `.svg`: depois de mudar import entre
+  camadas, rodar `tools arch-check . --d2 docs/diagrams/camadas.d2`.
 - `src/lib/domain/ferramentas/`: regras das ferramentas (CPF, JSON, paleta,
   mascote), puras e testadas. A página em `src/routes/ferramentas/<slug>`
   só liga a regra à tela.
@@ -44,8 +52,8 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
 - Toda página nova entra no sitemap, no `llms.txt` e tem JSON-LD.
 
 ## Fluxo de trabalho
-- Trabalho atual: `docs/work/ferramentas/TASKS.md` e `HANDOFF.md`
-  (anterior: `docs/work/sveltekit-rebuild/`).
+- Trabalho atual: `docs/work/camadas/TASKS.md` e `HANDOFF.md`
+  (anteriores: `docs/work/ferramentas/`, `docs/work/sveltekit-rebuild/`).
 - Rodar `verify` antes de dizer que terminou.
 - Commit por task e PR por `tools ship` no fim (repo pessoal). Merge só comigo. Merge em `main` publica em produção.
 

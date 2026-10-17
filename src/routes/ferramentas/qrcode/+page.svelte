@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { desenhoParaSvg } from '$lib/domain/ferramentas/gerador-mascote';
-	import { gerarQrCode, NIVEIS, type NivelCorrecao } from '$lib/infrastructure/qrcode';
+	import { geradorQrCode } from '$lib/app/ferramentas';
+	import { NIVEIS, type NivelCorrecao } from '$lib/domain/ferramentas/qrcode';
 	import { baixarPng, baixarSvg, colar, copiarPng } from '$lib/presenter/baixar';
 	import { t } from '$lib/presenter/i18n/i18n';
 	import CabecalhoFerramenta from '$lib/presenter/ui/CabecalhoFerramenta.svelte';
@@ -35,7 +36,7 @@
 		campo.focus();
 	}
 
-	const desenho = $derived(texto ? gerarQrCode(texto, nivel) : undefined);
+	const desenho = $derived(texto ? geradorQrCode.gerar(texto, nivel) : undefined);
 	const previa = $derived(desenho && desenhoParaSvg(desenho, 256));
 </script>
 

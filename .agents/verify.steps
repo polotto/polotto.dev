@@ -4,3 +4,5 @@ test: npm test
 check: npm run check
 build: npm run build
 i18n: tools i18n-check --base pt-BR .
+arch: tools arch-check .
+diagram: tools arch-check . --d2-check docs/diagrams/camadas.d2
