@@ -1,5 +1,5 @@
 import { artigosDoProjeto, listarProjetos } from '$lib/domain/casos-de-uso';
-import { repositorio } from '$lib/infrastructure/repositorio';
+import { repositorio } from '$lib/app/conteudo';
 
 export const load = () => ({
 	projetos: listarProjetos(repositorio).map((p) => ({
