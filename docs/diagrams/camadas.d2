@@ -1,0 +1,171 @@
+# Gerado por `tools arch-check --d2` a partir dos imports. Não editar à mão.
+direction: right
+vars: { d2-config: { layout-engine: elk } }
+
+domain: "domain  (src/lib/domain)" {
+  style: { fill: "#e8effc"; stroke: "#2357c6"; border-radius: 8 }
+  "src/lib/domain/casos-de-uso.ts": "casos-de-uso.ts"
+  "src/lib/domain/models.ts": "models.ts"
+  "ferramentas": "ferramentas/" { style: { fill: "#ffffff"; stroke: "#2357c6"; stroke-dash: 2 }
+    "src/lib/domain/ferramentas/documentos.ts": "documentos.ts"
+    "src/lib/domain/ferramentas/fontes.ts": "fontes.ts"
+    "src/lib/domain/ferramentas/gerador-mascote.ts": "gerador-mascote.ts"
+    "src/lib/domain/ferramentas/json.ts": "json.ts"
+    "src/lib/domain/ferramentas/paleta.ts": "paleta.ts"
+    "src/lib/domain/ferramentas/qrcode.ts": "qrcode.ts"
+  }
+}
+
+infra: "infra  (src/lib/infrastructure)" {
+  style: { fill: "#e3f4ec"; stroke: "#1d7a55"; border-radius: 8 }
+  "src/lib/infrastructure/qrcode.ts": "qrcode.ts"
+  "src/lib/infrastructure/repositorio-markdown.ts": "repositorio-markdown.ts"
+  "src/lib/infrastructure/repositorio.ts": "repositorio.ts"
+  "src/lib/infrastructure/stackoverflow.ts": "stackoverflow.ts"
+}
+
+app: "app  (src/lib/app)" {
+  style: { fill: "#fdf1e4"; stroke: "#b4610e"; border-radius: 8 }
+  "src/lib/app/conteudo.server.ts": "conteudo.server.ts"
+  "src/lib/app/ferramentas.ts": "ferramentas.ts"
+}
+
+presenter: "presenter  (src)" {
+  style: { fill: "#f1eafb"; stroke: "#7140b8"; border-radius: 8 }
+  "lib/presenter": "lib/presenter/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/lib/presenter/arquivos.ts": "arquivos.ts"
+    "src/lib/presenter/baixar.ts": "baixar.ts"
+    "src/lib/presenter/diagramas.ts": "diagramas.ts"
+    "src/lib/presenter/ferramentas.ts": "ferramentas.ts"
+    "src/lib/presenter/links.ts": "links.ts"
+    "src/lib/presenter/markdown.ts": "markdown.ts"
+    "src/lib/presenter/resumo.ts": "resumo.ts"
+    "src/lib/presenter/seo.ts": "seo.ts"
+    "src/lib/presenter/site.ts": "site.ts"
+  }
+  "lib/presenter/i18n": "lib/presenter/i18n/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/lib/presenter/i18n/i18n.ts": "i18n.ts"
+  }
+  "lib/presenter/ui": "lib/presenter/ui/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/lib/presenter/ui/BotaoCopiar.svelte": "BotaoCopiar.svelte"
+    "src/lib/presenter/ui/Cabecalho.svelte": "Cabecalho.svelte"
+    "src/lib/presenter/ui/CabecalhoFerramenta.svelte": "CabecalhoFerramenta.svelte"
+    "src/lib/presenter/ui/CartaoArtigo.svelte": "CartaoArtigo.svelte"
+    "src/lib/presenter/ui/CartaoProjeto.svelte": "CartaoProjeto.svelte"
+    "src/lib/presenter/ui/CartaoStackOverflow.svelte": "CartaoStackOverflow.svelte"
+    "src/lib/presenter/ui/CorpoArtigo.svelte": "CorpoArtigo.svelte"
+    "src/lib/presenter/ui/Icon.svelte": "Icon.svelte"
+    "src/lib/presenter/ui/Inscricao.svelte": "Inscricao.svelte"
+    "src/lib/presenter/ui/Mascote.svelte": "Mascote.svelte"
+    "src/lib/presenter/ui/Rodape.svelte": "Rodape.svelte"
+    "src/lib/presenter/ui/Seo.svelte": "Seo.svelte"
+  }
+  "routes": "routes/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/+error.svelte": "+error.svelte"
+    "src/routes/+layout.svelte": "+layout.svelte"
+    "src/routes/+layout.ts": "+layout.ts"
+    "src/routes/+page.server.ts": "+page.server.ts"
+    "src/routes/+page.svelte": "+page.svelte"
+  }
+  "routes/artigos": "routes/artigos/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/artigos/+page.server.ts": "+page.server.ts"
+    "src/routes/artigos/+page.svelte": "+page.svelte"
+  }
+  "routes/artigos/[slug]": "routes/artigos/[slug]/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/artigos/[slug]/+page.server.ts": "+page.server.ts"
+    "src/routes/artigos/[slug]/+page.svelte": "+page.svelte"
+  }
+  "routes/artigos/[slug].md": "routes/artigos/[slug].md/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/artigos/[slug].md/+server.ts": "+server.ts"
+  }
+  "routes/ferramentas": "routes/ferramentas/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/+layout.svelte": "+layout.svelte"
+    "src/routes/ferramentas/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/cpf-cnpj": "routes/ferramentas/cpf-cnpj/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/cpf-cnpj/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/json": "routes/ferramentas/json/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/json/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/mascote": "routes/ferramentas/mascote/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/mascote/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/paleta": "routes/ferramentas/paleta/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/paleta/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/qrcode": "routes/ferramentas/qrcode/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/qrcode/+page.svelte": "+page.svelte"
+  }
+  "routes/llms-full.txt": "routes/llms-full.txt/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/llms-full.txt/+server.ts": "+server.ts"
+  }
+  "routes/llms.txt": "routes/llms.txt/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/llms.txt/+server.ts": "+server.ts"
+  }
+  "routes/projetos": "routes/projetos/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/projetos/+page.server.ts": "+page.server.ts"
+    "src/routes/projetos/+page.svelte": "+page.svelte"
+  }
+  "routes/robots.txt": "routes/robots.txt/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/robots.txt/+server.ts": "+server.ts"
+  }
+  "routes/rss.xml": "routes/rss.xml/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/rss.xml/+server.ts": "+server.ts"
+  }
+  "routes/series/[slug]": "routes/series/[slug]/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/series/[slug]/+page.server.ts": "+page.server.ts"
+    "src/routes/series/[slug]/+page.svelte": "+page.svelte"
+  }
+  "routes/sitemap.xml": "routes/sitemap.xml/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/sitemap.xml/+server.ts": "+server.ts"
+  }
+  "routes/sobre": "routes/sobre/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/sobre/+page.server.ts": "+page.server.ts"
+    "src/routes/sobre/+page.svelte": "+page.svelte"
+  }
+}
+
+app."src/lib/app/conteudo.server.ts" -> domain."src/lib/domain/models.ts"
+app."src/lib/app/conteudo.server.ts" -> infra."src/lib/infrastructure/repositorio.ts"
+app."src/lib/app/conteudo.server.ts" -> infra."src/lib/infrastructure/stackoverflow.ts"
+app."src/lib/app/ferramentas.ts" -> domain."ferramentas"."src/lib/domain/ferramentas/qrcode.ts"
+app."src/lib/app/ferramentas.ts" -> infra."src/lib/infrastructure/qrcode.ts"
+infra."src/lib/infrastructure/qrcode.ts" -> domain."ferramentas"."src/lib/domain/ferramentas/gerador-mascote.ts"
+infra."src/lib/infrastructure/qrcode.ts" -> domain."ferramentas"."src/lib/domain/ferramentas/qrcode.ts"
+infra."src/lib/infrastructure/repositorio-markdown.ts" -> domain."src/lib/domain/models.ts"
+infra."src/lib/infrastructure/repositorio.ts" -> domain."src/lib/domain/models.ts"
+infra."src/lib/infrastructure/stackoverflow.ts" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter"."src/lib/presenter/arquivos.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."lib/presenter"."src/lib/presenter/arquivos.ts" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter"."src/lib/presenter/resumo.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."lib/presenter"."src/lib/presenter/resumo.ts" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter"."src/lib/presenter/seo.ts" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoArtigo.svelte" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoProjeto.svelte" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoStackOverflow.svelte" -> domain."src/lib/domain/models.ts"
+presenter."routes"."src/routes/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes"."src/routes/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/artigos"."src/routes/artigos/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/artigos"."src/routes/artigos/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/artigos/[slug].md"."src/routes/artigos/[slug].md/+server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/artigos/[slug].md"."src/routes/artigos/[slug].md/+server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/artigos/[slug]"."src/routes/artigos/[slug]/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/artigos/[slug]"."src/routes/artigos/[slug]/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/ferramentas/cpf-cnpj"."src/routes/ferramentas/cpf-cnpj/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/documentos.ts"
+presenter."routes/ferramentas/json"."src/routes/ferramentas/json/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/json.ts"
+presenter."routes/ferramentas/mascote"."src/routes/ferramentas/mascote/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/gerador-mascote.ts"
+presenter."routes/ferramentas/paleta"."src/routes/ferramentas/paleta/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/fontes.ts"
+presenter."routes/ferramentas/paleta"."src/routes/ferramentas/paleta/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/paleta.ts"
+presenter."routes/ferramentas/qrcode"."src/routes/ferramentas/qrcode/+page.svelte" -> app."src/lib/app/ferramentas.ts"
+presenter."routes/ferramentas/qrcode"."src/routes/ferramentas/qrcode/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/gerador-mascote.ts"
+presenter."routes/ferramentas/qrcode"."src/routes/ferramentas/qrcode/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/qrcode.ts"
+presenter."routes/llms-full.txt"."src/routes/llms-full.txt/+server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/llms.txt"."src/routes/llms.txt/+server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/projetos"."src/routes/projetos/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/projetos"."src/routes/projetos/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/rss.xml"."src/routes/rss.xml/+server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/series/[slug]"."src/routes/series/[slug]/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/series/[slug]"."src/routes/series/[slug]/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/sitemap.xml"."src/routes/sitemap.xml/+server.ts" -> app."src/lib/app/conteudo.server.ts"
+presenter."routes/sobre"."src/routes/sobre/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"

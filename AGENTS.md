@@ -28,7 +28,9 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
   barra import do navegador), `ferramentas.ts`
   vai para o navegador. Rotas e componentes importam daqui, nunca de
   `infrastructure/`. Regra em `.agents/architecture.rules`
-  (`tools arch-check .`).
+  (`tools arch-check .`). Diagrama gerado dos imports em
+  `docs/diagrams/camadas.d2` e `.svg`: depois de mudar import entre
+  camadas, rodar `tools arch-check . --d2 docs/diagrams/camadas.d2`.
 - `src/lib/domain/ferramentas/`: regras das ferramentas (CPF, JSON, paleta,
   mascote), puras e testadas. A página em `src/routes/ferramentas/<slug>`
   só liga a regra à tela.

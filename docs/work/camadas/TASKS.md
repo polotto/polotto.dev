@@ -21,5 +21,8 @@ de `src/routes/` para `src/lib/infrastructure/`. Decisão do Angelo em
 - [x] I.1 `.agents/architecture.rules`, passo `arch:` no `verify.steps` e camada `app` no `AGENTS.md`
   - pronto quando: `verify` passa
 
+- [x] I.2 diagrama das camadas gerado dos imports (`docs/diagrams/camadas.d2` e `.svg`) e passo `diagram:` no `verify.steps` que acusa diagrama velho
+  - pronto quando: `verify` passa e o diagrama tem os 64 arquivos das camadas
+
 ## Fora do escopo
 - Achados da review do PR #7 (JSON perde precisão, cor de erro, fonte carregada na abertura): trabalho separado
