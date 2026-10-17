@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { buscarSerie, listarSeries } from '$lib/domain/casos-de-uso';
-import { repositorio } from '$lib/app/conteudo';
+import { repositorio } from '$lib/app/conteudo.server';
 import { renderizarMarkdown } from '$lib/presenter/markdown';
 import { resumir } from '$lib/presenter/resumo';
 

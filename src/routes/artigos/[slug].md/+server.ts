@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { buscarArtigo, listarArtigos } from '$lib/domain/casos-de-uso';
-import { repositorio } from '$lib/app/conteudo';
+import { repositorio } from '$lib/app/conteudo.server';
 import { gerarArtigoMd } from '$lib/presenter/arquivos';
 
 export const prerender = true;

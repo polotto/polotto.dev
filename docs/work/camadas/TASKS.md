@@ -10,7 +10,7 @@ de `src/routes/` para `src/lib/infrastructure/`. Decisão do Angelo em
 
 ## Trilha A: infra e composição (depende de T0.1)
 - [x] A.1 infra implementa as interfaces e para de criar instância no módulo
-- [x] A.2 `src/lib/app/`: `conteudo.ts` (só servidor) e `ferramentas.ts` (navegador) montam as dependências
+- [x] A.2 `src/lib/app/`: `conteudo.server.ts` (só servidor) e `ferramentas.ts` (navegador) montam as dependências
   - pronto quando: `npm test` passa
 
 ## Trilha B: rotas (depende de A.2)

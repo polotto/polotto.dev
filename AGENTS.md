@@ -24,7 +24,8 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
   infra.
 - `src/lib/infrastructure/`: implementação do repositório lendo `content/`.
 - `src/lib/app/`: raiz de composição, a única camada que monta infra
-  concreta. `conteudo.ts` só no servidor (lê `content/`), `ferramentas.ts`
+  concreta. `conteudo.server.ts` só no servidor (lê `content/`; o SvelteKit
+  barra import do navegador), `ferramentas.ts`
   vai para o navegador. Rotas e componentes importam daqui, nunca de
   `infrastructure/`. Regra em `.agents/architecture.rules`
   (`tools arch-check .`).

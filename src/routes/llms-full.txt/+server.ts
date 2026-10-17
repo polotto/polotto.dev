@@ -1,4 +1,4 @@
-import { repositorio } from '$lib/app/conteudo';
+import { repositorio } from '$lib/app/conteudo.server';
 import { gerarLlmsFull } from '$lib/presenter/arquivos';
 
 export const prerender = true;

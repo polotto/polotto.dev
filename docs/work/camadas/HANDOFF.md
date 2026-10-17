@@ -11,7 +11,7 @@ Rotas e páginas param de importar a infra concreta. A montagem fica em `src/lib
 
 ## Decisões tomadas
 - `src/lib/app/` é a raiz de composição, a única camada que importa infra concreta
-- `app/conteudo.ts` separado de `app/ferramentas.ts`: o primeiro lê `content/` e não pode ir para o navegador
+- `app/conteudo.server.ts` separado de `app/ferramentas.ts`: o primeiro lê `content/` e não pode ir para o navegador
 
 ## Próximos passos
 1. Review (`tools review`) e PR (`tools ship`)
