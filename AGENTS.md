@@ -49,8 +49,8 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
 - Toda página nova entra no sitemap, no `llms.txt` e tem JSON-LD.
 
 ## Fluxo de trabalho
-- Trabalho atual: `docs/work/ferramentas/TASKS.md` e `HANDOFF.md`
-  (anterior: `docs/work/sveltekit-rebuild/`).
+- Trabalho atual: `docs/work/camadas/TASKS.md` e `HANDOFF.md`
+  (anteriores: `docs/work/ferramentas/`, `docs/work/sveltekit-rebuild/`).
 - Rodar `verify` antes de dizer que terminou.
 - Commit por task e PR por `tools ship` no fim (repo pessoal). Merge só comigo. Merge em `main` publica em produção.
 

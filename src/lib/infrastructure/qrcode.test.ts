@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { gerarQrCode } from './qrcode';
+import { criarGeradorQrCode, gerarQrCode } from './qrcode';
 
 describe('QR Code', () => {
 	it('gera grade quadrada com margem', () => {
@@ -15,5 +15,9 @@ describe('QR Code', () => {
 
 	it('texto grande demais não gera', () => {
 		expect(gerarQrCode('x'.repeat(5000), 'H')).toBeUndefined();
+	});
+
+	it('o gerador da interface é o mesmo QR Code', () => {
+		expect(criarGeradorQrCode().gerar('polotto', 'M')).toEqual(gerarQrCode('polotto', 'M'));
 	});
 });
