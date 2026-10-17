@@ -1,4 +1,4 @@
-import type { PerfilStackOverflow } from '$lib/domain/models';
+import type { PerfilRepository, PerfilStackOverflow } from '$lib/domain/models';
 
 // Lido no build pela API pública do Stack Exchange (sem chave: 300 chamadas
 // por dia por IP). Se falhar, o site sai sem o cartão em vez de quebrar.
@@ -34,4 +34,8 @@ export async function buscarPerfilStackOverflow(
 		console.warn(`Stack Overflow: cartão fora do build (${(erro as Error).message})`);
 		return undefined;
 	}
+}
+
+export function criarPerfilStackOverflow(buscar: typeof fetch = fetch): PerfilRepository {
+	return { buscarPerfil: (id) => buscarPerfilStackOverflow(id, buscar) };
 }
