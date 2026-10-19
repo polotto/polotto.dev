@@ -71,9 +71,20 @@ export function nomeMidi(midi: number, bemol: boolean): string {
 	return `${nomeNota(midi, bemol)}${Math.floor(midi / 12) - 1}`;
 }
 
-export function cifra(a: Acorde, bemol: boolean): string {
-	const base = `${nomeNota(a.raiz, bemol)}${QUALIDADES[a.qualidade].sufixo}`;
-	return a.baixo === undefined || a.baixo === a.raiz ? base : `${base}/${nomeNota(a.baixo, bemol)}`;
+/**
+ * Grafia da nota na tonalidade: bII, bIII, bVI e bVII saem em bemol (Db7, Bb7),
+ * diminuto de passagem em sustenido (C#dim) e o resto segue a armadura.
+ */
+export function nomeRaiz(pc: number, t: Tonalidade, diminuto = false): string {
+	const g = mod12(pc - t.tonica);
+	if (diminuto) return nomeNota(pc, false);
+	if (g === 1 || g === 3 || g === 8 || g === 10) return nomeNota(pc, true);
+	return nomeNota(pc, usaBemol(t));
+}
+
+export function cifra(a: Acorde, t: Tonalidade): string {
+	const base = `${nomeRaiz(a.raiz, t, a.qualidade === 'dim7')}${QUALIDADES[a.qualidade].sufixo}`;
+	return a.baixo === undefined || a.baixo === a.raiz ? base : `${base}/${nomeRaiz(a.baixo, t)}`;
 }
 
 export function nomeTonalidade(t: Tonalidade): string {
@@ -98,9 +109,8 @@ export function novoAcorde(raiz: number, qualidade: Qualidade, compasso: number,
 
 /** Compassos da progressão, cada um com as cifras que cabem nele. */
 export function cifrasPorCompasso(p: Progressao): string[][] {
-	const bemol = usaBemol(p.tonalidade);
 	const compassos: string[][] = [];
-	for (const a of p.acordes) (compassos[a.compasso] ??= []).push(cifra(a, bemol));
+	for (const a of p.acordes) (compassos[a.compasso] ??= []).push(cifra(a, p.tonalidade));
 	return compassos.filter(Boolean);
 }
 

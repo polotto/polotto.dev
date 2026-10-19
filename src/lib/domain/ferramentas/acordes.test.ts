@@ -12,13 +12,15 @@ import {
 	usaBemol
 } from './acordes';
 
+const C = { tonica: 0, modo: 'maior' } as const;
+
 describe('acordes', () => {
 	it('escreve a cifra brasileira', () => {
-		expect(cifra(novoAcorde(0, 'maj7', 0), false)).toBe('C7M');
-		expect(cifra(novoAcorde(2, 'm7b5', 0), false)).toBe('Dm7(b5)');
-		expect(cifra(novoAcorde(7, 'dom7alt', 0), false)).toBe('G7(#9,b13)');
-		expect(cifra({ ...novoAcorde(0, 'maior', 0), baixo: 4 }, false)).toBe('C/E');
-		expect(cifra({ ...novoAcorde(0, 'maior', 0), baixo: 0 }, false)).toBe('C');
+		expect(cifra(novoAcorde(0, 'maj7', 0), C)).toBe('C7M');
+		expect(cifra(novoAcorde(2, 'm7b5', 0), C)).toBe('Dm7(b5)');
+		expect(cifra(novoAcorde(7, 'dom7alt', 0), C)).toBe('G7(#9,b13)');
+		expect(cifra({ ...novoAcorde(0, 'maior', 0), baixo: 4 }, C)).toBe('C/E');
+		expect(cifra({ ...novoAcorde(0, 'maior', 0), baixo: 0 }, C)).toBe('C');
 	});
 
 	it('escolhe sustenido ou bemol pela tonalidade', () => {
@@ -27,8 +29,12 @@ describe('acordes', () => {
 		expect(usaBemol({ tonica: 2, modo: 'menor' })).toBe(true); // Dm (relativa F)
 		expect(usaBemol({ tonica: 9, modo: 'menor' })).toBe(false); // Am
 		expect(nomeTonalidade({ tonica: 10, modo: 'menor' })).toBe('Bbm'); // relativa Db
-		expect(cifra(novoAcorde(10, 'dom7', 0), true)).toBe('Bb7');
-		expect(cifra(novoAcorde(10, 'dom7', 0), false)).toBe('A#7');
+		expect(cifra(novoAcorde(10, 'dom7', 0), { tonica: 5, modo: 'maior' })).toBe('Bb7');
+		// bII, bIII, bVI e bVII em bemol mesmo em tonalidade de sustenido; diminuto em sustenido.
+		expect(cifra(novoAcorde(1, 'dom7', 0), C)).toBe('Db7');
+		expect(cifra(novoAcorde(10, 'dom7', 0), C)).toBe('Bb7');
+		expect(cifra(novoAcorde(1, 'dim7', 0), C)).toBe('C#dim');
+		expect(cifra(novoAcorde(6, 'min7', 0), C)).toBe('F#m7');
 	});
 
 	it('nomeia nota MIDI com oitava', () => {
