@@ -1,0 +1,111 @@
+import { describe, expect, it } from 'vitest';
+import { cifraEmTexto, criarAleatorio, sortearProgressao, type Progressao } from './acordes';
+import { reharmonizar, TECNICAS, type TecnicaId } from './reharmonizacao';
+
+const sempre = () => 0;
+
+/** C maior com o molde pedido (o sorteio com `() => 0` pega o primeiro molde do modo e tamanho). */
+const em = (molde: 'I-vi-ii-V' | 'I-IV-V-I'): Progressao => {
+	const base = sortearProgressao(sempre, { tonica: 0, modo: 'maior', compassos: 4 });
+	if (molde === 'I-vi-ii-V') return base;
+	const outro = sortearProgressao(criarAleatorio(1), { tonica: 0, modo: 'maior', compassos: 4 });
+	// Procura a semente que dá I-IV-V-I.
+	for (let s = 0; s < 500; s++) {
+		const p = sortearProgressao(criarAleatorio(s), { tonica: 0, modo: 'maior', compassos: 4 });
+		if (cifraEmTexto(p) === '| C | F | G7 | C |') return p;
+	}
+	return outro;
+};
+
+const texto = (p: Progressao, tecnicas: TecnicaId[]) => cifraEmTexto(reharmonizar(p, tecnicas, sempre).progressao);
+
+describe('reharmonização', () => {
+	const base = em('I-vi-ii-V');
+	const iviv = em('I-IV-V-I');
+
+	it('parte das progressões esperadas', () => {
+		expect(cifraEmTexto(base)).toBe('| C | Am | Dm | G7 |');
+		expect(cifraEmTexto(iviv)).toBe('| C | F | G7 | C |');
+	});
+
+	it('extensões: sétimas, nonas e décimas terceiras', () => {
+		expect(texto(base, ['extensoes'])).toBe('| C7M(9) | Am9 | Dm9 | G13 |');
+	});
+
+	it('ii-V de aproximação divide o compasso anterior', () => {
+		expect(texto(base, ['ii-v'])).toBe('| C Bm7(b5) E7 | Am Em7(b5) A7 | Dm | G7 |');
+	});
+
+	it('dominante secundário antes do acorde de destino', () => {
+		expect(texto(base, ['dominantes-secundarios'])).toBe('| C E7 | Am | Dm | G7 |');
+	});
+
+	it('substituição de trítono', () => {
+		expect(texto(base, ['substituicao-tritono'])).toBe('| C | Am | Dm | Db7 |');
+	});
+
+	it('backdoor troca V7 por iv7 e bVII7 antes da tônica', () => {
+		expect(texto(iviv, ['backdoor'])).toBe('| C | F | Fm7 Bb7 | C |');
+	});
+
+	it('diminuto de passagem entre acordes a um tom', () => {
+		expect(texto(iviv, ['diminuto-passagem'])).toBe('| C | F F#dim | G7 | C |');
+	});
+
+	it('empréstimo modal: IV vira iv com sexta', () => {
+		expect(texto(iviv, ['emprestimo-modal'])).toContain('Fm6');
+	});
+
+	it('dominante alterado usa 7(b9) para acorde menor e 7(#9,b13) para os demais', () => {
+		expect(texto(iviv, ['dominante-alterado'])).toBe('| C | F | G7(#9,b13) | C |');
+		const menor = sortearProgressao(sempre, { tonica: 9, modo: 'menor', compassos: 4 });
+		expect(cifraEmTexto(menor)).toBe('| Am | Dm | E7 | Am |');
+		expect(texto(menor, ['dominante-alterado'])).toBe('| Am | Dm | E7(b9) | Am |');
+	});
+
+	it('baixo descendente usa inversões que andam por grau conjunto', () => {
+		expect(texto(base, ['baixo-descendente'])).toBe('| C | Am | Dm/F | G7 |');
+	});
+
+	it('pedal põe a tônica no baixo dos outros acordes', () => {
+		expect(texto(base, ['pedal'])).toBe('| C | Am/C | Dm/C | G7/C |');
+	});
+
+	it('com baixo descendente e pedal juntos, vale o descendente', () => {
+		expect(texto(base, ['pedal', 'baixo-descendente'])).toBe(texto(base, ['baixo-descendente']));
+	});
+
+	it('não mexe na progressão original e conta o que fez', () => {
+		const antes = cifraEmTexto(base);
+		const r = reharmonizar(base, ['extensoes', 'substituicao-tritono'], sempre);
+		expect(cifraEmTexto(base)).toBe(antes);
+		expect(r.usos.some((u) => u.tecnica === 'substituicao-tritono' && u.antes === 'G7' && u.depois === 'Db7')).toBe(true);
+		expect(r.progressao.acordes[3].tecnicas).toEqual(['substituicao-tritono', 'extensoes']);
+	});
+
+	it('a ordem pedida não muda o resultado', () => {
+		const a = reharmonizar(base, ['extensoes', 'ii-v', 'pedal'], criarAleatorio(5));
+		const b = reharmonizar(base, ['pedal', 'ii-v', 'extensoes'], criarAleatorio(5));
+		expect(cifraEmTexto(a.progressao)).toBe(cifraEmTexto(b.progressao));
+	});
+
+	it('sem técnica, devolve a mesma progressão', () => {
+		expect(texto(base, [])).toBe(cifraEmTexto(base));
+	});
+
+	it('com qualquer combinação, cada compasso continua com 4 tempos', () => {
+		for (let semente = 0; semente < 120; semente++) {
+			const a = criarAleatorio(semente);
+			const p = sortearProgressao(a);
+			const tecnicas = TECNICAS.filter(() => a() < 0.6);
+			const { progressao } = reharmonizar(p, tecnicas, a);
+			const porCompasso = new Map<number, number>();
+			for (const x of progressao.acordes) {
+				expect(x.tempos).toBeGreaterThan(0);
+				porCompasso.set(x.compasso, (porCompasso.get(x.compasso) ?? 0) + x.tempos);
+			}
+			expect(porCompasso.size).toBe(p.acordes.length);
+			for (const total of porCompasso.values()) expect(total).toBe(4);
+		}
+	});
+});

@@ -48,7 +48,7 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
 ## Trilha G: acordes (depende de 0.2)
 - [x] G.1 domínio: acordes, tonalidade, cifra brasileira (7M, m7(b5)) e sorteio
   de progressão em modo maior e menor, com semente; testes
-- [ ] G.2 domínio: reharmonização com 10 técnicas (extensões, ii-V,
+- [x] G.2 domínio: reharmonização com 10 técnicas (extensões, ii-V,
   dominantes secundários, trítono, empréstimo modal, diminuto de passagem,
   baixo descendente, pedal, backdoor, dominante alterado); testes
 - [ ] G.3 domínio: voicings com condução de vozes e linha melódica sobre a
