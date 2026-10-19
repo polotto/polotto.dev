@@ -110,8 +110,13 @@
 		const seg = 60 / bpm;
 		const duracao = totalTempos * seg;
 		const agora = piano.agora();
-		if (repetir && !proximoAgendado && agora > inicioCiclo + duracao - 0.6) {
-			agendar(inicioCiclo + duracao);
+		const fim = inicioCiclo + duracao;
+		if (repetir && !proximoAgendado && agora >= fim) {
+			// A aba ficou em segundo plano e o ciclo seguinte não foi agendado a tempo: recomeça agora.
+			inicioCiclo = agora + 0.05;
+			agendar(inicioCiclo);
+		} else if (repetir && !proximoAgendado && agora > fim - 0.6) {
+			agendar(fim);
 			proximoAgendado = true;
 		}
 		if (agora >= inicioCiclo + duracao) {
@@ -237,7 +242,7 @@
 				<select bind:value={tonica}>
 					<option value="qualquer">{t('tools.acordes.qualquer')}</option>
 					{#each NOTAS as n (n)}
-						<option value={n}>{nomeNota(n, [1, 3, 5, 8, 10].includes(n))}</option>
+						<option value={n}>{nomeNota(n, usaBemol({ tonica: n, modo: 'maior' }))}</option>
 					{/each}
 				</select>
 			</label>
@@ -485,7 +490,7 @@
 	.compassos {
 		display: grid;
 		gap: var(--space-2);
-		grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(var(--compasso-min), 1fr));
 		list-style: none;
 		padding: 0;
 		margin: 0 0 var(--space-4);
@@ -566,7 +571,7 @@
 		display: inline-block;
 		width: var(--space-3);
 		height: var(--space-3);
-		border: 1px solid var(--color-border);
+		border: var(--border-width) solid var(--color-border);
 	}
 
 	.amostra.acorde-cor {

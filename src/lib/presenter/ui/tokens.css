@@ -84,6 +84,7 @@
 	--piano-melodia: var(--snes-red);
 	--piano-altura: 128px;
 	--piano-largura-min: 560px;
+	--compasso-min: 11rem;
 
 	/* modo escuro é o padrão do tema */
 	--color-bg: #15121f;

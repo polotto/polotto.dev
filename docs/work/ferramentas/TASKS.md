@@ -58,7 +58,9 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
 - [x] G.4 piano virtual (teclado clicável) e sintetizador no navegador
 - [x] G.5 página `/ferramentas/acordes`, catálogo, i18n, ícone, tokens,
   `BRIEF.md` e referências das músicas
-- [x] G.6 `verify` e conferência visual (modo claro, escuro, celular)
+- [x] G.6 `verify` e conferência visual da página de acordes (modo claro,
+  escuro, 390 px sem rolagem horizontal, tocar e parar). O F.1 segue valendo
+  para as outras cinco ferramentas.
 
 ## Trilha F: fechamento
 - [~] F.1 `verify` verde e conferência visual nos dois modos e no celular
