@@ -485,7 +485,7 @@
 	.compassos {
 		display: grid;
 		gap: var(--space-2);
-		grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
 		list-style: none;
 		padding: 0;
 		margin: 0 0 var(--space-4);

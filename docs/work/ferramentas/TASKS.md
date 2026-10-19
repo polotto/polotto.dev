@@ -48,16 +48,17 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
 ## Trilha G: acordes (depende de 0.2)
 - [x] G.1 domínio: acordes, tonalidade, cifra brasileira (7M, m7(b5)) e sorteio
   de progressão em modo maior e menor, com semente; testes
-- [x] G.2 domínio: reharmonização com 10 técnicas (extensões, ii-V,
+- [x] G.2 domínio: reharmonização com 11 técnicas (extensões, ii-V,
   dominantes secundários, trítono, empréstimo modal, diminuto de passagem,
-  baixo descendente, pedal, backdoor, dominante alterado); testes
+  baixo descendente, pedal, backdoor, dominante alterado, dominante
+  suspenso); testes
 - [x] G.3 domínio: voicings com condução de vozes e linha melódica sobre a
   harmonia (notas do acorde nos tempos fortes, escala do acorde nos fracos);
   testes
-- [ ] G.4 piano virtual (teclado clicável) e sintetizador no navegador
-- [ ] G.5 página `/ferramentas/acordes`, catálogo, i18n, ícone, tokens,
+- [x] G.4 piano virtual (teclado clicável) e sintetizador no navegador
+- [x] G.5 página `/ferramentas/acordes`, catálogo, i18n, ícone, tokens,
   `BRIEF.md` e referências das músicas
-- [ ] G.6 `verify` e conferência visual (modo claro, escuro, celular)
+- [x] G.6 `verify` e conferência visual (modo claro, escuro, celular)
 
 ## Trilha F: fechamento
 - [~] F.1 `verify` verde e conferência visual nos dois modos e no celular
