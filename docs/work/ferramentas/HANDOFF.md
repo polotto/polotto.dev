@@ -9,7 +9,7 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
 
 ## Estado atual
 - branch `ferramentas`, um commit por task
-- 5 ferramentas prontas, no menu, no sitemap e no `llms.txt`
+- 6 ferramentas prontas, no menu, no sitemap e no `llms.txt`
 - falta só a conferência manual do F.1 (modo claro e downloads)
 
 ## Decisões tomadas
@@ -34,6 +34,6 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
 ## Acordes (trilha G)
 - Slug `acordes`. Domínio em `src/lib/domain/ferramentas/` (`acordes`,
   `reharmonizacao`, `melodia`, `voicing`). Áudio em Web Audio, sem amostra.
-- Cifras lidas pelo Codex no Cifra Club (a leitura direta dá 403);
+- Cifras lidas no Cifra Club (a leitura direta dá 403);
   referências por música e pontos incertos em `ACORDES-REFERENCIAS.md`.
 - Falta: baixo cromático, empréstimo de bIII e bII, exportar MIDI.

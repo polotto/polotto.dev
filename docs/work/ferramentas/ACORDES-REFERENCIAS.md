@@ -1,8 +1,8 @@
 # Referências do gerador de acordes
 
 De onde vêm as técnicas de `src/lib/domain/ferramentas/reharmonizacao.ts`.
-Cifras lidas no Cifra Club pelo Codex em 19/10/2026 (a leitura direta é
-bloqueada com 403). Versões de usuário: a divisão em compassos e alguns
+Cifras lidas no Cifra Club em 19/10/2026 (a leitura direta é bloqueada com
+403). Versões de usuário: a divisão em compassos e alguns
 acordes podem divergir do arranjo gravado. A análise funcional é nossa.
 Só trechos curtos de progressão, sem letra.
 

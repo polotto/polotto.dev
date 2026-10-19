@@ -38,7 +38,7 @@
 				style:left="{posicao(n)}%"
 				style:width="{largura}%"
 				aria-label={nomeMidi(n, false)}
-				onpointerdown={() => onTocar?.(n)}
+				onclick={() => onTocar?.(n)}
 			>
 				{#if n % 12 === 0}<span class="oitava">{nomeMidi(n, false)}</span>{/if}
 			</button>
@@ -53,7 +53,7 @@
 				style:left="{posicao(n)}%"
 				style:width="{largura * 0.6}%"
 				aria-label={nomeMidi(n, false)}
-				onpointerdown={() => onTocar?.(n)}
+				onclick={() => onTocar?.(n)}
 			></button>
 		{/each}
 	</div>
@@ -88,7 +88,7 @@
 	.piano .branca {
 		height: 100%;
 		background: var(--piano-tecla-branca);
-		border-right: 1px solid var(--color-border);
+		border-right: var(--border-width) solid var(--color-border);
 		color: var(--piano-tecla-preta);
 		display: flex;
 		align-items: flex-end;
@@ -99,7 +99,7 @@
 		z-index: 1;
 		height: 62%;
 		background: var(--piano-tecla-preta);
-		border: 1px solid var(--color-border);
+		border: var(--border-width) solid var(--color-border);
 	}
 
 	.piano .oitava {
