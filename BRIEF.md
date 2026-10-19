@@ -86,6 +86,11 @@ Ferramentas (decidido em 16/10/2026)
   (com o CNPJ alfanumérico), formatador e validador de JSON, paleta de
   cores harmônicas e mascote a partir de um texto (estilo identicon do
   GitHub e personagem 16-bit, no tema do blog).
+- Gerador de acordes (19/10/2026): sorteia uma sequência, reharmoniza com
+  técnicas da MPB e da bossa nova (referências em
+  `docs/work/ferramentas/ACORDES-REFERENCIAS.md`), sugere uma linha melódica
+  e toca tudo num piano virtual sintetizado no navegador (Web Audio, sem
+  amostra). Cifra brasileira (7M, m7(b5)).
 
 Artigo agendado (decidido em 15/10/2026)
 - `publicado` com data futura agenda o artigo. Ele fica fora do build até o

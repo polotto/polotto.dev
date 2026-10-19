@@ -34,5 +34,6 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
 ## Acordes (trilha G)
 - Slug `acordes`. Domínio em `src/lib/domain/ferramentas/` (`acordes`,
   `reharmonizacao`, `melodia`, `voicing`). Áudio em Web Audio, sem amostra.
-- Sem fonte de cifra confiável online (Cifra Club bloqueia leitura): as
-  técnicas vêm da teoria; referências por música em `ACORDES-REFERENCIAS.md`.
+- Cifras lidas pelo Codex no Cifra Club (a leitura direta dá 403);
+  referências por música e pontos incertos em `ACORDES-REFERENCIAS.md`.
+- Falta: baixo cromático, empréstimo de bIII e bII, exportar MIDI.

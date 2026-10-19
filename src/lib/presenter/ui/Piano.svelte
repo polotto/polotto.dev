@@ -74,7 +74,7 @@
 		touch-action: manipulation;
 	}
 
-	.tecla {
+	.piano .tecla {
 		position: absolute;
 		top: 0;
 		margin: 0;
@@ -85,7 +85,7 @@
 		transition: background var(--duration);
 	}
 
-	.branca {
+	.piano .branca {
 		height: 100%;
 		background: var(--piano-tecla-branca);
 		border-right: 1px solid var(--color-border);
@@ -95,33 +95,33 @@
 		justify-content: center;
 	}
 
-	.preta {
+	.piano .preta {
 		z-index: 1;
 		height: 62%;
 		background: var(--piano-tecla-preta);
 		border: 1px solid var(--color-border);
 	}
 
-	.oitava {
+	.piano .oitava {
 		font-family: var(--font-mono);
 		font-size: var(--text-xs);
 		padding-bottom: var(--space-1);
 		pointer-events: none;
 	}
 
-	.tecla.acorde {
+	.piano .tecla.acorde {
 		background: var(--piano-acorde);
 	}
 
-	.tecla.melodia {
+	.piano .tecla.melodia {
 		background: var(--piano-melodia);
 	}
 
-	.tecla.acorde.melodia {
+	.piano .tecla.acorde.melodia {
 		background: linear-gradient(90deg, var(--piano-acorde) 50%, var(--piano-melodia) 50%);
 	}
 
-	.tecla:focus-visible {
+	.piano .tecla:focus-visible {
 		outline: var(--focus-width) solid var(--color-accent);
 		outline-offset: -2px;
 	}
