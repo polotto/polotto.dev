@@ -42,6 +42,7 @@ export function escalaDoAcorde(a: Acorde, t: Tonalidade): number[] {
 		case 'dom7':
 		case 'dom9':
 		case 'dom13':
+		case 'dom7sus4':
 			return MIXOLIDIO;
 		case 'dom7s11':
 			return [0, 2, 4, 6, 7, 9, 10];
