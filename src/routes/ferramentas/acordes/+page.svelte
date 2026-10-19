@@ -199,7 +199,9 @@
 	});
 
 	onDestroy(() => {
-		if (typeof window !== 'undefined') parar();
+		if (typeof window === 'undefined') return;
+		cancelAnimationFrame(quadro);
+		piano.fechar();
 	});
 
 	// Ações ---------------------------------------------------------------------

@@ -57,6 +57,14 @@ export class PianoSintetico {
 		}
 	}
 
+	/** Libera o contexto de áudio (ao sair da página). */
+	fechar() {
+		this.parar();
+		void this.contexto?.close();
+		this.contexto = undefined;
+		this.saida = undefined;
+	}
+
 	/** Corta o que está tocando e o que foi agendado. */
 	parar() {
 		if (!this.contexto || !this.saida) return;
