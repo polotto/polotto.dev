@@ -23,7 +23,8 @@ export const QUALIDADES = {
 	dom13: { intervalos: [0, 4, 7, 10, 14, 21], sufixo: '13' },
 	dom7b9: { intervalos: [0, 4, 7, 10, 13], sufixo: '7(b9)' },
 	dom7s11: { intervalos: [0, 4, 7, 10, 18], sufixo: '7(#11)' },
-	dom7alt: { intervalos: [0, 4, 10, 15, 20], sufixo: '7(#9,b13)' }
+	dom7alt: { intervalos: [0, 4, 10, 15, 20], sufixo: '7(#9,b13)' },
+	dom7sus4: { intervalos: [0, 5, 7, 10], sufixo: '7(sus4)' }
 } as const;
 
 export type Qualidade = keyof typeof QUALIDADES;

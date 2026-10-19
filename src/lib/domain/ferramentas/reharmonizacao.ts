@@ -25,6 +25,7 @@ export const TECNICAS = [
 	'diminuto-passagem',
 	'backdoor',
 	'dominante-alterado',
+	'suspensao',
 	'baixo-descendente',
 	'pedal'
 ] as const;
@@ -119,17 +120,22 @@ const dominantesSecundarios: Aplicar = (acordes, c) => {
 	return saida;
 };
 
-/** Entre dois acordes separados por um tom, um diminuto no semitom acima do primeiro. */
+/**
+ * Diminuto no semitom abaixo do acorde seguinte, quando ele está a um tom ou a
+ * uma terça maior do atual: C, C#dim, Dm ou E7M, G°, G#m7.
+ */
 const diminutoPassagem: Aplicar = (acordes, c) => {
 	const alvo = acordes.flatMap((x, i) => {
 		const prox = acordes[i + 1];
-		return prox && x.tempos >= 2 && !x.qualidade.startsWith('dim') && mod12(prox.raiz - x.raiz) === 2 ? [i] : [];
+		if (!prox || x.tempos < 2 || x.qualidade.startsWith('dim')) return [];
+		const d = mod12(prox.raiz - x.raiz);
+		return d === 2 || d === 4 ? [i] : [];
 	});
 	const sorteados = escolher(alvo, 0.8, c.a);
 	return acordes.flatMap((x, i) => {
 		if (!sorteados.has(i)) return [x];
 		const antes = cifra(x, c.t);
-		const dim = criar(x.raiz + 1, 'dim7', x.compasso, 1, 'diminuto-passagem');
+		const dim = criar(acordes[i + 1].raiz - 1, 'dim7', x.compasso, 1, 'diminuto-passagem');
 		const curto = { ...x, tempos: x.tempos - 1 };
 		c.registrar('diminuto-passagem', x.compasso, antes, `${antes} ${cifra(dim, c.t)}`);
 		return [curto, dim];
@@ -212,6 +218,21 @@ const extensoes: Aplicar = (acordes, c) =>
 		return novo;
 	});
 
+/** O dominante de um compasso inteiro começa suspenso (7(sus4)) e resolve na segunda metade. */
+const suspensao: Aplicar = (acordes, c) => {
+	const alvo = acordes.flatMap((x, i) =>
+		ehDominante(x.qualidade) && x.qualidade !== 'dom7sus4' && x.tempos === 4 && !tem(x, 'substituicao-tritono') ? [i] : []
+	);
+	const sorteados = escolher(alvo, 0.6, c.a);
+	return acordes.flatMap((x, i) => {
+		if (!sorteados.has(i)) return [x];
+		const sus = { ...marcar({ ...x, qualidade: 'dom7sus4' as const }, 'suspensao'), tempos: 2 };
+		const resolvido = { ...x, tempos: 2 };
+		c.registrar('suspensao', x.compasso, cifra(x, c.t), `${cifra(sus, c.t)} ${cifra(x, c.t)}`);
+		return [sus, resolvido];
+	});
+};
+
 /** Escolhe a inversão de cada acorde que faz o baixo caminhar por grau conjunto, para baixo. */
 const baixoDescendente: Aplicar = (acordes, c) => {
 	let anterior = acordes[0]?.baixo ?? acordes[0]?.raiz ?? 0;
@@ -250,6 +271,7 @@ const APLICAR: Record<TecnicaId, Aplicar> = {
 	'substituicao-tritono': substituicaoTritono,
 	'dominante-alterado': dominanteAlterado,
 	extensoes,
+	suspensao,
 	'baixo-descendente': baixoDescendente,
 	pedal
 };
@@ -264,6 +286,7 @@ const ORDEM: readonly TecnicaId[] = [
 	'substituicao-tritono',
 	'dominante-alterado',
 	'extensoes',
+	'suspensao',
 	'baixo-descendente',
 	'pedal'
 ];

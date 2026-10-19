@@ -10,7 +10,8 @@ export const FERRAMENTAS: readonly Ferramenta[] = [
 	{ slug: 'cpf-cnpj', icone: 'documento' },
 	{ slug: 'json', icone: 'chaves' },
 	{ slug: 'paleta', icone: 'paleta' },
-	{ slug: 'mascote', icone: 'rosto' }
+	{ slug: 'mascote', icone: 'rosto' },
+	{ slug: 'acordes', icone: 'piano' }
 ];
 
 export const caminhoFerramenta = (slug: string) => `/ferramentas/${slug}`;

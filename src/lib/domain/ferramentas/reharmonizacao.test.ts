@@ -1,27 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { cifraEmTexto, criarAleatorio, sortearProgressao, type Progressao } from './acordes';
+import { cifraEmTexto, criarAleatorio, novoAcorde, sortearProgressao, type Progressao } from './acordes';
 import { reharmonizar, TECNICAS, type TecnicaId } from './reharmonizacao';
 
 const sempre = () => 0;
 
-/** C maior com o molde pedido (o sorteio com `() => 0` pega o primeiro molde do modo e tamanho). */
-const em = (molde: 'I-vi-ii-V' | 'I-IV-V-I'): Progressao => {
-	const base = sortearProgressao(sempre, { tonica: 0, modo: 'maior', compassos: 4 });
-	if (molde === 'I-vi-ii-V') return base;
-	const outro = sortearProgressao(criarAleatorio(1), { tonica: 0, modo: 'maior', compassos: 4 });
-	// Procura a semente que dá I-IV-V-I.
-	for (let s = 0; s < 500; s++) {
-		const p = sortearProgressao(criarAleatorio(s), { tonica: 0, modo: 'maior', compassos: 4 });
-		if (cifraEmTexto(p) === '| C | F | G7 | C |') return p;
+/** Procura a semente que sorteia a progressão em C maior com a cifra pedida. */
+const emC = (cifras: string): Progressao => {
+	for (let semente = 0; semente < 500; semente++) {
+		const p = sortearProgressao(criarAleatorio(semente), { tonica: 0, modo: 'maior', compassos: 4 });
+		if (cifraEmTexto(p) === cifras) return p;
 	}
-	return outro;
+	throw new Error(`nenhum sorteio deu ${cifras}`);
 };
 
 const texto = (p: Progressao, tecnicas: TecnicaId[]) => cifraEmTexto(reharmonizar(p, tecnicas, sempre).progressao);
 
 describe('reharmonização', () => {
-	const base = em('I-vi-ii-V');
-	const iviv = em('I-IV-V-I');
+	const base = emC('| C | Am | Dm | G7 |');
+	const iviv = emC('| C | F | G7 | C |');
 
 	it('parte das progressões esperadas', () => {
 		expect(cifraEmTexto(base)).toBe('| C | Am | Dm | G7 |');
@@ -50,6 +46,18 @@ describe('reharmonização', () => {
 
 	it('diminuto de passagem entre acordes a um tom', () => {
 		expect(texto(iviv, ['diminuto-passagem'])).toBe('| C | F F#dim | G7 | C |');
+	});
+
+	it('diminuto também aproxima de um acorde a uma terça maior', () => {
+		const samurai: Progressao = {
+			tonalidade: { tonica: 4, modo: 'maior' },
+			acordes: [novoAcorde(4, 'maj7', 0), novoAcorde(8, 'min7', 1)]
+		};
+		expect(cifraEmTexto(reharmonizar(samurai, ['diminuto-passagem'], sempre).progressao)).toBe('| E7M Gdim | G#m7 |');
+	});
+
+	it('suspensão divide o dominante em 7(sus4) e 7', () => {
+		expect(texto(base, ['suspensao'])).toBe('| C | Am | Dm | G7(sus4) G7 |');
 	});
 
 	it('empréstimo modal: IV vira iv com sexta', () => {
