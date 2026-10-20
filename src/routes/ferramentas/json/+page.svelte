@@ -31,7 +31,9 @@
 		{#if validacao?.ok}
 			<span class="ok">{t('tools.json.valid')}</span>
 		{:else if validacao}
-			<span class="erro">{t('tools.json.error', { line: validacao.linha, column: validacao.coluna })}</span>
+			<span class="erro">
+				{'aninhado' in validacao ? t('tools.json.nested') : t('tools.json.error', { line: validacao.linha, column: validacao.coluna })}
+			</span>
 		{/if}
 	</p>
 	<div class="campos">
