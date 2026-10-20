@@ -59,13 +59,19 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
 - [x] G.5 página `/ferramentas/acordes`, catálogo, i18n, ícone, tokens,
   `BRIEF.md` e referências das músicas
 - [x] G.6 `verify` e conferência visual da página de acordes (modo claro,
-  escuro, 390 px sem rolagem horizontal, tocar e parar). O F.1 segue valendo
-  para as outras cinco ferramentas.
+  escuro, 390 px sem rolagem horizontal, tocar e parar, Pedal e Baixo
+  descendente). Detalhes no F.1.
 
 ## Trilha F: fechamento
-- [~] F.1 `verify` verde e conferência visual nos dois modos e no celular
-  - feito: `verify`, telas no modo escuro, sem estouro horizontal em 390px
-  - falta: olhar o modo claro e baixar PNG e SVG de verdade
+- [x] F.1 `verify` verde e conferência visual nos dois modos e no celular
+  - feito (19/10/2026): `verify`; telas de QR Code, CPF e CNPJ, JSON, paleta,
+    mascote e acordes no modo claro e no escuro; sem estouro horizontal em
+    390 px (medido num iframe de 390 px); PNG gerado de verdade a partir do
+    SVG do QR Code (8 KB) e do mascote (5 KB) e SVG gerado; JSON preserva
+    `1.0`, `12345678901234567890` e `1e2` na página; acordes com Pedal, Baixo
+    descendente e 8 cliques em Surpreenda-me, sem erro no console
+  - o clique que baixa o arquivo não foi acionado (pede permissão); a geração
+    do PNG usa o mesmo caminho do botão
 
 ## Fora do escopo
 - Histórico, favoritos ou qualquer dado salvo no servidor.
