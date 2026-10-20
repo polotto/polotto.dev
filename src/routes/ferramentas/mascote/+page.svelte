@@ -21,8 +21,10 @@
 	const previa = $derived(desenhoParaSvg(desenho, 240));
 	const nome = $derived(`mascote-${(texto || 'vazio').replace(/[^\w-]+/g, '-').slice(0, 40)}`);
 
-	function baixarImagem() {
-		baixarPng(`${nome}.png`, desenhoParaSvg(desenho, LARGURA), LARGURA, alturaPara(desenho, LARGURA));
+	let baixou = $state(true);
+
+	async function baixarImagem() {
+		baixou = await baixarPng(`${nome}.png`, desenhoParaSvg(desenho, LARGURA), LARGURA, alturaPara(desenho, LARGURA));
 	}
 </script>
 
@@ -56,6 +58,7 @@
 				{t('tools.downloadSvg')}
 			</button>
 		</div>
+		{#if !baixou}<p class="erro">{t('tools.downloadFailed')}</p>{/if}
 	</section>
 </div>
 

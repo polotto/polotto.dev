@@ -244,7 +244,7 @@
 				<select bind:value={tonica}>
 					<option value="qualquer">{t('tools.acordes.qualquer')}</option>
 					{#each NOTAS as n (n)}
-						<option value={n}>{nomeNota(n, usaBemol({ tonica: n, modo: 'maior' }))}</option>
+						<option value={n}>{nomeNota(n, usaBemol({ tonica: n, modo: modo === 'menor' ? 'menor' : 'maior' }))}</option>
 					{/each}
 				</select>
 			</label>
