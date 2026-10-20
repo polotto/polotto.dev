@@ -70,9 +70,11 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
     SVG do QR Code (8 KB) e do mascote (5 KB) e SVG gerado; JSON preserva
     `1.0`, `12345678901234567890` e `1e2` na página; acordes com Pedal, Baixo
     descendente e 8 cliques em Surpreenda-me, sem erro no console
-  - o clique que baixa o arquivo não foi acionado (baixar arquivo pede
-    permissão); a geração do PNG usa o mesmo caminho do botão. Esse único
-    ponto fica para a conferência do Angelo antes do merge
+  - download real (20/10/2026): clique em Baixar PNG no mascote gerou
+    `mascote-polotto.png`, PNG válido de 420x570 (conferido com `file`). O
+    Chrome bloqueou os demais downloads automáticos da sessão (SVG do mascote
+    e PNG e SVG do QR Code); o SVG usa a mesma função `baixar` do PNG e o PNG
+    do QR Code foi gerado a partir do SVG no navegador (8 KB)
 
 ## Fora do escopo
 - Histórico, favoritos ou qualquer dado salvo no servidor.
