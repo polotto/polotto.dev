@@ -33,6 +33,8 @@ describe('acordes', () => {
 		// bII, bIII, bVI e bVII em bemol mesmo em tonalidade de sustenido; diminuto em sustenido.
 		expect(cifra(novoAcorde(1, 'dom7', 0), C)).toBe('Db7');
 		expect(cifra(novoAcorde(10, 'dom7', 0), C)).toBe('Bb7');
+		expect(cifra(novoAcorde(6, 'dom7', 0), C)).toBe('Gb7'); // trítono de C7
+		expect(cifra(novoAcorde(6, 'min7', 0), C)).toBe('F#m7');
 		expect(cifra(novoAcorde(1, 'dim7', 0), C)).toBe('C#dim');
 		expect(cifra(novoAcorde(6, 'min7', 0), C)).toBe('F#m7');
 	});

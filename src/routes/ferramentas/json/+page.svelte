@@ -17,7 +17,7 @@
 
 	function aplicar(modo: 'formatar' | 'minificar') {
 		const r = processarJson(entrada, { modo, indentacao, ordenarChaves });
-		aninhado = !r.ok && 'aninhado' in r;
+		aninhado = (!r.ok && 'aninhado' in r) || (r.ok && !!r.aproximado);
 		if (r.ok) saida = r.texto;
 	}
 </script>

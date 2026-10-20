@@ -3,7 +3,8 @@
 export type Indentacao = 2 | 4 | 'tab';
 
 export type ResultadoJson =
-	| { ok: true; texto: string }
+	/** `aproximado`: o texto passou por JSON.parse e perdeu o literal de números. */
+	| { ok: true; texto: string; aproximado?: true }
 	| { ok: false; mensagem: string; linha: number; coluna: number }
 	/** JSON válido, mas fundo demais para a leitura recursiva do navegador. */
 	| { ok: false; aninhado: true; mensagem: string; linha: number; coluna: number };
@@ -205,7 +206,7 @@ export function processarJson(texto: string, { modo, indentacao = 2, ordenarChav
 		// (números ficam como o navegador os entende). Sem como ordenar por ele.
 		if (ordenarChaves) return { ok: false, aninhado: true, mensagem: 'aninhado', linha: 1, coluna: 1 };
 		try {
-			return { ok: true, texto: JSON.stringify(lido, null, espaco) };
+			return { ok: true, texto: JSON.stringify(lido, null, espaco), aproximado: true };
 		} catch (erro) {
 			return { ok: false, aninhado: true, mensagem: String(erro), linha: 1, coluna: 1 };
 		}

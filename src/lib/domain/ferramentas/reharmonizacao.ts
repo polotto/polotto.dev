@@ -156,7 +156,7 @@ const emprestimoModal: Aplicar = (acordes, c) => {
 			if (x.qualidade === 'maior' && g === 7) return { ...x, raiz: mod12(c.t.tonica + 10) };
 			return undefined;
 		}
-		if (x.qualidade === 'menor' && g === 5) return { ...x, qualidade: 'dom7' };
+		if (x.qualidade === 'menor' && g === 5) return { ...x, qualidade: 'maior' };
 		if (x.qualidade === 'menor' && g === 0 && i === ultimo && i > 0) return { ...x, qualidade: 'maior' };
 		return undefined;
 	};

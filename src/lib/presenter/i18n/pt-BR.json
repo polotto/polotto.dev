@@ -127,7 +127,7 @@
 	"tools.json.minify": "Minificar",
 	"tools.json.valid": "JSON válido.",
 	"tools.json.error": "Erro na linha {line}, coluna {column}.",
-	"tools.json.nested": "O JSON está aninhado fundo demais para esta página processar.",
+	"tools.json.nested": "O JSON está aninhado fundo demais para esta página. Se saiu algum resultado, números como 1.0 podem ter mudado.",
 	"tools.json.output": "Resultado",
 	"tools.json.example": "Colar exemplo",
 	"tools.paleta.title": "Gerador de paleta de cores",

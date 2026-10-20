@@ -80,15 +80,17 @@ export function nomeMidi(midi: number, bemol: boolean): string {
  * modo maior, bII no menor) sai em bemol (Db7, Bb7), diminuto de passagem em
  * sustenido (C#dim) e o resto segue a armadura.
  */
-export function nomeRaiz(pc: number, t: Tonalidade, diminuto = false): string {
+export function nomeRaiz(pc: number, t: Tonalidade, diminuto = false, dominante = false): string {
 	const g = mod12(pc - t.tonica);
 	if (diminuto) return nomeNota(pc, false);
+	// Substituto de trítono do V7/IV: Gb7 em dó, não F#7.
+	if (dominante && g === 6) return nomeNota(pc, true);
 	if ([1, 3, 8, 10].includes(g) && !ESCALA[t.modo].includes(g)) return nomeNota(pc, true);
 	return nomeNota(pc, usaBemol(t));
 }
 
 export function cifra(a: Acorde, t: Tonalidade): string {
-	const base = `${nomeRaiz(a.raiz, t, a.qualidade === 'dim7')}${QUALIDADES[a.qualidade].sufixo}`;
+	const base = `${nomeRaiz(a.raiz, t, a.qualidade === 'dim7', ehDominante(a.qualidade))}${QUALIDADES[a.qualidade].sufixo}`;
 	return a.baixo === undefined || a.baixo === a.raiz ? base : `${base}/${nomeRaiz(a.baixo, t)}`;
 }
 
