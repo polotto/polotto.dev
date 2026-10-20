@@ -220,6 +220,8 @@
 	"tools.acordes.tecnica.suspensao.nome": "Dominante suspenso",
 	"tools.acordes.tecnica.suspensao.descricao": "O dominante começa com 7(sus4) e resolve na segunda metade do compasso. Segura a tensão.",
 	"tools.acordes.tecnica.suspensao.ouvir": "Ouça: Cálice (Chico Buarque e Gilberto Gil) e Oceano (Djavan).",
+	"tools.acordes.tecnica.baixo-descendente.nome": "Baixo descendente",
+	"tools.acordes.tecnica.pedal.nome": "Pedal",
 	"tools.acordes.baixo.nenhum.nome": "Baixo na fundamental",
 	"tools.acordes.baixo.nenhum.descricao": "Cada acorde com a sua nota de baixo.",
 	"tools.acordes.baixo.baixo-descendente.nome": "Baixo descendente",
