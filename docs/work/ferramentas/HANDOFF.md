@@ -10,13 +10,13 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
 ## Estado atual
 - branch `ferramentas`, um commit por task
 - 6 ferramentas prontas, no menu, no sitemap e no `llms.txt`
-- falta só a conferência manual do F.1 (modo claro e downloads)
+- conferência do F.1 feita em 19/10/2026 (ver TASKS.md)
 
 ## Decisões tomadas
 - Ver `BRIEF.md`, seção Ferramentas.
 
 ## Próximos passos
-1. Conferir F.1 e abrir a PR (`feat:`).
+1. Abrir a PR (`feat:`), merge só com o Angelo.
 2. Ideias para depois: gerador de UUID, Base64, JWT decoder, timestamp.
 
 ## Bloqueios e dúvidas em aberto
