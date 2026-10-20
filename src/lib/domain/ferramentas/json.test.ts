@@ -35,7 +35,12 @@ describe('JSON', () => {
 		const fundo = 20000;
 		const entrada = '['.repeat(fundo) + ']'.repeat(fundo);
 		const r = processarJson(entrada, { modo: 'minificar' });
-		expect(r.ok || r.linha > 0).toBe(true);
+		expect(r.ok || 'aninhado' in r).toBe(true);
+	});
+
+	it('JSON inválido e muito aninhado devolve erro, sem estourar', () => {
+		const r = processarJson('['.repeat(20000), { modo: 'minificar' });
+		expect(r.ok).toBe(false);
 	});
 
 	it('aponta linha e coluna do erro', () => {

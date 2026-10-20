@@ -4,7 +4,9 @@ export type Indentacao = 2 | 4 | 'tab';
 
 export type ResultadoJson =
 	| { ok: true; texto: string }
-	| { ok: false; mensagem: string; linha: number; coluna: number };
+	| { ok: false; mensagem: string; linha: number; coluna: number }
+	/** JSON válido, mas fundo demais para a leitura recursiva do navegador. */
+	| { ok: false; aninhado: true; mensagem: string; linha: number; coluna: number };
 
 export type OpcoesJson = {
 	modo: 'formatar' | 'minificar';
@@ -177,8 +179,8 @@ export function posicaoDoErro(texto: string): number {
 		espacos();
 		if (i < texto.length) falha();
 	} catch (pos) {
-		if (typeof pos !== 'number') throw pos;
-		return Math.min(pos, texto.length);
+		// Pilha estourada num texto aninhado demais: aponta o começo.
+		return typeof pos === 'number' ? Math.min(pos, texto.length) : 0;
 	}
 	return texto.length;
 }
@@ -204,7 +206,7 @@ export function processarJson(texto: string, { modo, indentacao = 2, ordenarChav
 			return { ok: true, texto: JSON.stringify(lido, null, espaco) };
 		} catch (erro) {
 			if (!(erro instanceof RangeError)) throw erro;
-			return { ok: false, mensagem: erro.message, linha: 1, coluna: 1 };
+			return { ok: false, aninhado: true, mensagem: erro.message, linha: 1, coluna: 1 };
 		}
 	}
 }
