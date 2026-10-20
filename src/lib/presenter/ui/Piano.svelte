@@ -141,6 +141,6 @@
 
 	.piano .tecla:focus-visible {
 		outline: var(--focus-width) solid var(--color-accent);
-		outline-offset: -2px;
+		outline-offset: calc(-1 * var(--focus-width));
 	}
 </style>

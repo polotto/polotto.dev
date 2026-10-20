@@ -201,6 +201,7 @@
 	onDestroy(() => {
 		if (typeof window === 'undefined') return;
 		cancelAnimationFrame(quadro);
+		clearTimeout(avisoTimer);
 		piano.fechar();
 	});
 
@@ -599,7 +600,7 @@
 
 	.rolo .marca {
 		stroke: var(--color-border);
-		stroke-width: 1;
+		stroke-width: var(--border-width);
 	}
 
 	.rolo .nota {
