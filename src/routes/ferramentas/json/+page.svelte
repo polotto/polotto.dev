@@ -25,7 +25,7 @@
 <section class="painel">
 	<label class="campo">
 		{t('tools.json.input')}
-		<textarea rows="12" bind:value={entrada} spellcheck="false" autocapitalize="off"></textarea>
+		<textarea rows="12" bind:value={entrada} oninput={() => (saida = '')} spellcheck="false" autocapitalize="off"></textarea>
 	</label>
 	<p class="status" aria-live="polite">
 		{#if validacao?.ok}

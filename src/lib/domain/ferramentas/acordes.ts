@@ -76,13 +76,14 @@ export function nomeMidi(midi: number, bemol: boolean): string {
 }
 
 /**
- * Grafia da nota na tonalidade: bII, bIII, bVI e bVII saem em bemol (Db7, Bb7),
- * diminuto de passagem em sustenido (C#dim) e o resto segue a armadura.
+ * Grafia da nota na tonalidade: grau fora da escala (bII, bIII, bVI e bVII no
+ * modo maior, bII no menor) sai em bemol (Db7, Bb7), diminuto de passagem em
+ * sustenido (C#dim) e o resto segue a armadura.
  */
 export function nomeRaiz(pc: number, t: Tonalidade, diminuto = false): string {
 	const g = mod12(pc - t.tonica);
 	if (diminuto) return nomeNota(pc, false);
-	if (g === 1 || g === 3 || g === 8 || g === 10) return nomeNota(pc, true);
+	if ([1, 3, 8, 10].includes(g) && !ESCALA[t.modo].includes(g)) return nomeNota(pc, true);
 	return nomeNota(pc, usaBemol(t));
 }
 
