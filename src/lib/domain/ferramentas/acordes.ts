@@ -1,8 +1,11 @@
 // Acordes, tonalidade e sorteio de progressão. Regra pura: sem navegador,
 // sem som. Notas são classes de altura (0 = dó ... 11 = si).
 
+import { criarAleatorio, type Aleatorio } from './aleatorio';
+
+export { criarAleatorio, type Aleatorio };
+
 export type Modo = 'maior' | 'menor';
-export type Aleatorio = () => number;
 
 /** Intervalos em semitons a partir da fundamental e sufixo na cifra brasileira. */
 export const QUALIDADES = {
@@ -119,18 +122,6 @@ export function cifraEmTexto(p: Progressao): string {
 	return `| ${cifrasPorCompasso(p)
 		.map((c) => c.join(' '))
 		.join(' | ')} |`;
-}
-
-/** Gerador pseudoaleatório com semente (mulberry32): mesma semente, mesma sequência. */
-export function criarAleatorio(semente: number): Aleatorio {
-	let s = semente >>> 0;
-	return () => {
-		s = (s + 0x6d2b79f5) >>> 0;
-		let t = s;
-		t = Math.imul(t ^ (t >>> 15), t | 1);
-		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-	};
 }
 
 export const inteiro = (n: number, a: Aleatorio) => Math.floor(a() * n);
