@@ -278,9 +278,13 @@
 		codigoDigitado = '';
 	}
 
-	onMount(() => {
+	function aoMudarOHash() {
 		const c = decodificar(location.hash);
-		if (c) aplicar(c);
+		if (c && codificar(c) !== codigo) aplicar(c);
+	}
+
+	onMount(() => {
+		aoMudarOHash();
 		pronto = true;
 	});
 
@@ -288,13 +292,16 @@
 	$effect(() => {
 		if (!pronto) return;
 		const alvo = `#s=${codigo}`;
-		untrack(() => {
+		// Espera a pessoa parar de mexer (slider): o Safari limita as trocas de endereço.
+		const espera = setTimeout(() => {
+			if (location.hash === alvo) return;
 			try {
 				replaceState(alvo, {});
 			} catch {
 				// Sem roteador ainda: o código continua na tela.
 			}
-		});
+		}, 300);
+		return () => clearTimeout(espera);
 	});
 
 	function baixarMidi() {
@@ -314,6 +321,8 @@
 	const ALTURA_NOTA = 6;
 	const LARGURA_TEMPO = 24;
 </script>
+
+<svelte:window onhashchange={aoMudarOHash} />
 
 <CabecalhoFerramenta slug="acordes" />
 
