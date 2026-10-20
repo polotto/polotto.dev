@@ -17,6 +17,18 @@
 	} = $props();
 
 	const PRETAS = new Set([1, 3, 6, 8, 10]);
+	// Uma tecla de cada vez entra na ordem do Tab; as setas andam entre as teclas.
+	let foco = $state(60);
+	let piano: HTMLDivElement;
+
+	function aoTeclar(e: KeyboardEvent, n: number) {
+		const passo = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+		if (!passo) return;
+		e.preventDefault();
+		const alvo = Math.min(Math.max(n + passo, de), ate);
+		foco = alvo;
+		piano.querySelector<HTMLButtonElement>(`[data-midi="${alvo}"]`)?.focus();
+	}
 	const teclas = $derived(Array.from({ length: ate - de + 1 }, (_, i) => de + i));
 	const brancas = $derived(teclas.filter((n) => !PRETAS.has(n % 12)));
 	const largura = $derived(100 / brancas.length);
@@ -27,11 +39,14 @@
 </script>
 
 <div class="rolagem">
-	<div class="piano" role="group" aria-label={t('tools.acordes.piano')}>
+	<div class="piano" bind:this={piano} role="group" aria-label={t('tools.acordes.piano')}>
 		{#each brancas as n (n)}
 			<button
 				type="button"
-				tabindex="-1"
+				tabindex={foco === n ? 0 : -1}
+				data-midi={n}
+				onkeydown={(e) => aoTeclar(e, n)}
+				onfocus={() => (foco = n)}
 				class="tecla branca"
 				class:acorde={acorde.has(n)}
 				class:melodia={melodia.has(n)}
@@ -46,7 +61,10 @@
 		{#each teclas.filter((n) => PRETAS.has(n % 12)) as n (n)}
 			<button
 				type="button"
-				tabindex="-1"
+				tabindex={foco === n ? 0 : -1}
+				data-midi={n}
+				onkeydown={(e) => aoTeclar(e, n)}
+				onfocus={() => (foco = n)}
 				class="tecla preta"
 				class:acorde={acorde.has(n)}
 				class:melodia={melodia.has(n)}

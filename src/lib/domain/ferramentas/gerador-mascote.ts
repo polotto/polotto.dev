@@ -5,6 +5,8 @@
 // - personagem: sprite 12x17 no estilo do mascote do blog (RPG 16-bit),
 //   montado em camadas (rosto e corpo, cabelo, barba, óculos, boné).
 
+import { criarAleatorio } from './aleatorio';
+
 export type Estilo = 'identicon' | 'personagem';
 
 /** Grade de caracteres; cada caractere aponta para uma cor em `cores`. */
@@ -32,18 +34,6 @@ export function hash(texto: string): number {
 	return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 }
 
-// mulberry32: números de 0 a 1 a partir da semente.
-function sorteador(semente: number): () => number {
-	let a = semente >>> 0;
-	return () => {
-		a = (a + 0x6d2b79f5) >>> 0;
-		let t = a;
-		t = Math.imul(t ^ (t >>> 15), t | 1);
-		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-	};
-}
-
 function hsl(h: number, s: number, l: number): string {
 	const a = (s / 100) * Math.min(l / 100, 1 - l / 100);
 	const canal = (n: number) => {
@@ -59,7 +49,7 @@ function hsl(h: number, s: number, l: number): string {
 const escolher = <T>(lista: readonly T[], r: () => number): T => lista[Math.floor(r() * lista.length)];
 
 export function identicon(texto: string): Desenho {
-	const r = sorteador(hash(texto));
+	const r = criarAleatorio(hash(texto));
 	const cor = hsl(r() * 360, 45 + r() * 20, 50 + r() * 10);
 	const grade = Array.from({ length: 5 }, () => {
 		const metade = Array.from({ length: 3 }, () => (r() < 0.5 ? '#' : '.'));
@@ -139,7 +129,7 @@ function sobrepor(base: string[], camada: string[], inicio = 0): string[] {
 }
 
 export function personagem(texto: string): Desenho {
-	const r = sorteador(hash(texto));
+	const r = criarAleatorio(hash(texto));
 	const cabelo = escolher(Object.keys(CABELOS), r);
 	const barba = escolher(['nenhuma', 'nenhuma', 'bigode', 'cavanhaque', 'cheia', 'cheia'], r);
 	const oculos = r() < 0.25;

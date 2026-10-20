@@ -32,7 +32,6 @@
 			<span class="ok">{t('tools.json.valid')}</span>
 		{:else if validacao}
 			<span class="erro">{t('tools.json.error', { line: validacao.linha, column: validacao.coluna })}</span>
-			<span class="detalhe">{validacao.mensagem}</span>
 		{/if}
 	</p>
 	<div class="campos">
@@ -72,10 +71,4 @@
 		gap: var(--space-1) var(--space-3);
 	}
 
-	.detalhe {
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		color: var(--color-muted);
-		align-self: center;
-	}
 </style>
