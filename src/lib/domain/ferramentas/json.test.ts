@@ -35,11 +35,12 @@ describe('JSON', () => {
 		expect(processarJson('{"a":1,"a":2}', { modo: 'minificar' })).toEqual({ ok: true, texto: '{"a":1,"a":2}' });
 	});
 
-	it('aguenta JSON muito aninhado sem quebrar', () => {
-		const fundo = 20000;
-		const entrada = '['.repeat(fundo) + ']'.repeat(fundo);
-		const r = processarJson(entrada, { modo: 'minificar' });
-		expect(r.ok || 'aninhado' in r).toBe(true);
+	it('aguenta JSON aninhado fundo e, no limite, devolve erro de aninhado', () => {
+		const razoavel = '['.repeat(1000) + ']'.repeat(1000);
+		expect(processarJson(razoavel, { modo: 'minificar' })).toEqual({ ok: true, texto: razoavel });
+		const demais = '['.repeat(100000) + ']'.repeat(100000);
+		const r = processarJson(demais, { modo: 'minificar' });
+		expect(!r.ok && 'aninhado' in r).toBe(true);
 	});
 
 	it('JSON muito aninhado com chaves ordenadas devolve erro de aninhado', () => {

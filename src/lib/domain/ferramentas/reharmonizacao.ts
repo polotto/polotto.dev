@@ -58,7 +58,8 @@ function escolher(candidatos: number[], p: number, a: Aleatorio): Set<number> {
 	return escolhidos;
 }
 
-const SIMPLES = new Set(['maior', 'menor']);
+/** Acorde que aceita um ii-V ou um dominante antes dele: nem dominante nem diminuto. */
+const podeSerAlvo = (x: Acorde) => !ehDominante(x.qualidade) && !x.qualidade.startsWith('dim');
 
 /** V7 trocado por iv7 e bVII7, a cadência "pela porta dos fundos" até a tônica. */
 const backdoor: Aplicar = (acordes, c) => {
@@ -79,7 +80,7 @@ const backdoor: Aplicar = (acordes, c) => {
 
 /** Antes de um acorde, o ii-V que leva a ele; ocupa a metade final do compasso anterior. */
 const iiV: Aplicar = (acordes, c) => {
-	const alvo = acordes.flatMap((x, i) => (i > 0 && SIMPLES.has(x.qualidade) ? [i] : []));
+	const alvo = acordes.flatMap((x, i) => (i > 0 && podeSerAlvo(x) ? [i] : []));
 	const sorteados = escolher(alvo, 0.5, c.a);
 	const saida: Acorde[] = [];
 	acordes.forEach((x, i) => {
@@ -89,7 +90,7 @@ const iiV: Aplicar = (acordes, c) => {
 			const antes = cifra(ultimo, c.t);
 			ultimo.tempos -= 2;
 			const novos = [
-				criar(x.raiz + 2, x.qualidade === 'menor' ? 'm7b5' : 'min7', ultimo.compasso, 1, 'ii-v'),
+				criar(x.raiz + 2, ehMenor(x.qualidade) ? 'm7b5' : 'min7', ultimo.compasso, 1, 'ii-v'),
 				criar(vRaiz, 'dom7', ultimo.compasso, 1, 'ii-v')
 			];
 			saida.push(...novos);
@@ -102,7 +103,7 @@ const iiV: Aplicar = (acordes, c) => {
 
 /** Antes de um acorde que não é a tônica, o dominante dele (V7/x). */
 const dominantesSecundarios: Aplicar = (acordes, c) => {
-	const alvo = acordes.flatMap((x, i) => (i > 0 && SIMPLES.has(x.qualidade) && grau(x, c.t) !== 0 ? [i] : []));
+	const alvo = acordes.flatMap((x, i) => (i > 0 && podeSerAlvo(x) && grau(x, c.t) !== 0 ? [i] : []));
 	const sorteados = escolher(alvo, 0.6, c.a);
 	const saida: Acorde[] = [];
 	acordes.forEach((x, i) => {
@@ -238,7 +239,8 @@ const baixoDescendente: Aplicar = (acordes, c) => {
 	let anterior = acordes[0]?.baixo ?? acordes[0]?.raiz ?? 0;
 	return acordes.map((x, i) => {
 		if (i === 0) return x;
-		const candidatos = [...new Set(QUALIDADES[x.qualidade].intervalos.slice(0, 4).map((n) => mod12(x.raiz + n)))];
+		// Só fundamental, terça, quinta e sétima (não a #9 do 7(#9,b13)).
+		const candidatos = [...new Set(QUALIDADES[x.qualidade].intervalos.filter((n) => [0, 3, 4, 6, 7, 10, 11].includes(n)).map((n) => mod12(x.raiz + n)))];
 		const custo = (pc: number) => {
 			const d = mod12(anterior - pc);
 			const passo = d === 0 ? 3 : d <= 2 ? 0 : d <= 4 ? 2 : d >= 10 ? 1 : 4;
@@ -276,13 +278,15 @@ const APLICAR: Record<TecnicaId, Aplicar> = {
 	pedal
 };
 
-// Primeiro o que muda a estrutura, depois as trocas, por fim extensões e baixo.
+// O empréstimo modal troca o acorde de destino, então vem antes de tudo que
+// insere acordes para chegar nele (backdoor, ii-V, dominantes, diminuto).
+// Depois as trocas, por fim extensões e baixo.
 const ORDEM: readonly TecnicaId[] = [
+	'emprestimo-modal',
 	'backdoor',
 	'ii-v',
 	'dominantes-secundarios',
 	'diminuto-passagem',
-	'emprestimo-modal',
 	'substituicao-tritono',
 	'dominante-alterado',
 	'extensoes',

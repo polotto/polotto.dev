@@ -97,6 +97,28 @@ describe('reharmonização', () => {
 		expect(cifraEmTexto(a.progressao)).toBe(cifraEmTexto(b.progressao));
 	});
 
+	it('todo dominante inserido resolve uma quinta abaixo no acorde seguinte', () => {
+		const tecnicas: TecnicaId[] = ['emprestimo-modal', 'backdoor', 'ii-v', 'dominantes-secundarios', 'diminuto-passagem'];
+		for (let semente = 0; semente < 300; semente++) {
+			const a = criarAleatorio(semente);
+			const { progressao } = reharmonizar(sortearProgressao(a), tecnicas, a);
+			const { acordes } = progressao;
+			acordes.forEach((x, i) => {
+				const prox = acordes[i + 1];
+				if (!prox) return;
+				const inserido = x.tecnicas.includes('ii-v') || x.tecnicas.includes('dominantes-secundarios');
+				if (inserido && x.qualidade === 'dom7') expect((x.raiz - 7 + 12) % 12, `semente ${semente}`).toBe(prox.raiz);
+				if (x.tecnicas.includes('ii-v') && x.qualidade !== 'dom7') expect((x.raiz + 5) % 12, `semente ${semente}`).toBe(acordes[i + 1].raiz);
+			});
+		}
+	});
+
+	it('com ii-V e empréstimo juntos, o dominante resolve no acorde emprestado', () => {
+		const emprestado = reharmonizar(base, ['ii-v', 'emprestimo-modal'], sempre).progressao;
+		// Am vira Ab7M (bVI) e o ii-V entra para chegar nele, não no Am que saiu.
+		expect(cifraEmTexto(emprestado)).toContain('Bbm7 Eb7 | Ab7M');
+	});
+
 	it('sem técnica, devolve a mesma progressão', () => {
 		expect(texto(base, [])).toBe(cifraEmTexto(base));
 	});
