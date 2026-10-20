@@ -20,6 +20,17 @@ describe('JSON', () => {
 		});
 	});
 
+	it('não altera números nem textos ao formatar', () => {
+		const entrada = '{"a":1.0,"b":12345678901234567890,"c":1e2,"d":"\\u00e9\\n","e":-0,"f":[],"g":{}}';
+		expect(processarJson(entrada, { modo: 'minificar' })).toEqual({ ok: true, texto: entrada });
+		const r = processarJson(entrada, { modo: 'formatar' });
+		expect(r.ok && r.texto).toContain('"b": 12345678901234567890');
+		expect(r.ok && r.texto).toContain('"a": 1.0');
+		expect(r.ok && r.texto).toContain('"c": 1e2');
+		expect(r.ok && r.texto).toContain('"f": []');
+		expect(r.ok && r.texto).toContain('"g": {}');
+	});
+
 	it('aponta linha e coluna do erro', () => {
 		const r = processarJson('{\n  "a": 1,\n  "b": \n}', { modo: 'formatar' });
 		expect(r.ok).toBe(false);
