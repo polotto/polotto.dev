@@ -202,7 +202,8 @@ export function processarJson(texto: string, { modo, indentacao = 2, ordenarChav
 		// Qualquer falha aqui (RangeError no Chrome, InternalError no Firefox): o
 		// texto já foi aceito, então só pode ser JSON aninhado demais.
 		// JSON aninhado demais para a leitura recursiva: cai no caminho simples
-		// (números ficam como o navegador os entende).
+		// (números ficam como o navegador os entende). Sem como ordenar por ele.
+		if (ordenarChaves) return { ok: false, aninhado: true, mensagem: 'aninhado', linha: 1, coluna: 1 };
 		try {
 			return { ok: true, texto: JSON.stringify(lido, null, espaco) };
 		} catch (erro) {

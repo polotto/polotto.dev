@@ -38,6 +38,12 @@ describe('JSON', () => {
 		expect(r.ok || 'aninhado' in r).toBe(true);
 	});
 
+	it('JSON muito aninhado com chaves ordenadas devolve erro de aninhado', () => {
+		const entrada = '['.repeat(20000) + ']'.repeat(20000);
+		const r = processarJson(entrada, { modo: 'formatar', ordenarChaves: true });
+		expect(!r.ok && 'aninhado' in r).toBe(true);
+	});
+
 	it('JSON inválido e muito aninhado devolve erro, sem estourar', () => {
 		const r = processarJson('['.repeat(20000), { modo: 'minificar' });
 		expect(r.ok).toBe(false);

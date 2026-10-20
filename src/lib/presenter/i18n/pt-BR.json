@@ -79,6 +79,7 @@
 	"tools.copied": "Copiado",
 	"tools.downloadPng": "Baixar PNG",
 	"tools.downloadSvg": "Baixar SVG",
+	"tools.downloadFailed": "O navegador não conseguiu gerar o PNG. Use Baixar SVG.",
 	"tools.qrcode.title": "Gerador de QR Code",
 	"tools.qrcode.description": "Gere um QR Code a partir de um texto ou link e baixe em PNG ou SVG.",
 	"tools.qrcode.text": "Texto ou link",

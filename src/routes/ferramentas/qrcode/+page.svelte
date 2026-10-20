@@ -22,6 +22,7 @@
 	}
 
 	let copia = $state<'' | 'ok' | 'falhou'>('');
+	let baixou = $state(true);
 	let timerCopia: ReturnType<typeof setTimeout>;
 
 	async function copiarImagem() {
@@ -86,7 +87,7 @@
 				<button type="button" onclick={copiarImagem} aria-live="polite">
 					{copia === 'ok' ? t('tools.copied') : t('tools.copyImage')}
 				</button>
-				<button type="button" class="secundario" onclick={() => baixarPng('qrcode.png', desenhoParaSvg(desenho, tamanho), tamanho, tamanho)}>
+				<button type="button" class="secundario" onclick={async () => (baixou = await baixarPng('qrcode.png', desenhoParaSvg(desenho, tamanho), tamanho, tamanho))}>
 					{t('tools.downloadPng')}
 				</button>
 				<button type="button" class="secundario" onclick={() => baixarSvg('qrcode.svg', desenhoParaSvg(desenho, tamanho))}>
@@ -94,6 +95,7 @@
 				</button>
 			</div>
 			{#if copia === 'falhou'}<p class="erro">{t('tools.copyImageFailed')}</p>{/if}
+			{#if !baixou}<p class="erro">{t('tools.downloadFailed')}</p>{/if}
 		{/if}
 	</section>
 </div>
