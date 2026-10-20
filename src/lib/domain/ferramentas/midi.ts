@@ -76,7 +76,7 @@ export function gerarMidi({ progressao, vozes, melodia, bpm, nomes }: EntradaMid
 		const marcador = cifra(a, progressao.tonalidade);
 		andamento.push({ tick: inicio, ordem: 0, bytes: meta(0x06, texto(marcador)) });
 		acordes.push(...nota(CANAL_ACORDES, vozes[i].baixo, inicio, fim, VELOCIDADE_BAIXO));
-		for (const m of vozes[i].mao) acordes.push(...nota(CANAL_ACORDES, m, inicio, fim, VELOCIDADE_ACORDE));
+		for (const m of vozes[i].mao.filter((x) => x !== vozes[i].baixo)) acordes.push(...nota(CANAL_ACORDES, m, inicio, fim, VELOCIDADE_ACORDE));
 		inicio = fim;
 	});
 
