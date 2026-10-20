@@ -70,8 +70,9 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
     SVG do QR Code (8 KB) e do mascote (5 KB) e SVG gerado; JSON preserva
     `1.0`, `12345678901234567890` e `1e2` na página; acordes com Pedal, Baixo
     descendente e 8 cliques em Surpreenda-me, sem erro no console
-  - o clique que baixa o arquivo não foi acionado (pede permissão); a geração
-    do PNG usa o mesmo caminho do botão
+  - o clique que baixa o arquivo não foi acionado (baixar arquivo pede
+    permissão); a geração do PNG usa o mesmo caminho do botão. Esse único
+    ponto fica para a conferência do Angelo antes do merge
 
 ## Fora do escopo
 - Histórico, favoritos ou qualquer dado salvo no servidor.

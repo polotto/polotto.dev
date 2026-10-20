@@ -31,6 +31,10 @@ describe('JSON', () => {
 		expect(r.ok && r.texto).toContain('"g": {}');
 	});
 
+	it('mantém chaves repetidas como estão no texto', () => {
+		expect(processarJson('{"a":1,"a":2}', { modo: 'minificar' })).toEqual({ ok: true, texto: '{"a":1,"a":2}' });
+	});
+
 	it('aguenta JSON muito aninhado sem quebrar', () => {
 		const fundo = 20000;
 		const entrada = '['.repeat(fundo) + ']'.repeat(fundo);

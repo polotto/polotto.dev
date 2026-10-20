@@ -12,6 +12,7 @@ export const frequencia = (midi: number) => 440 * 2 ** ((midi - 69) / 12);
 export class PianoSintetico {
 	private contexto?: AudioContext;
 	private saida?: GainNode;
+	private osciladores = new Set<OscillatorNode>();
 
 	/** Cria o contexto no primeiro uso (navegador só deixa depois de um gesto). */
 	private preparar(): { ctx: AudioContext; saida: GainNode } {
@@ -54,6 +55,8 @@ export class PianoSintetico {
 			osc.connect(g).connect(filtro);
 			osc.start(quando);
 			osc.stop(fim + 0.6);
+			this.osciladores.add(osc);
+			osc.onended = () => this.osciladores.delete(osc);
 		}
 	}
 
@@ -69,6 +72,14 @@ export class PianoSintetico {
 	parar() {
 		if (!this.contexto || !this.saida) return;
 		const antiga = this.saida;
+		for (const osc of this.osciladores) {
+			try {
+				osc.stop(0);
+			} catch {
+				// já parou
+			}
+		}
+		this.osciladores.clear();
 		antiga.gain.cancelScheduledValues(this.contexto.currentTime);
 		antiga.gain.setTargetAtTime(0, this.contexto.currentTime, 0.02);
 		const nova = this.contexto.createGain();
