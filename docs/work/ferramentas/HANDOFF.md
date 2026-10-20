@@ -36,4 +36,6 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
   `reharmonizacao`, `melodia`, `voicing`). Áudio em Web Audio, sem amostra.
 - Cifras lidas no Cifra Club (a leitura direta dá 403);
   referências por música e pontos incertos em `ACORDES-REFERENCIAS.md`.
-- Falta: baixo cromático, empréstimo de bIII e bII, exportar MIDI.
+- Falta: baixo cromático, empréstimo de bIII e bII.
+- Código de semente em `compartilhar.ts` (técnica nova entra no fim da
+  ordem) e MIDI em `midi.ts`.

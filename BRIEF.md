@@ -90,7 +90,9 @@ Ferramentas (decidido em 16/10/2026)
   técnicas da MPB e da bossa nova (referências em
   `docs/work/ferramentas/ACORDES-REFERENCIAS.md`), sugere uma linha melódica
   e toca tudo num piano virtual sintetizado no navegador (Web Audio, sem
-  amostra). Cifra brasileira (7M, m7(b5)).
+  amostra). Cifra brasileira (7M, m7(b5)). Código de semente (20/10/2026):
+  guarda sementes e opções, vai no endereço (`#s=`) e reproduz a mesma
+  música. Exporta MIDI (formato 1, faixas de acordes e melodia).
 
 Artigo agendado (decidido em 15/10/2026)
 - `publicado` com data futura agenda o artigo. Ele fica fora do build até o
