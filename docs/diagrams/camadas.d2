@@ -7,12 +7,17 @@ domain: "domain  (src/lib/domain)" {
   "src/lib/domain/casos-de-uso.ts": "casos-de-uso.ts"
   "src/lib/domain/models.ts": "models.ts"
   "ferramentas": "ferramentas/" { style: { fill: "#ffffff"; stroke: "#2357c6"; stroke-dash: 2 }
+    "src/lib/domain/ferramentas/acordes.ts": "acordes.ts"
+    "src/lib/domain/ferramentas/aleatorio.ts": "aleatorio.ts"
     "src/lib/domain/ferramentas/documentos.ts": "documentos.ts"
     "src/lib/domain/ferramentas/fontes.ts": "fontes.ts"
     "src/lib/domain/ferramentas/gerador-mascote.ts": "gerador-mascote.ts"
     "src/lib/domain/ferramentas/json.ts": "json.ts"
+    "src/lib/domain/ferramentas/melodia.ts": "melodia.ts"
     "src/lib/domain/ferramentas/paleta.ts": "paleta.ts"
     "src/lib/domain/ferramentas/qrcode.ts": "qrcode.ts"
+    "src/lib/domain/ferramentas/reharmonizacao.ts": "reharmonizacao.ts"
+    "src/lib/domain/ferramentas/voicing.ts": "voicing.ts"
   }
 }
 
@@ -39,6 +44,7 @@ presenter: "presenter  (src)" {
     "src/lib/presenter/ferramentas.ts": "ferramentas.ts"
     "src/lib/presenter/links.ts": "links.ts"
     "src/lib/presenter/markdown.ts": "markdown.ts"
+    "src/lib/presenter/piano-audio.ts": "piano-audio.ts"
     "src/lib/presenter/resumo.ts": "resumo.ts"
     "src/lib/presenter/seo.ts": "seo.ts"
     "src/lib/presenter/site.ts": "site.ts"
@@ -57,6 +63,7 @@ presenter: "presenter  (src)" {
     "src/lib/presenter/ui/Icon.svelte": "Icon.svelte"
     "src/lib/presenter/ui/Inscricao.svelte": "Inscricao.svelte"
     "src/lib/presenter/ui/Mascote.svelte": "Mascote.svelte"
+    "src/lib/presenter/ui/Piano.svelte": "Piano.svelte"
     "src/lib/presenter/ui/Rodape.svelte": "Rodape.svelte"
     "src/lib/presenter/ui/Seo.svelte": "Seo.svelte"
   }
@@ -81,6 +88,9 @@ presenter: "presenter  (src)" {
   "routes/ferramentas": "routes/ferramentas/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
     "src/routes/ferramentas/+layout.svelte": "+layout.svelte"
     "src/routes/ferramentas/+page.svelte": "+page.svelte"
+  }
+  "routes/ferramentas/acordes": "routes/ferramentas/acordes/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
+    "src/routes/ferramentas/acordes/+page.svelte": "+page.svelte"
   }
   "routes/ferramentas/cpf-cnpj": "routes/ferramentas/cpf-cnpj/" { style: { fill: "#ffffff"; stroke: "#7140b8"; stroke-dash: 2 }
     "src/routes/ferramentas/cpf-cnpj/+page.svelte": "+page.svelte"
@@ -144,6 +154,7 @@ presenter."lib/presenter"."src/lib/presenter/seo.ts" -> domain."src/lib/domain/m
 presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoArtigo.svelte" -> domain."src/lib/domain/models.ts"
 presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoProjeto.svelte" -> domain."src/lib/domain/models.ts"
 presenter."lib/presenter/ui"."src/lib/presenter/ui/CartaoStackOverflow.svelte" -> domain."src/lib/domain/models.ts"
+presenter."lib/presenter/ui"."src/lib/presenter/ui/Piano.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/acordes.ts"
 presenter."routes"."src/routes/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
 presenter."routes"."src/routes/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
 presenter."routes/artigos"."src/routes/artigos/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
@@ -152,6 +163,10 @@ presenter."routes/artigos/[slug].md"."src/routes/artigos/[slug].md/+server.ts" -
 presenter."routes/artigos/[slug].md"."src/routes/artigos/[slug].md/+server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
 presenter."routes/artigos/[slug]"."src/routes/artigos/[slug]/+page.server.ts" -> app."src/lib/app/conteudo.server.ts"
 presenter."routes/artigos/[slug]"."src/routes/artigos/[slug]/+page.server.ts" -> domain."src/lib/domain/casos-de-uso.ts"
+presenter."routes/ferramentas/acordes"."src/routes/ferramentas/acordes/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/acordes.ts"
+presenter."routes/ferramentas/acordes"."src/routes/ferramentas/acordes/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/melodia.ts"
+presenter."routes/ferramentas/acordes"."src/routes/ferramentas/acordes/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/reharmonizacao.ts"
+presenter."routes/ferramentas/acordes"."src/routes/ferramentas/acordes/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/voicing.ts"
 presenter."routes/ferramentas/cpf-cnpj"."src/routes/ferramentas/cpf-cnpj/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/documentos.ts"
 presenter."routes/ferramentas/json"."src/routes/ferramentas/json/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/json.ts"
 presenter."routes/ferramentas/mascote"."src/routes/ferramentas/mascote/+page.svelte" -> domain."ferramentas"."src/lib/domain/ferramentas/gerador-mascote.ts"

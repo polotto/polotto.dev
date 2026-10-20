@@ -77,6 +77,15 @@
 	--mascote-pagina: #ece8f6;
 	--mascote-livro: var(--snes-blue);
 
+	/* piano virtual: teclas iguais nos dois modos; acorde em azul, melodia em vermelho */
+	--piano-tecla-branca: #ece8f6;
+	--piano-tecla-preta: #1c1828;
+	--piano-acorde: var(--snes-blue);
+	--piano-melodia: var(--snes-red);
+	--piano-altura: 128px;
+	--piano-largura-min: 560px;
+	--compasso-min: 11rem;
+
 	/* modo escuro é o padrão do tema */
 	--color-bg: #15121f;
 	--color-surface: #211c34;

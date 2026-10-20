@@ -93,6 +93,7 @@
 {/snippet}
 
 <CabecalhoFerramenta slug="paleta" />
+<p class="aviso-fontes">{t('tools.paleta.fontsPrivacy')}</p>
 
 <section class="painel">
 	<div class="campos">
@@ -414,5 +415,11 @@
 
 	.contraste {
 		font-size: var(--text-xs);
+	}
+
+	.aviso-fontes {
+		font-size: var(--text-sm);
+		color: var(--color-muted);
+		margin: calc(-1 * var(--space-4)) 0 var(--space-5);
 	}
 </style>

@@ -29,8 +29,14 @@ async function svgParaPng(svg: string, largura: number, altura: number): Promise
 	return png;
 }
 
-export async function baixarPng(nome: string, svg: string, largura: number, altura: number) {
-	baixar(nome, await svgParaPng(svg, largura, altura));
+/** `false` quando o navegador não conseguiu gerar o PNG. */
+export async function baixarPng(nome: string, svg: string, largura: number, altura: number): Promise<boolean> {
+	try {
+		baixar(nome, await svgParaPng(svg, largura, altura));
+		return true;
+	} catch {
+		return false;
+	}
 }
 
 /**

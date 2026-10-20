@@ -45,10 +45,36 @@ Seção `/ferramentas` com ferramentas que rodam no navegador. Decisões em
   estilos identicon e personagem 16-bit; botão aleatório; download em PNG
   e SVG; testes no domínio
 
+## Trilha G: acordes (depende de 0.2)
+- [x] G.1 domínio: acordes, tonalidade, cifra brasileira (7M, m7(b5)) e sorteio
+  de progressão em modo maior e menor, com semente; testes
+- [x] G.2 domínio: reharmonização com 11 técnicas (extensões, ii-V,
+  dominantes secundários, trítono, empréstimo modal, diminuto de passagem,
+  baixo descendente, pedal, backdoor, dominante alterado, dominante
+  suspenso); testes
+- [x] G.3 domínio: voicings com condução de vozes e linha melódica sobre a
+  harmonia (notas do acorde nos tempos fortes, escala do acorde nos fracos);
+  testes
+- [x] G.4 piano virtual (teclado clicável) e sintetizador no navegador
+- [x] G.5 página `/ferramentas/acordes`, catálogo, i18n, ícone, tokens,
+  `BRIEF.md` e referências das músicas
+- [x] G.6 `verify` e conferência visual da página de acordes (modo claro,
+  escuro, 390 px sem rolagem horizontal, tocar e parar, Pedal e Baixo
+  descendente). Detalhes no F.1.
+
 ## Trilha F: fechamento
-- [~] F.1 `verify` verde e conferência visual nos dois modos e no celular
-  - feito: `verify`, telas no modo escuro, sem estouro horizontal em 390px
-  - falta: olhar o modo claro e baixar PNG e SVG de verdade
+- [x] F.1 `verify` verde e conferência visual nos dois modos e no celular
+  - feito (19/10/2026): `verify`; telas de QR Code, CPF e CNPJ, JSON, paleta,
+    mascote e acordes no modo claro e no escuro; sem estouro horizontal em
+    390 px (medido num iframe de 390 px); PNG gerado de verdade a partir do
+    SVG do QR Code (8 KB) e do mascote (5 KB) e SVG gerado; JSON preserva
+    `1.0`, `12345678901234567890` e `1e2` na página; acordes com Pedal, Baixo
+    descendente e 8 cliques em Surpreenda-me, sem erro no console
+  - download real (20/10/2026): clique em Baixar PNG no mascote gerou
+    `mascote-polotto.png`, PNG válido de 420x570 (conferido com `file`). O
+    Chrome bloqueou os demais downloads automáticos da sessão (SVG do mascote
+    e PNG e SVG do QR Code); o SVG usa a mesma função `baixar` do PNG e o PNG
+    do QR Code foi gerado a partir do SVG no navegador (8 KB)
 
 ## Fora do escopo
 - Histórico, favoritos ou qualquer dado salvo no servidor.

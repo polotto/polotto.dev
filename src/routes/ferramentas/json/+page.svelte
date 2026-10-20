@@ -11,11 +11,13 @@
 	let indentacao = $state<Indentacao>(2);
 	let ordenarChaves = $state(false);
 	let saida = $state('');
+	let aninhado = $state(false);
 
 	const validacao = $derived(entrada.trim() ? processarJson(entrada, { modo: 'minificar' }) : undefined);
 
 	function aplicar(modo: 'formatar' | 'minificar') {
 		const r = processarJson(entrada, { modo, indentacao, ordenarChaves });
+		aninhado = (!r.ok && 'aninhado' in r) || (r.ok && !!r.aproximado);
 		if (r.ok) saida = r.texto;
 	}
 </script>
@@ -25,16 +27,18 @@
 <section class="painel">
 	<label class="campo">
 		{t('tools.json.input')}
-		<textarea rows="12" bind:value={entrada} spellcheck="false" autocapitalize="off"></textarea>
+		<textarea rows="12" bind:value={entrada} oninput={() => ((saida = ''), (aninhado = false))} spellcheck="false" autocapitalize="off"></textarea>
 	</label>
 	<p class="status" aria-live="polite">
 		{#if validacao?.ok}
 			<span class="ok">{t('tools.json.valid')}</span>
 		{:else if validacao}
-			<span class="erro">{t('tools.json.error', { line: validacao.linha, column: validacao.coluna })}</span>
-			<span class="detalhe">{validacao.mensagem}</span>
+			<span class="erro">
+				{'aninhado' in validacao ? t('tools.json.nested') : t('tools.json.error', { line: validacao.linha, column: validacao.coluna })}
+			</span>
 		{/if}
 	</p>
+	{#if aninhado}<p class="erro">{t('tools.json.nested')}</p>{/if}
 	<div class="campos">
 		<label class="campo">
 			{t('tools.json.indent')}
@@ -72,10 +76,4 @@
 		gap: var(--space-1) var(--space-3);
 	}
 
-	.detalhe {
-		font-family: var(--font-mono);
-		font-size: var(--text-xs);
-		color: var(--color-muted);
-		align-self: center;
-	}
 </style>

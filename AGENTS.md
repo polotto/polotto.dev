@@ -32,9 +32,11 @@ Decisões em `BRIEF.md`, termos em `GLOSSARY.md`, ADRs em `docs/adr/`.
   `docs/diagrams/camadas.d2` e `.svg`: depois de mudar import entre
   camadas, rodar `tools arch-check . --d2 docs/diagrams/camadas.d2`.
 - `src/lib/domain/ferramentas/`: regras das ferramentas (CPF, JSON, paleta,
-  mascote), puras e testadas. A página em `src/routes/ferramentas/<slug>`
-  só liga a regra à tela.
-- `src/lib/presenter/`: componentes (`ui/`), i18n e helpers de SEO.
+  mascote, acordes com reharmonização, voicing e melodia), puras e
+  testadas. A página em `src/routes/ferramentas/<slug>` só liga a regra à
+  tela.
+- `src/lib/presenter/`: componentes (`ui/`), i18n, helpers de SEO e o
+  sintetizador do piano (`piano-audio.ts`, Web Audio).
 - `src/routes/`: páginas e arquivos gerados (`llms.txt`, `llms-full.txt`,
   `sitemap.xml`, `robots.txt`, `rss.xml`, `/artigos/<slug>.md`). Tudo
   pré-renderizado. Geração em `src/lib/presenter/arquivos.ts`.

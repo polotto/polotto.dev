@@ -20,6 +20,40 @@ describe('JSON', () => {
 		});
 	});
 
+	it('não altera números nem textos ao formatar', () => {
+		const entrada = '{"a":1.0,"b":12345678901234567890,"c":1e2,"d":"\\u00e9\\n","e":-0,"f":[],"g":{}}';
+		expect(processarJson(entrada, { modo: 'minificar' })).toEqual({ ok: true, texto: entrada });
+		const r = processarJson(entrada, { modo: 'formatar' });
+		expect(r.ok && r.texto).toContain('"b": 12345678901234567890');
+		expect(r.ok && r.texto).toContain('"a": 1.0');
+		expect(r.ok && r.texto).toContain('"c": 1e2');
+		expect(r.ok && r.texto).toContain('"f": []');
+		expect(r.ok && r.texto).toContain('"g": {}');
+	});
+
+	it('mantém chaves repetidas como estão no texto', () => {
+		expect(processarJson('{"a":1,"a":2}', { modo: 'minificar' })).toEqual({ ok: true, texto: '{"a":1,"a":2}' });
+	});
+
+	it('aguenta JSON aninhado fundo e, no limite, devolve erro de aninhado', () => {
+		const razoavel = '['.repeat(1000) + ']'.repeat(1000);
+		expect(processarJson(razoavel, { modo: 'minificar' })).toEqual({ ok: true, texto: razoavel });
+		const demais = '['.repeat(100000) + ']'.repeat(100000);
+		const r = processarJson(demais, { modo: 'minificar' });
+		expect(!r.ok && 'aninhado' in r).toBe(true);
+	});
+
+	it('JSON muito aninhado com chaves ordenadas devolve erro de aninhado', () => {
+		const entrada = '['.repeat(20000) + ']'.repeat(20000);
+		const r = processarJson(entrada, { modo: 'formatar', ordenarChaves: true });
+		expect(!r.ok && 'aninhado' in r).toBe(true);
+	});
+
+	it('JSON inválido e muito aninhado devolve erro, sem estourar', () => {
+		const r = processarJson('['.repeat(20000), { modo: 'minificar' });
+		expect(r.ok).toBe(false);
+	});
+
 	it('aponta linha e coluna do erro', () => {
 		const r = processarJson('{\n  "a": 1,\n  "b": \n}', { modo: 'formatar' });
 		expect(r.ok).toBe(false);
