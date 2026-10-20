@@ -279,7 +279,9 @@
 	}
 
 	function aoMudarOHash() {
+		if (!location.hash.startsWith('#s=')) return;
 		const c = decodificar(location.hash);
+		codigoInvalido = !c;
 		if (c && codificar(c) !== codigo) aplicar(c);
 	}
 
@@ -308,7 +310,7 @@
 		const bytes = gerarMidi({
 			progressao: ativa,
 			vozes,
-			melodia: comMelodia ? melodia : [],
+			melodia,
 			bpm,
 			nomes: { acordes: t('tools.acordes.faixaAcordes'), melodia: t('tools.acordes.faixaMelodia') }
 		});

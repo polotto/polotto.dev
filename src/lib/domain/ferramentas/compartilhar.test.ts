@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { criarAleatorio, sortearProgressao } from './acordes';
+import { cifraEmTexto, criarAleatorio, sortearProgressao } from './acordes';
 import { codificar, decodificar, tecnicasSemPosicao, type Configuracao } from './compartilhar';
 import { gerarMelodia } from './melodia';
 import { reharmonizar } from './reharmonizacao';
@@ -46,6 +46,15 @@ describe('semente para compartilhar', () => {
 
 	it('toda técnica de acorde livre tem posição no código', () => {
 		expect(tecnicasSemPosicao()).toEqual([]);
+	});
+
+	it('um código conhecido continua dando a mesma música (links antigos)', () => {
+		const c = decodificar('1-hqiv-6xl1-edx4-m-0-4-3-0-1-2g-1-1')!;
+		const o = sortearProgressao(criarAleatorio(c.sementeProgressao), { modo: 'maior', tonica: 0, compassos: 4 });
+		const r = reharmonizar(o, [...c.tecnicas], criarAleatorio(c.sementeReharmonizacao)).progressao;
+		expect(cifraEmTexto(o)).toBe('| Am | F | C | G7 |');
+		expect(cifraEmTexto(r)).toBe('| Am7 Gm7 C13 | F7M(#11) | C7M(9) | G7(b9) |');
+		expect(gerarMelodia(r, criarAleatorio(c.sementeMelodia)).length).toBe(14);
 	});
 
 	it('o código reproduz a mesma música', () => {

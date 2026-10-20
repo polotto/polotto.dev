@@ -202,7 +202,7 @@
 	"tools.acordes.abrir": "Abrir",
 	"tools.acordes.codigoInvalido": "Esse código não é válido.",
 	"tools.acordes.salvar": "Salvar",
-	"tools.acordes.midiDica": "Arquivo MIDI com os acordes e a melodia em faixas separadas e a cifra de cada acorde como marcador. Abre em qualquer editor de música.",
+	"tools.acordes.midiDica": "Arquivo MIDI com os acordes e a melodia (sempre inclusa) em faixas separadas e a cifra de cada acorde como marcador. Abre em qualquer editor de música.",
 	"tools.acordes.baixarMidi": "Baixar MIDI",
 	"tools.acordes.faixaAcordes": "Acordes",
 	"tools.acordes.faixaMelodia": "Melodia",
