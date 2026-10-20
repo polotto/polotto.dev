@@ -86,8 +86,6 @@ Ferramentas (decidido em 16/10/2026)
   (com o CNPJ alfanumérico), formatador e validador de JSON, paleta de
   cores harmônicas e mascote a partir de um texto (estilo identicon do
   GitHub e personagem 16-bit, no tema do blog).
-- A rota de cada ferramenta é a raiz de composição: pode importar da
-  `infrastructure` (ex.: QR Code) e ligar ao domínio.
 - Gerador de acordes (19/10/2026): sorteia uma sequência, reharmoniza com
   técnicas da MPB e da bossa nova (referências em
   `docs/work/ferramentas/ACORDES-REFERENCIAS.md`), sugere uma linha melódica
