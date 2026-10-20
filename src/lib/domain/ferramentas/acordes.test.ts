@@ -37,6 +37,19 @@ describe('acordes', () => {
 		expect(cifra(novoAcorde(6, 'min7', 0), C)).toBe('F#m7');
 	});
 
+	it('em tom menor, os graus da escala seguem a armadura', () => {
+		const gSustenidoMenor = { tonica: 8, modo: 'menor' } as const;
+		// VII de G#m é F#, III é B, VI é E; o bII napolitano continua em bemol.
+		expect(cifra(novoAcorde(6, 'maior', 0), gSustenidoMenor)).toBe('F#');
+		expect(cifra(novoAcorde(11, 'maior', 0), gSustenidoMenor)).toBe('B');
+		expect(cifra(novoAcorde(4, 'maior', 0), gSustenidoMenor)).toBe('E');
+		expect(cifra(novoAcorde(9, 'maior', 0), gSustenidoMenor)).toBe('A');
+		expect(cifra(novoAcorde(3, 'min7', 0), { tonica: 3, modo: 'menor' })).toBe('D#m7');
+		expect(cifra(novoAcorde(1, 'maior', 0), { tonica: 3, modo: 'menor' })).toBe('C#');
+		expect(cifra(novoAcorde(6, 'maior', 0), { tonica: 3, modo: 'menor' })).toBe('F#');
+		expect(cifra(novoAcorde(11, 'maior', 0), { tonica: 3, modo: 'menor' })).toBe('B');
+	});
+
 	it('nomeia nota MIDI com oitava', () => {
 		expect(nomeMidi(60, false)).toBe('C4');
 		expect(nomeMidi(69, false)).toBe('A4');

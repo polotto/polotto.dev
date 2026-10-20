@@ -31,6 +31,13 @@ describe('JSON', () => {
 		expect(r.ok && r.texto).toContain('"g": {}');
 	});
 
+	it('aguenta JSON muito aninhado sem quebrar', () => {
+		const fundo = 20000;
+		const entrada = '['.repeat(fundo) + ']'.repeat(fundo);
+		const r = processarJson(entrada, { modo: 'minificar' });
+		expect(r.ok || r.linha > 0).toBe(true);
+	});
+
 	it('aponta linha e coluna do erro', () => {
 		const r = processarJson('{\n  "a": 1,\n  "b": \n}', { modo: 'formatar' });
 		expect(r.ok).toBe(false);

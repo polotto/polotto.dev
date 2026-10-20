@@ -177,20 +177,34 @@ export function posicaoDoErro(texto: string): number {
 		espacos();
 		if (i < texto.length) falha();
 	} catch (pos) {
-		return Math.min(pos as number, texto.length);
+		if (typeof pos !== 'number') throw pos;
+		return Math.min(pos, texto.length);
 	}
 	return texto.length;
 }
 
 export function processarJson(texto: string, { modo, indentacao = 2, ordenarChaves = false }: OpcoesJson): ResultadoJson {
+	let lido: unknown;
 	try {
-		JSON.parse(texto);
+		lido = JSON.parse(texto);
 	} catch (e) {
 		const mensagem = e instanceof Error ? e.message : String(e);
 		return { ok: false, mensagem, ...linhaEColuna(texto, posicaoDoErro(texto)) };
 	}
-	let arvore = lerArvore(texto);
-	if (ordenarChaves) arvore = ordenar(arvore);
 	const espaco = modo === 'minificar' ? undefined : indentacao === 'tab' ? '\t' : ' '.repeat(indentacao);
-	return { ok: true, texto: escrever(arvore, espaco) };
+	try {
+		let arvore = lerArvore(texto);
+		if (ordenarChaves) arvore = ordenar(arvore);
+		return { ok: true, texto: escrever(arvore, espaco) };
+	} catch (e) {
+		if (!(e instanceof RangeError)) throw e;
+		// JSON aninhado demais para a leitura recursiva: cai no caminho simples
+		// (números ficam como o navegador os entende).
+		try {
+			return { ok: true, texto: JSON.stringify(lido, null, espaco) };
+		} catch (erro) {
+			if (!(erro instanceof RangeError)) throw erro;
+			return { ok: false, mensagem: erro.message, linha: 1, coluna: 1 };
+		}
+	}
 }
