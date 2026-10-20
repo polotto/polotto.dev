@@ -36,4 +36,3 @@ ouvir dominante secundário sem enfeite.
 ## Ideias para depois
 - Baixo cromático (Águas de Março, Insensatez, Construção).
 - Empréstimo de bIII e bII (Maria, Maria).
-- Exportar MIDI da progressão e da melodia.

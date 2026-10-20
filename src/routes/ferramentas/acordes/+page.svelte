@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { onDestroy, untrack } from 'svelte';
+	import { onDestroy, onMount, untrack } from 'svelte';
+	import { browser } from '$app/environment';
+	import { replaceState } from '$app/navigation';
 	import {
 		cifra,
 		cifraEmTexto,
@@ -12,17 +14,20 @@
 		type Modo,
 		type Progressao
 	} from '$lib/domain/ferramentas/acordes';
+	import { codificar, decodificar, BPM_MAX, BPM_MIN, type Configuracao } from '$lib/domain/ferramentas/compartilhar';
 	import { gerarMelodia } from '$lib/domain/ferramentas/melodia';
+	import { gerarMidi } from '$lib/domain/ferramentas/midi';
 	import { reharmonizar, TECNICAS, type TecnicaId } from '$lib/domain/ferramentas/reharmonizacao';
 	import { voicings } from '$lib/domain/ferramentas/voicing';
+	import { baixar } from '$lib/presenter/baixar';
 	import { t } from '$lib/presenter/i18n/i18n';
 	import { PianoSintetico } from '$lib/presenter/piano-audio';
 	import BotaoCopiar from '$lib/presenter/ui/BotaoCopiar.svelte';
 	import CabecalhoFerramenta from '$lib/presenter/ui/CabecalhoFerramenta.svelte';
 	import Piano from '$lib/presenter/ui/Piano.svelte';
 
-	type Baixo = 'nenhum' | 'baixo-descendente' | 'pedal';
-	type Versao = 'original' | 'reharmonizada';
+	type Baixo = Configuracao['baixo'];
+	type Versao = Configuracao['versao'];
 
 	const TECNICAS_LIVRES = TECNICAS.filter((x) => x !== 'baixo-descendente' && x !== 'pedal');
 	const BAIXOS: Baixo[] = ['nenhum', 'baixo-descendente', 'pedal'];
@@ -227,6 +232,82 @@
 		tecnicas = tecnicas.includes(id) ? tecnicas.filter((x) => x !== id) : [...tecnicas, id];
 	}
 
+
+	// Semente para compartilhar ---------------------------------------------------
+
+	const configuracao = $derived<Configuracao>({
+		sementeProgressao,
+		sementeReharmonizacao,
+		sementeMelodia,
+		modo,
+		tonica,
+		compassos,
+		tecnicas,
+		baixo,
+		versao,
+		bpm,
+		comMelodia,
+		repetir
+	});
+	const codigo = $derived(codificar(configuracao));
+	const link = $derived(browser ? `${location.origin}${location.pathname}#s=${codigo}` : '');
+	let codigoDigitado = $state('');
+	let codigoInvalido = $state(false);
+	let pronto = $state(false);
+
+	function aplicar(c: Configuracao) {
+		sementeProgressao = c.sementeProgressao;
+		sementeReharmonizacao = c.sementeReharmonizacao;
+		sementeMelodia = c.sementeMelodia;
+		modo = c.modo;
+		tonica = c.tonica;
+		compassos = c.compassos;
+		tecnicas = c.tecnicas;
+		baixo = c.baixo;
+		versao = c.versao;
+		bpm = c.bpm;
+		comMelodia = c.comMelodia;
+		repetir = c.repetir;
+	}
+
+	function abrirCodigo() {
+		const c = decodificar(codigoDigitado);
+		codigoInvalido = !c;
+		if (!c) return;
+		aplicar(c);
+		codigoDigitado = '';
+	}
+
+	onMount(() => {
+		const c = decodificar(location.hash);
+		if (c) aplicar(c);
+		pronto = true;
+	});
+
+	// O endereço sempre leva a música atual: copiar da barra de endereço também compartilha.
+	$effect(() => {
+		if (!pronto) return;
+		const alvo = `#s=${codigo}`;
+		untrack(() => {
+			try {
+				replaceState(alvo, {});
+			} catch {
+				// Sem roteador ainda: o código continua na tela.
+			}
+		});
+	});
+
+	function baixarMidi() {
+		const bytes = gerarMidi({
+			progressao: ativa,
+			vozes,
+			melodia: comMelodia ? melodia : [],
+			bpm,
+			nomes: { acordes: t('tools.acordes.faixaAcordes'), melodia: t('tools.acordes.faixaMelodia') }
+		});
+		baixar(`acordes-${codigo}.mid`, new Blob([bytes as BlobPart], { type: 'audio/midi' }));
+	}
+
 	const notaMelodiaTexto = (midi: number) => nomeMidi(midi, bemol);
 	const FAIXA_MIN = 60;
 	const FAIXA_MAX = 79;
@@ -377,7 +458,7 @@
 	<div class="campos">
 		<label class="campo">
 			{t('tools.acordes.andamento', { bpm })}
-			<input type="range" min="50" max="160" step="2" bind:value={bpm} />
+			<input type="range" min={BPM_MIN} max={BPM_MAX} step="2" bind:value={bpm} />
 		</label>
 		<label class="opcao"><input type="checkbox" bind:checked={comMelodia} /> {t('tools.acordes.comMelodia')}</label>
 		<label class="opcao"><input type="checkbox" bind:checked={repetir} /> {t('tools.acordes.repetir')}</label>
@@ -426,6 +507,38 @@
 		</div>
 		<p class="notas">{melodia.map((n) => notaMelodiaTexto(n.midi)).join(' ')}</p>
 	{/if}
+</section>
+
+<section class="painel">
+	<h2>{t('tools.acordes.compartilhar')}</h2>
+	<p class="dica">{t('tools.acordes.sementeDica')}</p>
+	<p class="codigo"><code>{codigo}</code></p>
+	<div class="acoes">
+		<BotaoCopiar texto={codigo} rotulo={t('tools.acordes.copiarCodigo')} />
+		<BotaoCopiar texto={link} rotulo={t('tools.acordes.copiarLink')} />
+	</div>
+	<form
+		class="abrir"
+		onsubmit={(e) => {
+			e.preventDefault();
+			abrirCodigo();
+		}}
+	>
+		<label class="campo">
+			{t('tools.acordes.abrirCodigo')}
+			<input type="text" bind:value={codigoDigitado} autocomplete="off" spellcheck="false" aria-invalid={codigoInvalido} />
+		</label>
+		<button type="submit" class="secundario" disabled={codigoDigitado.trim() === ''}>{t('tools.acordes.abrir')}</button>
+	</form>
+	{#if codigoInvalido}
+		<p class="erro" role="alert">{t('tools.acordes.codigoInvalido')}</p>
+	{/if}
+
+	<h3>{t('tools.acordes.salvar')}</h3>
+	<p class="dica">{t('tools.acordes.midiDica')}</p>
+	<div class="acoes">
+		<button type="button" onclick={baixarMidi}>{t('tools.acordes.baixarMidi')}</button>
+	</div>
 </section>
 
 <style>
@@ -605,6 +718,20 @@
 
 	.rolo .nota {
 		fill: var(--piano-melodia);
+	}
+
+	.codigo {
+		margin: 0 0 var(--space-3);
+		font-family: var(--font-mono);
+		overflow-wrap: anywhere;
+	}
+
+	.abrir {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3);
+		align-items: end;
+		margin-top: var(--space-4);
 	}
 
 	.notas {
