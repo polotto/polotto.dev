@@ -17,7 +17,7 @@
 	import { codificar, decodificar, BPM_MAX, BPM_MIN, type Configuracao } from '$lib/domain/ferramentas/compartilhar';
 	import { gerarMelodia } from '$lib/domain/ferramentas/melodia';
 	import { gerarMidi } from '$lib/domain/ferramentas/midi';
-	import { reharmonizar, TECNICAS, type TecnicaId } from '$lib/domain/ferramentas/reharmonizacao';
+	import { reharmonizar, TECNICAS, TECNICAS_DE_BAIXO, type TecnicaId } from '$lib/domain/ferramentas/reharmonizacao';
 	import { voicings } from '$lib/domain/ferramentas/voicing';
 	import { baixar } from '$lib/presenter/baixar';
 	import { t } from '$lib/presenter/i18n/i18n';
@@ -29,8 +29,8 @@
 	type Baixo = Configuracao['baixo'];
 	type Versao = Configuracao['versao'];
 
-	const TECNICAS_LIVRES = TECNICAS.filter((x) => x !== 'baixo-descendente' && x !== 'pedal');
-	const BAIXOS: Baixo[] = ['nenhum', 'baixo-descendente', 'pedal'];
+	const TECNICAS_LIVRES = TECNICAS.filter((x) => !(TECNICAS_DE_BAIXO as readonly string[]).includes(x));
+	const BAIXOS: Baixo[] = ['baixo-misto', 'nenhum', 'baixo-descendente', 'baixo-ascendente', 'pedal'];
 	const NOTAS = Array.from({ length: 12 }, (_, i) => i);
 	// Sementes fixas na primeira tela: a página é pré-renderizada e não pode sortear.
 	const SEMENTE_INICIAL = 7;
@@ -44,7 +44,7 @@
 	let tonica = $state<number | 'qualquer'>(0);
 	let compassos = $state<4 | 8>(4);
 	let tecnicas = $state<TecnicaId[]>(['ii-v', 'extensoes']);
-	let baixo = $state<Baixo>('nenhum');
+	let baixo = $state<Baixo>('baixo-misto');
 	let versao = $state<Versao>('reharmonizada');
 	let bpm = $state(88);
 	let comMelodia = $state(true);
