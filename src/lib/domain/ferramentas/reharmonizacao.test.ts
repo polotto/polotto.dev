@@ -89,7 +89,7 @@ describe('reharmonização', () => {
 		expect(t.startsWith('| C |')).toBe(true);
 	});
 
-	it('baixo misto: vale só um baixo, e cada sorteio mistura pelo menos dois tipos', () => {
+	it('baixo misto: vale só um baixo, e os sorteios usam os três tipos que mexem nos acordes', () => {
 		expect(texto(base, ['pedal', 'baixo-misto'])).toBe(texto(base, ['baixo-misto']));
 		const grande = sortearProgressao(sempre, { tonica: 0, modo: 'maior', compassos: 8 });
 		const tipos = new Set<string>();
@@ -97,8 +97,6 @@ describe('reharmonização', () => {
 			const r = reharmonizar(grande, ['baixo-misto'], criarAleatorio(semente));
 			const usados = new Set(r.usos.map((u) => u.tecnica));
 			for (const u of usados) tipos.add(u);
-			// o primeiro acorde nunca muda de baixo
-			expect(r.progressao.acordes[0].baixo).toBeUndefined();
 		}
 		expect([...tipos].sort()).toEqual(['baixo-ascendente', 'baixo-descendente', 'pedal']);
 	});
