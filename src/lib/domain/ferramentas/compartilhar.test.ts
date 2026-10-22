@@ -67,7 +67,7 @@ describe('semente para compartilhar', () => {
 			const r = reharmonizar(o, [...c.tecnicas, ...(c.baixo === 'nenhum' ? [] : [c.baixo])], criarAleatorio(c.sementeReharmonizacao)).progressao;
 			return { r, m: gerarMelodia(r, criarAleatorio(c.sementeMelodia)) };
 		};
-		for (const baixo of ['nenhum', 'pedal', 'baixo-descendente'] as const) {
+		for (const baixo of ['nenhum', 'pedal', 'baixo-descendente', 'baixo-ascendente', 'baixo-misto'] as const) {
 			const c = { ...base, baixo, modo: 'qualquer' as const, tonica: 'qualquer' as const };
 			expect(musica(decodificar(codificar(c))!)).toEqual(musica(c));
 		}

@@ -37,5 +37,7 @@ QR Code, CPF e CNPJ, JSON, paleta de cores, mascote e gerador de acordes
 - Cifras lidas no Cifra Club (a leitura direta dá 403);
   referências por música e pontos incertos em `ACORDES-REFERENCIAS.md`.
 - Falta: baixo cromático, empréstimo de bIII e bII.
+- Baixo misto (padrão): trechos de 1 a 3 compassos, cada um com um tipo
+  diferente do anterior (fundamental, descendente, ascendente, pedal).
 - Código de semente em `compartilhar.ts` (técnica nova entra no fim da
   ordem) e MIDI em `midi.ts`.

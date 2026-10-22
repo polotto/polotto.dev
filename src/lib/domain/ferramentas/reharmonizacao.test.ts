@@ -83,6 +83,24 @@ describe('reharmonização', () => {
 		expect(texto(base, ['pedal', 'baixo-descendente'])).toBe(texto(base, ['baixo-descendente']));
 	});
 
+	it('baixo ascendente usa inversões que sobem por grau conjunto', () => {
+		const t = texto(base, ['baixo-ascendente']);
+		expect(t).not.toBe(texto(base, []));
+		expect(t.startsWith('| C |')).toBe(true);
+	});
+
+	it('baixo misto: vale só um baixo, e os sorteios usam os três tipos que mexem nos acordes', () => {
+		expect(texto(base, ['pedal', 'baixo-misto'])).toBe(texto(base, ['baixo-misto']));
+		const grande = sortearProgressao(sempre, { tonica: 0, modo: 'maior', compassos: 8 });
+		const tipos = new Set<string>();
+		for (let semente = 1; semente <= 40; semente++) {
+			const r = reharmonizar(grande, ['baixo-misto'], criarAleatorio(semente));
+			const usados = new Set(r.usos.map((u) => u.tecnica));
+			for (const u of usados) tipos.add(u);
+		}
+		expect([...tipos].sort()).toEqual(['baixo-ascendente', 'baixo-descendente', 'pedal']);
+	});
+
 	it('não mexe na progressão original e conta o que fez', () => {
 		const antes = cifraEmTexto(base);
 		const r = reharmonizar(base, ['extensoes', 'substituicao-tritono'], sempre);

@@ -10,6 +10,7 @@ import {
 	mod12,
 	novoAcorde,
 	QUALIDADES,
+	sortearItem,
 	type Acorde,
 	type Aleatorio,
 	type Progressao,
@@ -27,10 +28,15 @@ export const TECNICAS = [
 	'dominante-alterado',
 	'suspensao',
 	'baixo-descendente',
-	'pedal'
+	'baixo-ascendente',
+	'pedal',
+	'baixo-misto'
 ] as const;
 
 export type TecnicaId = (typeof TECNICAS)[number];
+
+/** Técnicas que decidem o baixo. Só uma vale por vez, na ordem de prioridade. */
+export const TECNICAS_DE_BAIXO = ['baixo-misto', 'baixo-descendente', 'baixo-ascendente', 'pedal'] as const satisfies readonly TecnicaId[];
 
 /** Um lugar onde a técnica mexeu: cifras antes e depois, no compasso original. */
 export type Uso = { tecnica: TecnicaId; compasso: number; antes: string; depois: string };
@@ -234,35 +240,75 @@ const suspensao: Aplicar = (acordes, c) => {
 	});
 };
 
-/** Escolhe a inversão de cada acorde que faz o baixo caminhar por grau conjunto, para baixo. */
-const baixoDescendente: Aplicar = (acordes, c) => {
-	let anterior = acordes[0]?.baixo ?? acordes[0]?.raiz ?? 0;
-	return acordes.map((x, i) => {
-		if (i === 0) return x;
+const baixoDe = (x: Acorde) => x.baixo ?? x.raiz;
+
+/**
+ * Escolhe a inversão de cada acorde de `[de, ate)` que faz o baixo caminhar por
+ * grau conjunto, para baixo ou para cima. O primeiro acorde da peça não muda.
+ */
+function caminhar(acordes: Acorde[], c: Contexto, id: 'baixo-descendente' | 'baixo-ascendente', de = 0, ate = acordes.length): Acorde[] {
+	const desce = id === 'baixo-descendente';
+	const saida = [...acordes];
+	let anterior = baixoDe(saida[Math.max(de - 1, 0)]);
+	for (let i = Math.max(de, 1); i < ate; i++) {
+		const x = saida[i];
 		// Só fundamental, terça, quinta e sétima (não a #9 do 7(#9,b13)).
 		const candidatos = [...new Set(QUALIDADES[x.qualidade].intervalos.filter((n) => [0, 3, 4, 6, 7, 10, 11].includes(n)).map((n) => mod12(x.raiz + n)))];
 		const custo = (pc: number) => {
-			const d = mod12(anterior - pc);
+			const d = desce ? mod12(anterior - pc) : mod12(pc - anterior);
 			const passo = d === 0 ? 3 : d <= 2 ? 0 : d <= 4 ? 2 : d >= 10 ? 1 : 4;
 			return passo + (pc === x.raiz ? 0 : 0.4);
 		};
 		const melhor = candidatos.reduce((m, pc) => (custo(pc) < custo(m) ? pc : m), candidatos[0]);
 		anterior = melhor;
-		if (melhor === x.raiz) return x;
-		const novo = marcar({ ...x, baixo: melhor }, 'baixo-descendente');
-		c.registrar('baixo-descendente', x.compasso, cifra(x, c.t), cifra(novo, c.t));
-		return novo;
-	});
-};
+		if (melhor === x.raiz) continue;
+		saida[i] = marcar({ ...x, baixo: melhor }, id);
+		c.registrar(id, x.compasso, cifra(x, c.t), cifra(saida[i], c.t));
+	}
+	return saida;
+}
 
-/** Todos os acordes sobre a tônica no baixo. */
-const pedal: Aplicar = (acordes, c) =>
-	acordes.map((x) => {
-		if (x.raiz === c.t.tonica) return x;
+const baixoDescendente: Aplicar = (acordes, c) => caminhar(acordes, c, 'baixo-descendente');
+const baixoAscendente: Aplicar = (acordes, c) => caminhar(acordes, c, 'baixo-ascendente');
+
+/** Acordes de `[de, ate)` sobre a tônica no baixo. */
+function pedalEm(acordes: Acorde[], c: Contexto, de = 0, ate = acordes.length): Acorde[] {
+	return acordes.map((x, i) => {
+		if (i < de || i >= ate || x.raiz === c.t.tonica) return x;
 		const novo = marcar({ ...x, baixo: c.t.tonica }, 'pedal');
 		c.registrar('pedal', x.compasso, cifra(x, c.t), cifra(novo, c.t));
 		return novo;
 	});
+}
+
+const pedal: Aplicar = (acordes, c) => pedalEm(acordes, c);
+
+type TipoDeBaixo = 'fundamental' | 'descendente' | 'ascendente' | 'pedal';
+const TIPOS_DE_BAIXO: readonly TipoDeBaixo[] = ['fundamental', 'descendente', 'ascendente', 'pedal'];
+
+/**
+ * Mistura os tipos de baixo: divide a peça em trechos de um a três compassos e
+ * dá a cada trecho um tipo diferente do anterior (fundamental, descendente,
+ * ascendente ou pedal).
+ */
+const baixoMisto: Aplicar = (acordes, c) => {
+	const compassos = [...new Set(acordes.map((x) => x.compasso))];
+	let saida = acordes;
+	let tipoAnterior: TipoDeBaixo | undefined;
+	for (let inicio = 0; inicio < compassos.length; ) {
+		const tamanho = Math.min(compassos.length - inicio, 1 + inteiro(3, c.a));
+		const tipo = sortearItem(TIPOS_DE_BAIXO.filter((x) => x !== tipoAnterior), c.a);
+		tipoAnterior = tipo;
+		const de = acordes.findIndex((x) => x.compasso === compassos[inicio]);
+		const fim = inicio + tamanho;
+		const ate = fim < compassos.length ? acordes.findIndex((x) => x.compasso === compassos[fim]) : acordes.length;
+		if (tipo === 'descendente') saida = caminhar(saida, c, 'baixo-descendente', de, ate);
+		else if (tipo === 'ascendente') saida = caminhar(saida, c, 'baixo-ascendente', de, ate);
+		else if (tipo === 'pedal') saida = pedalEm(saida, c, de, ate);
+		inicio = fim;
+	}
+	return saida;
+};
 
 const APLICAR: Record<TecnicaId, Aplicar> = {
 	backdoor,
@@ -275,7 +321,9 @@ const APLICAR: Record<TecnicaId, Aplicar> = {
 	extensoes,
 	suspensao,
 	'baixo-descendente': baixoDescendente,
-	pedal
+	'baixo-ascendente': baixoAscendente,
+	pedal,
+	'baixo-misto': baixoMisto
 };
 
 // O empréstimo modal troca o acorde de destino, então vem antes de tudo que
@@ -292,16 +340,20 @@ const ORDEM: readonly TecnicaId[] = [
 	'extensoes',
 	'suspensao',
 	'baixo-descendente',
-	'pedal'
+	'baixo-ascendente',
+	'pedal',
+	'baixo-misto'
 ];
 
 /**
  * Aplica as técnicas na ordem certa, qualquer que seja a ordem pedida.
- * Baixo descendente e pedal brigam pelo baixo: com os dois, vale o descendente.
+ * As técnicas de baixo brigam pelo baixo: vale só a primeira de
+ * `TECNICAS_DE_BAIXO` (misto, descendente, ascendente, pedal).
  */
 export function reharmonizar(p: Progressao, tecnicas: readonly TecnicaId[], aleatorio: Aleatorio): Resultado {
 	const ativas = new Set(tecnicas);
-	if (ativas.has('baixo-descendente')) ativas.delete('pedal');
+	const baixoEscolhido = TECNICAS_DE_BAIXO.find((id) => ativas.has(id));
+	for (const id of TECNICAS_DE_BAIXO) if (id !== baixoEscolhido) ativas.delete(id);
 	const usos: Uso[] = [];
 	const contexto: Contexto = {
 		t: p.tonalidade,

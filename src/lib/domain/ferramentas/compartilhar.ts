@@ -3,9 +3,9 @@
 // mesma melodia, com as mesmas opções.
 
 import type { Modo } from './acordes';
-import { TECNICAS, type TecnicaId } from './reharmonizacao';
+import { TECNICAS, TECNICAS_DE_BAIXO, type TecnicaId } from './reharmonizacao';
 
-export type BaixoEscolhido = 'nenhum' | 'baixo-descendente' | 'pedal';
+export type BaixoEscolhido = 'nenhum' | 'baixo-descendente' | 'pedal' | 'baixo-ascendente' | 'baixo-misto';
 export type VersaoEscolhida = 'original' | 'reharmonizada';
 
 export type Configuracao = {
@@ -42,12 +42,13 @@ const ORDEM_TECNICAS: readonly TecnicaId[] = [
 	'dominante-alterado',
 	'suspensao'
 ];
-const BAIXOS: readonly BaixoEscolhido[] = ['nenhum', 'baixo-descendente', 'pedal'];
+// Como as técnicas: a posição nunca muda, opção nova entra no fim.
+const BAIXOS: readonly BaixoEscolhido[] = ['nenhum', 'baixo-descendente', 'pedal', 'baixo-ascendente', 'baixo-misto'];
 const MODOS = { maior: 'm', menor: 'n', qualquer: 'x' } as const;
 
 /** Toda técnica de acorde livre tem posição no código. */
 export const tecnicasSemPosicao = () =>
-	TECNICAS.filter((id) => id !== 'baixo-descendente' && id !== 'pedal' && !ORDEM_TECNICAS.includes(id));
+	TECNICAS.filter((id) => !(TECNICAS_DE_BAIXO as readonly string[]).includes(id) && !ORDEM_TECNICAS.includes(id));
 
 export function codificar(c: Configuracao): string {
 	const mascara = ORDEM_TECNICAS.reduce((m, id, i) => (c.tecnicas.includes(id) ? m | (1 << i) : m), 0);
@@ -103,7 +104,7 @@ export function decodificar(entrada: string): Configuracao | undefined {
 	const tecnicas = ORDEM_TECNICAS.filter((_, i) => mascara & (1 << i));
 
 	const baixo = BAIXOS[Number(bx)];
-	if (!/^[0-2]$/.test(bx) || !baixo) return undefined;
+	if (!/^[0-4]$/.test(bx) || !baixo) return undefined;
 
 	if (vs !== '0' && vs !== '1') return undefined;
 	if (ml !== '0' && ml !== '1') return undefined;

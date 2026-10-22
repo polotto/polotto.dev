@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TECNICAS } from '$lib/domain/ferramentas/reharmonizacao';
+import { TECNICAS, TECNICAS_DE_BAIXO } from '$lib/domain/ferramentas/reharmonizacao';
 import { t } from './i18n';
 
 // A página chama t() com o id de qualquer técnica: chave ausente derruba a tela.
@@ -9,14 +9,14 @@ describe('i18n do gerador de acordes', () => {
 	});
 
 	it('toda técnica de acorde livre tem descrição e referência para ouvir', () => {
-		for (const id of TECNICAS.filter((x) => x !== 'pedal' && x !== 'baixo-descendente')) {
+		for (const id of TECNICAS.filter((x) => !(TECNICAS_DE_BAIXO as readonly string[]).includes(x))) {
 			expect(() => t(`tools.acordes.tecnica.${id}.descricao`), id).not.toThrow();
 			expect(() => t(`tools.acordes.tecnica.${id}.ouvir`), id).not.toThrow();
 		}
 	});
 
 	it('as opções de baixo têm nome e descrição', () => {
-		for (const b of ['nenhum', 'baixo-descendente', 'pedal']) {
+		for (const b of ['nenhum', 'baixo-misto', 'baixo-descendente', 'baixo-ascendente', 'pedal']) {
 			expect(() => t(`tools.acordes.baixo.${b}.nome`), b).not.toThrow();
 			expect(() => t(`tools.acordes.baixo.${b}.descricao`), b).not.toThrow();
 		}
