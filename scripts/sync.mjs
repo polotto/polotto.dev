@@ -191,6 +191,16 @@ export function sincronizar({ vault, saida }) {
 	}
 	const slugsSerie = new Set(pubSeries.map((n) => n.dados.slug));
 	const slugsProjeto = new Set(pubProjetos.map((n) => n.dados.slug));
+	const porSlug = new Map(pubArtigos.map((n) => [n.dados.slug, n]));
+	const idiomaDe = (n) => n.dados.idioma ?? 'pt-BR';
+	for (const n of pubArtigos) {
+		const alvo = n.dados.traducao;
+		if (alvo === undefined) continue;
+		const outro = porSlug.get(alvo);
+		if (!outro) erros.push(`${n.onde}: traducao "${alvo}" não existe ou não está publicada`);
+		else if (outro.dados.traducao !== n.dados.slug) erros.push(`${n.onde}: "${alvo}" precisa apontar de volta com traducao: ${n.dados.slug}`);
+		else if (idiomaDe(outro) === idiomaDe(n)) erros.push(`${n.onde}: traducao "${alvo}" está no mesmo idioma`);
+	}
 	const ordens = new Map();
 	for (const n of pubArtigos) {
 		const { serie, ordem, projetos: refs = [] } = n.dados;

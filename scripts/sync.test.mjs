@@ -132,11 +132,22 @@ describe('sincronizar', () => {
 
 	it('leva idioma e traducao e acusa idioma desconhecido', () => {
 		nota('E.md', 'titulo: E\ndescricao: D.\nslug: e\nstatus: publicado\npublicado: 2026-10-25\nidioma: en\ntraducao: e-pt');
+		nota('E-pt.md', 'titulo: E\ndescricao: D.\nslug: e-pt\nstatus: publicado\npublicado: 2026-10-25\ntraducao: e');
 		sincronizar({ vault, saida });
 		expect(lerSaida('content/artigos/e.md').dados).toMatchObject({ idioma: 'en', traducao: 'e-pt' });
 
 		nota('F.md', 'titulo: F\ndescricao: D.\nslug: f\nstatus: publicado\npublicado: 2026-10-25\nidioma: fr');
 		expect(() => sincronizar({ vault, saida })).toThrow(/idioma deve ser pt-BR ou en/);
+	});
+
+	it('acusa tradução sem volta, inexistente ou no mesmo idioma', () => {
+		nota('G.md', 'titulo: G\ndescricao: D.\nslug: g\nstatus: publicado\npublicado: 2026-10-25\ntraducao: nao-existe');
+		nota('H.md', 'titulo: H\ndescricao: D.\nslug: h\nstatus: publicado\npublicado: 2026-10-25\ntraducao: i');
+		nota('I.md', 'titulo: I\ndescricao: D.\nslug: i\nstatus: publicado\npublicado: 2026-10-25\ntraducao: h');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(
+			/traducao "nao-existe" não existe[\s\S]*mesmo idioma/
+		);
 	});
 
 	it('acusa link de projeto que não é URL', () => {

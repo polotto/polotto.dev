@@ -40,8 +40,8 @@
 				</a>
 			</p>
 		{/if}
-		<h1>{artigo.titulo}</h1>
-		<p class="descricao">{artigo.descricao}</p>
+		<h1 lang={artigo.idioma}>{artigo.titulo}</h1>
+		<p class="descricao" lang={artigo.idioma}>{artigo.descricao}</p>
 		<p class="meta">
 			<time datetime={artigo.publicado}>
 				{t('article.published', { date: formatDate(artigo.publicado) })}

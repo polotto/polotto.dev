@@ -137,7 +137,9 @@ Visual
   catálogo en entra junto com o primeiro artigo traduzido.
   Artigo traduzido (decidido em 25/10/2026): artigo à parte, com `idioma: en`
   e `traducao: <slug da outra versão>` no frontmatter. Leva `lang`, `inLanguage`
-  e `hreflang`, e não vai por e-mail. A interface segue em pt-BR.
+  e `hreflang`, e não vai por e-mail. O sync exige que as duas versões
+  se apontem e estejam em idiomas diferentes. A tradução entra no RSS e no
+  `llms.txt`. A interface segue em pt-BR.
 - Componentes em `src/lib/ui`, com tokens nomeados no padrão da futura
   linguagem de design, para extrair depois.
 
