@@ -19,7 +19,7 @@ No macOS e no Linux, o mouse fica preso nos valores de fábrica. Então eu escre
 
 ## O que é
 
-Um configurador aberto, para Windows, Linux e macOS. Ajusta LED, DPI, polling rate, perfis, botões e macros direto no mouse. Não precisa do software do fabricante e não fica rodando em segundo plano para o mouse funcionar.
+Um configurador aberto, para Windows, Linux e macOS. Ajusta LED, DPI, polling rate, perfis, botões e macros direto no mouse. Não precisa do software do fabricante e a configuração fica gravada no mouse: ele funciona sem o app aberto.
 
 O código está em [github.com/polotto/salamandra](https://github.com/polotto/salamandra), com licença MIT. É escrito em Rust, com app em Tauri e Svelte.
 
@@ -86,7 +86,7 @@ Alguns detalhes que guardei como dados nos modelos:
 
 O caminho de volta existe: quando você aperta o botão de DPI ou de perfil, o mouse manda um report de entrada. `08 01 <perfil>` avisa que o perfil mudou, `08 02 <nível>` que o nível de DPI mudou e `08 06 <código>` que o polling mudou. O Salamandra escuta esses reports e repassa para a tela do app.
 
-Os botões de atalho embutido (copiar, colar, Alt+Tab) funcionam de outro jeito: o mouse só manda um código (`01 FF <id>`) e é o software no PC que executa o atalho. Por isso o app fica rodando em segundo plano, mesmo com a janela fechada, para executar esses atalhos.
+Os botões de atalho embutido (copiar, colar, Alt+Tab) funcionam de outro jeito: o mouse só manda um código (`01 FF <id>`) e é o software no PC que executa o atalho. Por isso o app fica rodando em segundo plano, mesmo com a janela fechada, para executar esses atalhos (só eles dependem disso).
 
 ## Linha de comando e MCP
 

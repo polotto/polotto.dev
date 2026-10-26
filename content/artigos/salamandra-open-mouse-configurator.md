@@ -19,7 +19,7 @@ On macOS and Linux the mouse is stuck with the factory settings. So I wrote Sala
 
 ## What it is
 
-An open configurator for Windows, Linux and macOS. It sets LED, DPI, polling rate, profiles, buttons and macros straight on the mouse. It does not need the vendor software and does not stay running in the background for the mouse to work.
+An open configurator for Windows, Linux and macOS. It sets LED, DPI, polling rate, profiles, buttons and macros straight on the mouse. It does not need the vendor software and the configuration stays stored in the mouse: it works without the app open.
 
 The code is at [github.com/polotto/salamandra](https://github.com/polotto/salamandra), MIT licensed. It is written in Rust, with a Tauri and Svelte app.
 
@@ -86,7 +86,7 @@ Some details I kept as data in the models:
 
 The way back exists: when you press the DPI or profile button, the mouse sends an input report. `08 01 <profile>` says the profile changed, `08 02 <level>` that the DPI level changed and `08 06 <code>` that the polling changed. Salamandra listens to these reports and passes them on to the app screen.
 
-Built-in shortcut buttons (copy, paste, Alt+Tab) work another way: the mouse only sends a code (`01 FF <id>`) and it is the software on the PC that runs the shortcut. That is why the app keeps running in the background, even with the window closed, to run these shortcuts.
+Built-in shortcut buttons (copy, paste, Alt+Tab) work another way: the mouse only sends a code (`01 FF <id>`) and it is the software on the PC that runs the shortcut. That is why the app keeps running in the background, even with the window closed, to run these shortcuts (only they depend on it).
 
 ## Command line and MCP
 
