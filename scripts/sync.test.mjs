@@ -130,6 +130,15 @@ describe('sincronizar', () => {
 		expect(existsSync(join(saida, 'content/artigos/velho.md'))).toBe(true);
 	});
 
+	it('leva idioma e traducao e acusa idioma desconhecido', () => {
+		nota('E.md', 'titulo: E\ndescricao: D.\nslug: e\nstatus: publicado\npublicado: 2026-10-25\nidioma: en\ntraducao: e-pt');
+		sincronizar({ vault, saida });
+		expect(lerSaida('content/artigos/e.md').dados).toMatchObject({ idioma: 'en', traducao: 'e-pt' });
+
+		nota('F.md', 'titulo: F\ndescricao: D.\nslug: f\nstatus: publicado\npublicado: 2026-10-25\nidioma: fr');
+		expect(() => sincronizar({ vault, saida })).toThrow(/idioma deve ser pt-BR ou en/);
+	});
+
 	it('acusa link de projeto que não é URL', () => {
 		nota('projetos/Y.md', 'nome: Y\ndescricao: D.\nslug: y\nstatus: publicado\nsituacao: ativo\nlinks:\n  site: 123\n  blog: https://y.dev');
 

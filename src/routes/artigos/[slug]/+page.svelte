@@ -19,6 +19,8 @@
 	tipo="article"
 	publicado={artigo.publicado}
 	atualizado={artigo.atualizado}
+	idioma={artigo.idioma}
+	traducao={artigo.traducao && `/artigos/${artigo.traducao}`}
 	jsonLd={[
 		jsonLdArtigo(artigo, serie),
 		jsonLdMigalhas([
@@ -55,7 +57,9 @@
 		</p>
 	</header>
 
-	<CorpoArtigo html={data.html} />
+	<div lang={artigo.idioma}>
+		<CorpoArtigo html={data.html} />
+	</div>
 
 	<Inscricao />
 

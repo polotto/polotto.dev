@@ -15,6 +15,10 @@ export interface Artigo {
 	/** Data `AAAA-MM-DD`, quando houve revisão depois de publicar. */
 	atualizado?: string;
 	serie?: ReferenciaSerie;
+	/** Idioma do texto, quando não é pt-BR (`en`). */
+	idioma?: string;
+	/** Slug do mesmo artigo na outra língua. */
+	traducao?: string;
 	/** Slugs dos projetos citados. */
 	projetos: string[];
 	/** Corpo em markdown, já convertido do Obsidian pelo sync. */

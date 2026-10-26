@@ -11,6 +11,8 @@
 		jsonLd = [],
 		publicado,
 		atualizado,
+		idioma,
+		traducao,
 		semIndice = false
 	}: {
 		titulo?: string;
@@ -20,6 +22,10 @@
 		jsonLd?: Record<string, unknown>[];
 		publicado?: string;
 		atualizado?: string;
+		/** Código do idioma do texto (`en`), quando não é pt-BR. */
+		idioma?: string;
+		/** Caminho da mesma página na outra língua. */
+		traducao?: string;
 		semIndice?: boolean;
 	} = $props();
 
@@ -32,9 +38,13 @@
 	<title>{tituloCompleto}</title>
 	<meta name="description" content={descricao} />
 	<link rel="canonical" href={url} />
+	{#if traducao}
+		<link rel="alternate" hreflang={idioma ?? 'pt-BR'} href={url} />
+		<link rel="alternate" hreflang={idioma === 'en' ? 'pt-BR' : 'en'} href={urlAbsoluta(traducao)} />
+	{/if}
 	{#if semIndice}<meta name="robots" content="noindex" />{/if}
 	<meta property="og:site_name" content={t('site.name')} />
-	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:locale" content={idioma === 'en' ? 'en_US' : 'pt_BR'} />
 	<meta property="og:type" content={tipo} />
 	<meta property="og:title" content={titulo ?? t('site.name')} />
 	<meta property="og:description" content={descricao} />

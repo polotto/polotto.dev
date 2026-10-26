@@ -36,6 +36,8 @@ function paraArtigo({ dados: d, corpo }: { dados: Dados; corpo: string }): Artig
 		publicado: texto(d.publicado),
 		atualizado: typeof d.atualizado === 'string' ? d.atualizado : undefined,
 		serie: typeof d.serie === 'string' ? { slug: d.serie, ordem: Number(d.ordem) } : undefined,
+		idioma: typeof d.idioma === 'string' ? d.idioma : undefined,
+		traducao: typeof d.traducao === 'string' ? d.traducao : undefined,
 		projetos: Array.isArray(d.projetos) ? d.projetos.map(String) : [],
 		corpo
 	};

@@ -37,7 +37,7 @@ export function jsonLdArtigo(artigo: Artigo, serie?: Serie): JsonLd {
 		mainEntityOfPage: url,
 		datePublished: artigo.publicado,
 		dateModified: artigo.atualizado ?? artigo.publicado,
-		inLanguage: 'pt-BR',
+		inLanguage: artigo.idioma ?? 'pt-BR',
 		author: pessoa(),
 		...(serie && {
 			isPartOf: {

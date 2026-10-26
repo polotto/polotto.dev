@@ -4,6 +4,8 @@ descricao: Why I wrote an open configurator for my M901-1, how the protocol
   works, what already runs on three other models and how to help test it.
 slug: salamandra-open-mouse-configurator
 publicado: 2026-10-25
+idioma: en
+traducao: salamandra-configurador-aberto-de-mouses
 projetos:
   - salamandra
 ---
@@ -61,7 +63,7 @@ The CLI messages are still in Portuguese for now.
 | Redragon M719 Invader | untested |
 | Redragon M711 Cobra | untested |
 
-The last three were mapped from the official software and public documentation, and were never checked on a physical mouse. The app shows a fixed warning and the CLI warns before every write. It writes anyway, so make a backup first.
+The last three were mapped from the official software and public documentation, and were never checked on a physical mouse. The app shows a fixed warning and the CLI warns before every write. Salamandra writes anyway, so make a backup first.
 
 There is a trap I found along the way: the same USB ID can cover models with different sensors, and only the device version tells them apart. `show` now prints that version.
 

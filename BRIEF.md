@@ -135,6 +135,9 @@ Visual
   sem string fixa. Só o catálogo pt-BR, exceção à regra "mínimo pt-BR e en":
   o conteúdo é só pt-BR e uma interface em inglês ficaria incoerente. O
   catálogo en entra junto com o primeiro artigo traduzido.
+  Artigo traduzido (decidido em 25/10/2026): artigo à parte, com `idioma: en`
+  e `traducao: <slug da outra versão>` no frontmatter. Leva `lang`, `inLanguage`
+  e `hreflang`, e não vai por e-mail. A interface segue em pt-BR.
 - Componentes em `src/lib/ui`, com tokens nomeados no padrão da futura
   linguagem de design, para extrair depois.
 

@@ -38,6 +38,11 @@ describe('e-mail do artigo do dia', () => {
 		expect(emails[0].body).toContain('[Ler o artigo](https://polotto.dev/artigos/tipos-de-migracao)');
 	});
 
+	it('tradução não vai por e-mail', () => {
+		nota('artigos/en.md', 'titulo: Mid-air\ndescricao: D.\nslug: mid-air\npublicado: 2026-10-22\nidioma: en');
+		expect(emailsDoDia(content, '2026-10-22').map((e) => e.slug)).toEqual(['tipos-de-migracao']);
+	});
+
 	it('dia sem artigo não manda nada', () => {
 		expect(emailsDoDia(content, '2026-10-21')).toEqual([]);
 	});
