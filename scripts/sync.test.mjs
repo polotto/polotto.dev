@@ -150,6 +150,13 @@ describe('sincronizar', () => {
 		);
 	});
 
+	it('acusa tradução que não aponta de volta', () => {
+		nota('J.md', 'titulo: J\ndescricao: D.\nslug: j\nstatus: publicado\npublicado: 2026-10-25\nidioma: en\ntraducao: k');
+		nota('K.md', 'titulo: K\ndescricao: D.\nslug: k\nstatus: publicado\npublicado: 2026-10-25');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(/precisa apontar de volta com traducao: j/);
+	});
+
 	it('acusa link de projeto que não é URL', () => {
 		nota('projetos/Y.md', 'nome: Y\ndescricao: D.\nslug: y\nstatus: publicado\nsituacao: ativo\nlinks:\n  site: 123\n  blog: https://y.dev');
 

@@ -15,8 +15,8 @@
 		<span aria-hidden="true">·</span>
 		<span>{t('article.readingTime', { count: minutos })}</span>
 	</p>
-	<h3><a href={`/artigos/${artigo.slug}`}>{artigo.titulo}</a></h3>
-	<p class="descricao">{artigo.descricao}</p>
+	<h3 lang={artigo.idioma}><a href={`/artigos/${artigo.slug}`}>{artigo.titulo}</a></h3>
+	<p class="descricao" lang={artigo.idioma}>{artigo.descricao}</p>
 	{#if artigo.serie && nomeSerie}
 		<p class="serie">{t('article.partOf', { order: artigo.serie.ordem, series: nomeSerie })}</p>
 	{/if}
