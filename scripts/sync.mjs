@@ -14,6 +14,7 @@ const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const SITUACOES = ['ativo', 'pausado', 'encerrado'];
 const STATUS = ['rascunho', 'publicado'];
 const LINKS = ['site', 'loja', 'repo'];
+const IDIOMAS = ['pt-BR', 'en'];
 
 /** Separa frontmatter e corpo. Nota sem frontmatter devolve `{}`. */
 export function lerNota(texto) {
@@ -46,6 +47,8 @@ function validarArtigo(d, onde) {
 			erros.push(`${onde}: atualizado deve ser AAAA-MM-DD e posterior a publicado`);
 		if (d.serie !== undefined && (!Number.isInteger(d.ordem) || d.ordem < 1)) erros.push(`${onde}: artigo de série precisa de ordem inteira a partir de 1`);
 		if (d.projetos !== undefined && !Array.isArray(d.projetos)) erros.push(`${onde}: projetos deve ser lista`);
+		if (d.idioma !== undefined && !IDIOMAS.includes(d.idioma)) erros.push(`${onde}: idioma deve ser pt-BR ou en`);
+		if (d.traducao !== undefined && (typeof d.traducao !== 'string' || !SLUG.test(d.traducao))) erros.push(`${onde}: traducao deve ser o slug do artigo na outra língua`);
 	}
 	return erros;
 }
@@ -188,6 +191,16 @@ export function sincronizar({ vault, saida }) {
 	}
 	const slugsSerie = new Set(pubSeries.map((n) => n.dados.slug));
 	const slugsProjeto = new Set(pubProjetos.map((n) => n.dados.slug));
+	const porSlug = new Map(pubArtigos.map((n) => [n.dados.slug, n]));
+	const idiomaDe = (n) => n.dados.idioma ?? 'pt-BR';
+	for (const n of pubArtigos) {
+		const alvo = n.dados.traducao;
+		if (alvo === undefined) continue;
+		const outro = porSlug.get(alvo);
+		if (!outro) erros.push(`${n.onde}: traducao "${alvo}" não existe ou não está publicada`);
+		else if (outro.dados.traducao !== n.dados.slug) erros.push(`${n.onde}: "${alvo}" precisa apontar de volta com traducao: ${n.dados.slug}`);
+		else if (idiomaDe(outro) === idiomaDe(n)) erros.push(`${n.onde}: traducao "${alvo}" está no mesmo idioma`);
+	}
 	const ordens = new Map();
 	for (const n of pubArtigos) {
 		const { serie, ordem, projetos: refs = [] } = n.dados;
@@ -252,6 +265,8 @@ export function sincronizar({ vault, saida }) {
 			atualizado: d.atualizado,
 			serie: d.serie,
 			ordem: d.ordem,
+			idioma: d.idioma,
+			traducao: d.traducao,
 			projetos: d.projetos ?? []
 		}), corpo);
 	}

@@ -130,6 +130,33 @@ describe('sincronizar', () => {
 		expect(existsSync(join(saida, 'content/artigos/velho.md'))).toBe(true);
 	});
 
+	it('leva idioma e traducao e acusa idioma desconhecido', () => {
+		nota('E.md', 'titulo: E\ndescricao: D.\nslug: e\nstatus: publicado\npublicado: 2026-10-25\nidioma: en\ntraducao: e-pt');
+		nota('E-pt.md', 'titulo: E\ndescricao: D.\nslug: e-pt\nstatus: publicado\npublicado: 2026-10-25\ntraducao: e');
+		sincronizar({ vault, saida });
+		expect(lerSaida('content/artigos/e.md').dados).toMatchObject({ idioma: 'en', traducao: 'e-pt' });
+
+		nota('F.md', 'titulo: F\ndescricao: D.\nslug: f\nstatus: publicado\npublicado: 2026-10-25\nidioma: fr');
+		expect(() => sincronizar({ vault, saida })).toThrow(/idioma deve ser pt-BR ou en/);
+	});
+
+	it('acusa tradução sem volta, inexistente ou no mesmo idioma', () => {
+		nota('G.md', 'titulo: G\ndescricao: D.\nslug: g\nstatus: publicado\npublicado: 2026-10-25\ntraducao: nao-existe');
+		nota('H.md', 'titulo: H\ndescricao: D.\nslug: h\nstatus: publicado\npublicado: 2026-10-25\ntraducao: i');
+		nota('I.md', 'titulo: I\ndescricao: D.\nslug: i\nstatus: publicado\npublicado: 2026-10-25\ntraducao: h');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(
+			/traducao "nao-existe" não existe[\s\S]*mesmo idioma/
+		);
+	});
+
+	it('acusa tradução que não aponta de volta', () => {
+		nota('J.md', 'titulo: J\ndescricao: D.\nslug: j\nstatus: publicado\npublicado: 2026-10-25\nidioma: en\ntraducao: k');
+		nota('K.md', 'titulo: K\ndescricao: D.\nslug: k\nstatus: publicado\npublicado: 2026-10-25');
+
+		expect(() => sincronizar({ vault, saida })).toThrow(/precisa apontar de volta com traducao: j/);
+	});
+
 	it('acusa link de projeto que não é URL', () => {
 		nota('projetos/Y.md', 'nome: Y\ndescricao: D.\nslug: y\nstatus: publicado\nsituacao: ativo\nlinks:\n  site: 123\n  blog: https://y.dev');
 

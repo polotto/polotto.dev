@@ -42,7 +42,8 @@ function lerPasta(pasta) {
 export function emailsDoDia(content, hoje) {
 	const series = new Map(lerPasta(join(content, 'series')).map((s) => [s.slug, s.titulo]));
 	return lerPasta(join(content, 'artigos'))
-		.filter((a) => String(a.publicado) === hoje)
+		// Tradução não vai por e-mail: a lista e o texto do e-mail são pt-BR.
+		.filter((a) => String(a.publicado) === hoje && (a.idioma ?? 'pt-BR') === 'pt-BR')
 		.map((a) => {
 			const url = `${SITE}/artigos/${a.slug}`;
 			const serie = a.serie && series.get(a.serie);

@@ -28,6 +28,10 @@ describe('JSON-LD', () => {
 		});
 	});
 
+	it('artigo em inglês leva inLanguage en', () => {
+		expect(jsonLdArtigo({ ...artigo, idioma: 'en' })).toMatchObject({ inLanguage: 'en' });
+	});
+
 	it('artigo avulso não leva isPartOf', () => {
 		expect(jsonLdArtigo({ ...artigo, serie: undefined })).not.toHaveProperty('isPartOf');
 	});
